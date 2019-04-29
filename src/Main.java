@@ -13,5 +13,9 @@ public class Main {
         int fullNameLength = fullName.length();
 
         System.out.println("Your full name is: " + fullName + " and is " + fullNameLength + " long.");
+
+        System.out.println("Your full name capitalized: " + fullName.toUpperCase());
+        System.out.println("Your full name lowercase: " + fullName.toLowerCase());
+
     }
 }
