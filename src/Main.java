@@ -61,31 +61,31 @@ public class Main
 }
 
 /***************************Output*********************************
- * Please enter your first and last name.
- * Please capitalize the first letter for both.
- * Roger Terrill
- * Your full name is: Roger Terrill and is 13 long.
- * Your full name capitalized: ROGER TERRILL
- * Your full name lowercase: roger terrill
- * Hi Roger Terrill, how many hours have you spent on class this week?
- * The values should be between 12 and 20
- * Also use 3 decimal places as well.
- * 15.234
- * You have spent approximately 15.2 hours this week.
- *
- *
- * Please enter your first and last name.
- * Please capitalize the first letter for both.
- * Peter Parker
- * Your full name is: Peter Parker and is 12 long.
- * Your full name capitalized: PETER PARKER
- * Your full name lowercase: peter parker
- * Hi Peter Parker, how many hours have you spent on class this week?
- * The values should be between 12 and 20
- * Also use 3 decimal places as well.
- * 12.001
- * You have spent approximately 12.0 hours this week.
- *
+Please enter your first and last name.
+Please capitalize the first letter for both.
+Roger Terrill
+Your full name is: Roger Terrill and is 13 long.
+Your full name capitalized: ROGER TERRILL
+Your full name lowercase: roger terrill
+Hi Roger Terrill, how many hours have you spent on class this week?
+The values should be between 12 and 20
+Also use 3 decimal places as well.
+15.234
+You have spent approximately 15.2 hours this week.
+
+
+Please enter your first and last name.
+Please capitalize the first letter for both.
+Peter Parker
+Your full name is: Peter Parker and is 12 long.
+Your full name capitalized: PETER PARKER
+Your full name lowercase: peter parker
+Hi Peter Parker, how many hours have you spent on class this week?
+The values should be between 12 and 20
+Also use 3 decimal places as well.
+12.001
+You have spent approximately 12.0 hours this week.
+
  *******************************************************************/
 
 
