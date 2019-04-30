@@ -80,7 +80,7 @@ Peter Parker
 Your full name is: Peter Parker and is 12 characters long.
 Your full name capitalized: PETER PARKER
 Your full name lowercase: peter parker
-Hi Peter Parker, how many hours have you spent on class this week?
+Hi Peter Parker, how many hours have you spent on class this week? 
 The values should be between 12 and 20
 Also use 3 decimal places as well.
 12.001
