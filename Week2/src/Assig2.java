@@ -34,23 +34,32 @@ public class Assig2
    public static void main(String[] args)
    {
       Scanner keyboard = new Scanner(System.in);
-      System.out.println("How much would you like to bet (1 - 100) or 0 to quit?");
-      String slotString = keyboard.next();
+      int slotInt;
       TripleString slot = new TripleString();
-      slot.setString1(slotString);
-      System.out.println(slot.getString1());
+      slot.setString1("One");
+      slot.setString2("Two");
+      slot.setString3("Three");
+      do{
+         System.out.println("How much would you like to bet (1 - 100) or 0 to quit?");
+         slotInt = keyboard.nextInt();
+         slot.saveWinnings(slotInt);
+         slot.displayWinnings();
+      } while (slotInt != 0);
+
    }
 }
 
 class TripleString
 {
-   private String string1, string2, string3;
-   private static int[] pullWinnings;
-   private static int numPulls;
-
+   // The data to be used to keep track of the game
    public static final int MAX_PULLS = 40;
    public static final int MAX_LEN = 20;
 
+   private String string1, string2, string3;
+   private static int[] pullWinnings  = new int[MAX_PULLS];
+   private static int numPulls = 0;
+
+   // Default Constructor
    public TripleString()
    {
       string1 = "";
@@ -58,21 +67,13 @@ class TripleString
       string3 = "";
    }
 
+   // A Private Helper Method
    private boolean validString(String str)
    {
       return str != null && str.length() <= MAX_LEN;
    }
 
-   public void writeString()
-   {
-      System.out.println("New Class is connected.");
-   }
-
-   public static void writeStaticString()
-   {
-      System.out.println("New Static Class is connected.");
-   }
-
+   // Mutators and Accessors
    public String getString1()
    {
       return string1;
@@ -116,6 +117,35 @@ class TripleString
       }
 
       return false;
+   }
+
+   // Returns all three strings as one string
+   public String toString()
+   {
+      return string1 + " " + string2 + " " + string3;
+   }
+
+   // pullWinnings array methods
+   public boolean saveWinnings(int winnings)
+   {
+      pullWinnings[numPulls] = winnings;
+      return true;
+   }
+
+   public void displayWinnings()
+   {
+      int winnings = 0;
+
+      System.out.println("Thanks for playing at the Casino!");
+      System.out.println("Your individual winnings were:");
+      for(int index = 0; index < numPulls; index++)
+      {
+         winnings += pullWinnings[index];
+         System.out.print(pullWinnings[index] + " ");
+      }
+      System.out.println();
+      System.out.println("Your total winnings were: $" + winnings);
+      numPulls++;
    }
 }
 
