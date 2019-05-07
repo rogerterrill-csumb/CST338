@@ -1,5 +1,5 @@
 // Title:               Casino
-// Files:               Casino.java
+// Files:               Assig2.java
 // Semester:            Summer A, 2019
 //
 // Author:              Roger Terrill
@@ -10,7 +10,7 @@
 
 import java.util.Scanner;
 
-public class Casino
+public class Assig2
 {
 
    public static int getBet()
