@@ -16,28 +16,74 @@ public class Assig2
    public static int getBet()
    {
       int bet = 0;
-
       Scanner keyboard = new Scanner(System.in);
-
       do
       {
          System.out.print("How much would you like to bet (1 - 100) or 0 to quit? ");
-//         while(!keyboard.hasNextInt())
-//         {
-//            System.out.println("adsf");
-//            keyboard.next();
-//         }
          bet = keyboard.nextInt();
       }while (bet < 0 || bet > 100);
-      System.out.println(bet);
       return bet;
+   }
+
+   private static String randString()
+   {
+      int randomNum = (int)(Math.random() * 1000) + 1;
+      String str = "";
+      if(randomNum > 0 && randomNum <= 500)
+      {
+         str = "BAR";
+      }
+      else if (randomNum > 500 && randomNum <= 750)
+      {
+         str = "cherries";
+      }
+      else if (randomNum > 750 && randomNum <= 875)
+      {
+         str = "(space)";
+      }
+      else if (randomNum > 875 && randomNum <= 1000)
+      {
+         str = "7";
+      }
+      return str;
    }
 
    public static TripleString pull()
    {
-      System.out.println("Get TripleString");
-      TripleString slot = new TripleString();
-      return slot;
+      TripleString slotPull = new TripleString();
+      slotPull.setString1(randString());
+      slotPull.setString2(randString());
+      slotPull.setString3(randString());
+      System.out.println(slotPull.toString());
+      return slotPull;
+   }
+
+   public static int getPayMultiplier(TripleString thePull)
+   {
+      if((thePull.getString1() == "cherries") && (thePull.getString2() != "cherries"))
+      {
+         return 5;
+      }
+      else if ((thePull.getString1() == "cherries") && (thePull.getString2() == "cherries") && (thePull.getString3()!= "cherries"))
+      {
+         return 15;
+      }
+      else if ((thePull.getString1() == "cherries") && (thePull.getString2() == "cherries") && (thePull.getString3()== "cherries"))
+      {
+         return 30;
+      }
+      else if ((thePull.getString1() == "BAR") && (thePull.getString2() == "BAR") && (thePull.getString3()== "BAR"))
+      {
+         return 50;
+      }
+      else if ((thePull.getString1() == "7") && (thePull.getString2() == "7") && (thePull.getString3()== "7"))
+      {
+         return 100;
+      }
+      else
+      {
+         return 0;
+      }
    }
 
    public static void display (TripleString thePull, int winnings )
@@ -48,10 +94,8 @@ public class Assig2
    // Main function
    public static void main(String[] args)
    {
-      int bet = 0;
-      bet = getBet();
-      int slotInt;
-      TripleString slot = new TripleString();
+      int bet = getBet();
+      TripleString pullString = pull();
    }
 }
 
