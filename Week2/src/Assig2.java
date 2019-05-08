@@ -15,8 +15,22 @@ public class Assig2
 
    public static int getBet()
    {
-      System.out.println("Get Bet");
-      return 1;
+      int bet = 0;
+
+      Scanner keyboard = new Scanner(System.in);
+
+      do
+      {
+         System.out.print("How much would you like to bet (1 - 100) or 0 to quit? ");
+//         while(!keyboard.hasNextInt())
+//         {
+//            System.out.println("adsf");
+//            keyboard.next();
+//         }
+         bet = keyboard.nextInt();
+      }while (bet < 0 || bet > 100);
+      System.out.println(bet);
+      return bet;
    }
 
    public static TripleString pull()
@@ -31,21 +45,13 @@ public class Assig2
       System.out.println("The Pull " + thePull + " Winnings " + winnings);
    }
 
+   // Main function
    public static void main(String[] args)
    {
-      Scanner keyboard = new Scanner(System.in);
+      int bet = 0;
+      bet = getBet();
       int slotInt;
       TripleString slot = new TripleString();
-      slot.setString1("One");
-      slot.setString2("Two");
-      slot.setString3("Three");
-      do{
-         System.out.println("How much would you like to bet (1 - 100) or 0 to quit?");
-         slotInt = keyboard.nextInt();
-         slot.saveWinnings(slotInt);
-         slot.displayWinnings();
-      } while (slotInt != 0);
-
    }
 }
 
@@ -132,20 +138,25 @@ class TripleString
       return true;
    }
 
-   public void displayWinnings()
+   public String displayWinnings()
    {
       int winnings = 0;
+      String topString = "Thanks for playing at the Casino!\nYour individual winnings were:\n";
+      String individualWinnings = "";
+      String bottomString = "";
+      String finalWinnings= "";
 
-      System.out.println("Thanks for playing at the Casino!");
-      System.out.println("Your individual winnings were:");
       for(int index = 0; index < numPulls; index++)
       {
          winnings += pullWinnings[index];
-         System.out.print(pullWinnings[index] + " ");
+         individualWinnings += pullWinnings[index] + " ";
       }
-      System.out.println();
-      System.out.println("Your total winnings were: $" + winnings);
+      bottomString = "\nYour total winnings were: $" + winnings + "\n";
+
+      finalWinnings = topString + individualWinnings + bottomString;
       numPulls++;
+      return finalWinnings;
+
    }
 }
 
