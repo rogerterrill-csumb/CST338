@@ -212,9 +212,14 @@ class TripleString
    // pullWinnings array methods
    public boolean saveWinnings(int winnings)
    {
-      pullWinnings[numPulls] = winnings;
-      numPulls++;
-      return true;
+      if(numPulls <= MAX_PULLS)
+      {
+         pullWinnings[numPulls] = winnings;
+         numPulls++;
+         return true;
+      }
+      return false;
+
    }
 
    public String displayWinnings()
@@ -238,3 +243,208 @@ class TripleString
    }
 }
 
+/***************************Output*********************************
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ (space) cherries BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 55
+ whirrrrrr .... and your pull is ...
+ BAR BAR 7
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 555
+ How much would you like to bet (1 - 100) or 0 to quit? 555
+ How much would you like to bet (1 - 100) or 0 to quit? -2
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR cherries 7
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR (space) BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR 7 (space)
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ 7 cherries BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ 7 BAR cherries
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR BAR BAR
+ congratulations, you win: 250
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ cherries BAR cherries
+ congratulations, you win: 25
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR BAR BAR
+ congratulations, you win: 250
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR BAR cherries
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR BAR cherries
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR 7 (space)
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR cherries BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR cherries BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR BAR BAR
+ congratulations, you win: 250
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ cherries cherries 7
+ congratulations, you win: 75
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ cherries cherries 7
+ congratulations, you win: 75
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR (space) (space)
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ (space) cherries cherries
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR (space) BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ cherries BAR cherries
+ congratulations, you win: 25
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR 7 BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR 7 7
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ cherries (space) (space)
+ congratulations, you win: 25
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR 7 BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR cherries BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ 7 BAR BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ 7 7 cherries
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ cherries BAR BAR
+ congratulations, you win: 25
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ cherries (space) 7
+ congratulations, you win: 25
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ (space) BAR cherries
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR cherries BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR cherries BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ 7 BAR cherries
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR 7 BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ BAR 7 (space)
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ cherries BAR BAR
+ congratulations, you win: 25
+
+ How much would you like to bet (1 - 100) or 0 to quit? 5
+ whirrrrrr .... and your pull is ...
+ (space) BAR BAR
+ sorry, you lose.
+
+ How much would you like to bet (1 - 100) or 0 to quit? 0
+ Thanks for playing at the Casino!
+ Your individual winnings were:
+ 0 0 0 0 0 0 0 250 25 250 0 0 0 0 0 250 75 75 0 0 0 25 0 0 25 0 0 0 0 25 25 0 0 0 0 0 0 25 0
+ Your total winnings were: $1050
+ ******************************************************************************************/
