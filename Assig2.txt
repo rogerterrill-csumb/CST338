@@ -91,10 +91,18 @@ public class Assig2
       System.out.println("whirrrrrr .... and your pull is ...");
       System.out.println(thePull.toString());
 
-      String message = (winnings == 0) ? "sorry, you lose." : "congratulations, you win: " + winnings;
-      System.out.println(message);
-      thePull.saveWinnings(winnings);
-      System.out.println();
+      if (winnings == 0)
+      {
+         System.out.println("sorry, you lose.");
+         thePull.saveWinnings(winnings);
+         System.out.println();
+      }
+      else
+      {
+         System.out.println("congratulations, you win: " + winnings);
+         thePull.saveWinnings(winnings);
+         System.out.println();
+      }
 
    }
 
@@ -102,11 +110,10 @@ public class Assig2
    public static void main(String[] args)
    {
       int bet, winnings;
-      TripleString pullString;
       do
       {
          bet = getBet();
-         pullString = pull();
+         TripleString pullString = pull();
          winnings = getPayMultiplier(pullString) * bet;
          if (bet == 0)
          {
@@ -119,6 +126,7 @@ public class Assig2
 
       }
       while (bet != 0);
+
    }
 }
 
