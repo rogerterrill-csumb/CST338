@@ -21,15 +21,16 @@ public class Assig2
       {
          System.out.print("How much would you like to bet (1 - 100) or 0 to quit? ");
          bet = keyboard.nextInt();
-      }while (bet < 0 || bet > 100);
+      }
+      while (bet < 0 || bet > 100);
       return bet;
    }
 
    private static String randString()
    {
-      int randomNum = (int)(Math.random() * 1000) + 1;
+      int randomNum = (int) (Math.random() * 1000) + 1;
       String str = "";
-      if(randomNum > 0 && randomNum <= 500)
+      if (randomNum > 0 && randomNum <= 500)
       {
          str = "BAR";
       }
@@ -54,29 +55,28 @@ public class Assig2
       slotPull.setString1(randString());
       slotPull.setString2(randString());
       slotPull.setString3(randString());
-      System.out.println(slotPull.toString());
       return slotPull;
    }
 
    public static int getPayMultiplier(TripleString thePull)
    {
-      if((thePull.getString1() == "cherries") && (thePull.getString2() != "cherries"))
+      if ((thePull.getString1() == "cherries") && (thePull.getString2() != "cherries"))
       {
          return 5;
       }
-      else if ((thePull.getString1() == "cherries") && (thePull.getString2() == "cherries") && (thePull.getString3()!= "cherries"))
+      else if ((thePull.getString1() == "cherries") && (thePull.getString2() == "cherries") && (thePull.getString3() != "cherries"))
       {
          return 15;
       }
-      else if ((thePull.getString1() == "cherries") && (thePull.getString2() == "cherries") && (thePull.getString3()== "cherries"))
+      else if ((thePull.getString1() == "cherries") && (thePull.getString2() == "cherries") && (thePull.getString3() == "cherries"))
       {
          return 30;
       }
-      else if ((thePull.getString1() == "BAR") && (thePull.getString2() == "BAR") && (thePull.getString3()== "BAR"))
+      else if ((thePull.getString1() == "BAR") && (thePull.getString2() == "BAR") && (thePull.getString3() == "BAR"))
       {
          return 50;
       }
-      else if ((thePull.getString1() == "7") && (thePull.getString2() == "7") && (thePull.getString3()== "7"))
+      else if ((thePull.getString1() == "7") && (thePull.getString2() == "7") && (thePull.getString3() == "7"))
       {
          return 100;
       }
@@ -86,16 +86,47 @@ public class Assig2
       }
    }
 
-   public static void display (TripleString thePull, int winnings )
+   public static void display(TripleString thePull, int winnings)
    {
-      System.out.println("The Pull " + thePull + " Winnings " + winnings);
+      System.out.println("whirrrrrr .... and your pull is ...");
+      System.out.println(thePull.toString());
+
+      if (winnings == 0)
+      {
+         System.out.println("sorry, you lose.");
+         thePull.saveWinnings(winnings);
+         System.out.println();
+      }
+      else
+      {
+         System.out.println("congratulations, you win: " + winnings);
+         thePull.saveWinnings(winnings);
+         System.out.println();
+      }
+
    }
 
    // Main function
    public static void main(String[] args)
    {
-      int bet = getBet();
-      TripleString pullString = pull();
+      int bet, winnings;
+      do
+      {
+         bet = getBet();
+         TripleString pullString = pull();
+         winnings = getPayMultiplier(pullString) * bet;
+         if (bet == 0)
+         {
+            System.out.print(pullString.displayWinnings());
+         }
+         else
+         {
+            display(pullString, winnings);
+         }
+
+      }
+      while (bet != 0);
+
    }
 }
 
@@ -106,7 +137,7 @@ class TripleString
    public static final int MAX_LEN = 20;
 
    private String string1, string2, string3;
-   private static int[] pullWinnings  = new int[MAX_PULLS];
+   private static int[] pullWinnings = new int[MAX_PULLS];
    private static int numPulls = 0;
 
    // Default Constructor
@@ -131,7 +162,8 @@ class TripleString
 
    public boolean setString1(String string1)
    {
-      if (validString(string1)) {
+      if (validString(string1))
+      {
          this.string1 = string1;
          return true;
       }
@@ -146,7 +178,8 @@ class TripleString
 
    public boolean setString2(String string2)
    {
-      if (validString(string2)) {
+      if (validString(string2))
+      {
          this.string2 = string2;
          return true;
       }
@@ -161,7 +194,8 @@ class TripleString
 
    public boolean setString3(String string3)
    {
-      if (validString(string3)) {
+      if (validString(string3))
+      {
          this.string3 = string3;
          return true;
       }
@@ -179,6 +213,7 @@ class TripleString
    public boolean saveWinnings(int winnings)
    {
       pullWinnings[numPulls] = winnings;
+      numPulls++;
       return true;
    }
 
@@ -188,9 +223,9 @@ class TripleString
       String topString = "Thanks for playing at the Casino!\nYour individual winnings were:\n";
       String individualWinnings = "";
       String bottomString = "";
-      String finalWinnings= "";
+      String finalWinnings = "";
 
-      for(int index = 0; index < numPulls; index++)
+      for (int index = 0; index < numPulls; index++)
       {
          winnings += pullWinnings[index];
          individualWinnings += pullWinnings[index] + " ";
@@ -198,7 +233,6 @@ class TripleString
       bottomString = "\nYour total winnings were: $" + winnings + "\n";
 
       finalWinnings = topString + individualWinnings + bottomString;
-      numPulls++;
       return finalWinnings;
 
    }
