@@ -10,9 +10,10 @@
 
 import java.util.Scanner;
 
+// Main class with the main function
 public class Assig2
 {
-
+   // Function that returns the bet value from the user
    public static int getBet()
    {
       int bet = 0;
@@ -26,6 +27,7 @@ public class Assig2
       return bet;
    }
 
+   // Helper function that returns one of four possible strings
    private static String randString()
    {
       int randomNum = (int) (Math.random() * 1000) + 1;
@@ -49,6 +51,7 @@ public class Assig2
       return str;
    }
 
+   // Creates an instance of the TripleString with random strings
    public static TripleString pull()
    {
       TripleString slotPull = new TripleString();
@@ -58,6 +61,7 @@ public class Assig2
       return slotPull;
    }
 
+   // Gets the multiplier to use in winnings calculation
    public static int getPayMultiplier(TripleString thePull)
    {
       if ((thePull.getString1() == "cherries") && (thePull.getString2() != "cherries"))
@@ -86,6 +90,7 @@ public class Assig2
       }
    }
 
+   // Displays each rounds winnings and losses
    public static void display(TripleString thePull, int winnings)
    {
       System.out.println("whirrrrrr .... and your pull is ...");
@@ -98,7 +103,7 @@ public class Assig2
 
    }
 
-   // Main function
+   // Main function to run the game
    public static void main(String[] args)
    {
       int bet, winnings;
@@ -122,6 +127,7 @@ public class Assig2
    }
 }
 
+// TripleString Class
 class TripleString
 {
    // The data to be used to keep track of the game
@@ -214,6 +220,7 @@ class TripleString
 
    }
 
+   // Displays the final winning prompt showing all the rounds
    public String displayWinnings()
    {
       int winnings = 0;
