@@ -59,7 +59,8 @@ class Card
 
    public boolean equals(Card card)
    {
-      return true;
+
+      return (value == card.value && suit == card.suit);
    }
 
    private boolean isValid(char value, Suit suit)
