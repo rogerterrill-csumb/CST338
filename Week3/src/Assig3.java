@@ -29,6 +29,8 @@ public class Assig3
       myHand.takeCard(two);
       myHand.takeCard(three);
       myHand.toString();
+      myHand.playCard();
+      myHand.toString();
 
 
    }
@@ -216,7 +218,9 @@ class Hand
 
    public Card playCard()
    {
-      return myCards[0];
+      Card temp = myCards[numCards];
+      numCards--;
+      return temp;
    }
 
    /**
