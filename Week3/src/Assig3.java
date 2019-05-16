@@ -2,8 +2,21 @@ public class Assig3
 {
    public static void main(String[] args)
    {
-      Card one = new Card('T', Card.Suit.spades);
+      Card one = new Card('A', Card.Suit.spades);
+      Card two = new Card('N', Card.Suit.spades);
+      Card three = new Card('J', Card.Suit.clubs);
+
       System.out.print(one.toString());
+      System.out.print(two.toString());
+      System.out.print(three.toString());
+
+      one.set('B', Card.Suit.spades);
+      two.set('Q', Card.Suit.spades);
+
+      System.out.println();
+      System.out.print(one.toString());
+      System.out.print(two.toString());
+      System.out.print(three.toString());
    }
 }
 
@@ -28,11 +41,11 @@ class Card
 
    public String toString()
    {
-      if(errorFlag == true)
+      if(errorFlag)
       {
-         return "** illegal **";
+         return "** illegal **\n";
       }
-      return value + " of " + suit ;
+      return value + " of " + suit + "\n" ;
    }
 
    public boolean set(char value, Suit suit)
