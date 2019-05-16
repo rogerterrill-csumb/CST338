@@ -1,35 +1,19 @@
 public class Assig3
 {
-
-<<<<<<< HEAD
-   public static void main(String[] args) {
-      Card one = new Card();
-      one.toString();
-=======
    public static void main(String[] args)
    {
       Card one = new Card();
       System.out.print(one.toString());
->>>>>>> 7e4f2555711f2f28a1ac0c75ebfda3be0169551a
    }
-
-
 }
 
 class Card
 {
-<<<<<<< HEAD
-   enum Suit{ clubs, diamonds, hearts, spades };
-   char value;
-   Suit suit;
-   boolean errorFlag;
-=======
    enum Suit {clubs, diamonds, hearts, spades}
 
    private char value;
    private Suit suit;
    private boolean errorFlag;
->>>>>>> 7e4f2555711f2f28a1ac0c75ebfda3be0169551a
 
    public Card()
    {
@@ -43,20 +27,6 @@ class Card
       this.suit = suit;
    }
 
-<<<<<<< HEAD
-   public boolean set(char value, Suit suit)
-   {
-
-      return true;
-   }
-
-
-   public String toString()
-   {
-      String str = "";
-      System.out.println(value + " of " + suit);
-      return str;
-=======
    public String toString()
    {
       if(errorFlag == true)
@@ -70,7 +40,6 @@ class Card
    {
 
       return true;
->>>>>>> 7e4f2555711f2f28a1ac0c75ebfda3be0169551a
    }
 
    public char getValue()
