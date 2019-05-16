@@ -159,14 +159,10 @@ class Card
     */
    private boolean isValid(char value, Suit suit)
    {
-      int i;
-      char[] cardValues = {'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K'};
-      for (i = 0; i < cardValues.length; i++)
+      String cardValues = "A23456789TJQK";
+      if(cardValues.indexOf(value) != -1)
       {
-         if (value == cardValues[i])
-         {
-            return true;
-         }
+         return true;
       }
       return false;
    }
