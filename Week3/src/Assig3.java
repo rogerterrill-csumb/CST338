@@ -2,7 +2,7 @@ public class Assig3
 {
    public static void main(String[] args)
    {
-      Card one = new Card();
+      Card one = new Card('T', Card.Suit.spades);
       System.out.print(one.toString());
    }
 }
@@ -41,8 +41,10 @@ class Card
       {
          this.value = value;
          this.suit = suit;
+         errorFlag = false;
          return true;
       }
+      errorFlag = true;
       return false;
    }
 
@@ -77,8 +79,7 @@ class Card
          {
             return true;
          }
-         return false;
       }
-      return true;
+      return false;
    }
 }
