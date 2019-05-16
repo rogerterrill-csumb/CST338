@@ -9,7 +9,7 @@ public class Assig3
 
 class Card
 {
-   enum Suit {clubs, diamonds, hearts, spades}
+   public enum Suit {clubs, diamonds, hearts, spades}
 
    private char value;
    private Suit suit;
@@ -64,7 +64,16 @@ class Card
 
    private boolean isValid(char value, Suit suit)
    {
-
+      int i;
+      char[] cardValues = {'A','2','3','4','5','6','7','8','9','T','J','Q','K'};
+      for(i = 0; i < cardValues.length; i++)
+      {
+         if(value == cardValues[i])
+         {
+            return true;
+         }
+         return false;
+      }
       return true;
    }
 }
