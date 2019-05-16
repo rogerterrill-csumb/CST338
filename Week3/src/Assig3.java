@@ -21,20 +21,16 @@ public class Assig3
    public static void main(String[] args)
    {
       Card one = new Card('A', Card.Suit.spades);
-      Card two = new Card('N', Card.Suit.spades);
+      Card two = new Card('4', Card.Suit.spades);
       Card three = new Card('J', Card.Suit.clubs);
 
-      System.out.print(one.toString());
-      System.out.print(two.toString());
-      System.out.print(three.toString());
+      Hand myHand = new Hand();
+      myHand.takeCard(one);
+      myHand.takeCard(two);
+      myHand.takeCard(three);
+      myHand.toString();
 
-      one.set('B', Card.Suit.spades);
-      two.set('Q', Card.Suit.spades);
 
-      System.out.println();
-      System.out.print(one.toString());
-      System.out.print(two.toString());
-      System.out.print(three.toString());
    }
 }
 
@@ -84,7 +80,7 @@ class Card
       {
          return "** illegal **\n";
       }
-      return value + " of " + suit + "\n";
+      return value + " of " + suit;
    }
 
    /**
@@ -165,5 +161,86 @@ class Card
          return true;
       }
       return false;
+   }
+}
+
+/**
+ * A class that provides a card object and checks to see if the card created has valid values.
+ */
+class Hand
+{
+   public static final int MAX_CARDS = 50;
+   private Card[] myCards;
+
+   public int getNumCards()
+   {
+      return numCards;
+   }
+
+   private int numCards;
+
+   /**
+    * Purpose: Default constructor to initialize hand object
+    * Preconditions: card object
+    * Postconditions: Creates a hand
+    */
+   public Hand()
+   {
+      myCards = new Card[MAX_CARDS];
+      numCards = 0;
+   }
+
+   /**
+    * Purpose: Empty hand
+    * Preconditions: initialized and declared hand
+    * Postconditions: Changes numCards back to 0
+    */
+   public void resetHand()
+   {
+      numCards = 0;
+   }
+
+   /**
+    * Purpose: Takes card and adds it to myCards array
+    * Preconditions: Valid card must exist
+    * Postconditions: Adds card to array and iterates numCards +1
+    * @param card A valid card object from the card class
+    * @return Returns true if successfully took card
+    */
+   public boolean takeCard(Card card)
+   {
+      myCards[numCards] = card;
+      numCards++;
+      return true;
+   }
+
+   public Card playCard()
+   {
+      return myCards[0];
+   }
+
+   /**
+    * Purpose: Takes card and adds it to myCards array
+    * Preconditions: Zero or more cards existing in array
+    * Postconditions: None
+    * @return Returns String that displays myCards array
+    */
+   public String toString()
+   {
+      String str;
+      str = "Hand = ( ";
+      int i;
+      for(i=0; i < numCards; i++)
+      {
+         str += (myCards[i].toString());
+         if(i < numCards -1)
+         {
+            str+= ", ";
+         }
+      }
+      str += " )";
+
+      System.out.println(str);
+      return str;
    }
 }
