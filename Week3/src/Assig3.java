@@ -23,23 +23,27 @@ class Card
 
    public Card(char value, Suit suit)
    {
-      this.value = value;
-      this.suit = suit;
+      set(value, suit);
    }
 
    public String toString()
    {
       if(errorFlag == true)
       {
-         return "[invalid]";
+         return "** illegal **";
       }
       return value + " of " + suit ;
    }
 
    public boolean set(char value, Suit suit)
    {
-
-      return true;
+      if(isValid(value, suit))
+      {
+         this.value = value;
+         this.suit = suit;
+         return true;
+      }
+      return false;
    }
 
    public char getValue()
