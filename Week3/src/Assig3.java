@@ -247,4 +247,13 @@ class Hand
       System.out.println(str);
       return str;
    }
+
+   public Card inspectCard(int k)
+   {
+      if(myCards[k] != null)
+      {
+         return myCards[k];
+      }
+      return myCards[k].isErrorFlag();
+   }
 }
