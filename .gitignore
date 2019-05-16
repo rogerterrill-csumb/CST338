@@ -6,6 +6,6 @@
 /All_Labs
 *.wav
 /venv
-/.idea
+/.idea/*
 *.xml
 *.iml
