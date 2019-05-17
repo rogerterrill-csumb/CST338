@@ -20,16 +20,47 @@ public class Assig3
     */
    public static void main(String[] args)
    {
+      int i,j;
       Card one = new Card('A', Card.Suit.spades);
       Card two = new Card('4', Card.Suit.spades);
       Card three = new Card('J', Card.Suit.clubs);
 
       Hand myHand = new Hand();
-      myHand.takeCard(one);
-      myHand.takeCard(two);
-      myHand.takeCard(three);
+      for(i = 0; i < Hand.MAX_CARDS; i++)
+      {
+         if(i%3 == 0)
+         {
+            myHand.takeCard(one);
+         }
+         if(i%3 == 1)
+         {
+            myHand.takeCard(two);
+         }
+         if(i%3 == 2)
+         {
+            myHand.takeCard(three);
+         }
+      }
+      System.out.println("Hand Full\nAfter deal");
       myHand.toString();
-      myHand.playCard();
+
+      System.out.println("\nTesting inspectCard()");
+
+
+      int cards = myHand.getNumCards();
+      for(i = 0; i < cards; i++)
+      {
+         if(i == 15)
+         {
+            System.out.println(myHand.inspectCard(37).toString());
+            System.out.println(myHand.inspectCard(32).toString());
+         }
+
+         System.out.println("Playing " + myHand.playCard().toString());
+      }
+
+
+      System.out.println("\nAfter playing all cards");
       myHand.toString();
 
 
@@ -80,7 +111,7 @@ class Card
    {
       if (errorFlag)
       {
-         return "** illegal **\n";
+         return "** illegal **";
       }
       return value + " of " + suit;
    }
@@ -218,9 +249,8 @@ class Hand
 
    public Card playCard()
    {
-      Card temp = myCards[numCards];
       numCards--;
-      return temp;
+      return new Card(myCards[numCards].getValue(), myCards[numCards].getSuit());
    }
 
    /**
@@ -250,10 +280,10 @@ class Hand
 
    public Card inspectCard(int k)
    {
-      if(myCards[k] != null)
+      if(k > numCards)
       {
-         return myCards[k];
+         return new Card('0', Card.Suit.spades);
       }
-      return myCards[k].isErrorFlag();
+      return myCards[k];
    }
 }
