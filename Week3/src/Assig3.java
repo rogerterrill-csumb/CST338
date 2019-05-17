@@ -20,50 +20,21 @@ public class Assig3
     */
    public static void main(String[] args)
    {
-      int i,j;
-      Card one = new Card('A', Card.Suit.spades);
-      Card two = new Card('4', Card.Suit.spades);
-      Card three = new Card('J', Card.Suit.clubs);
+      Card one = new Card('2', Card.Suit.spades);
+      Card two = new Card('3', Card.Suit.spades);
 
       Hand myHand = new Hand();
-      for(i = 0; i < Hand.MAX_CARDS; i++)
-      {
-         if(i%3 == 0)
-         {
-            myHand.takeCard(one);
-         }
-         if(i%3 == 1)
-         {
-            myHand.takeCard(two);
-         }
-         if(i%3 == 2)
-         {
-            myHand.takeCard(three);
-         }
-      }
-      System.out.println("Hand Full\nAfter deal");
+
+      myHand.takeCard(one);
+      myHand.takeCard(two);
+
       myHand.toString();
 
-      System.out.println("\nTesting inspectCard()");
-
-
-      int cards = myHand.getNumCards();
-      for(i = 0; i < cards; i++)
-      {
-         if(i == 15)
-         {
-            System.out.println(myHand.inspectCard(37).toString());
-            System.out.println(myHand.inspectCard(32).toString());
-         }
-
-         System.out.println("Playing " + myHand.playCard().toString());
-      }
-
-
-      System.out.println("\nAfter playing all cards");
+      myHand.playCard();
       myHand.toString();
 
 
+//      Deck myDeck = new Deck();
    }
 }
 
@@ -242,7 +213,8 @@ class Hand
     */
    public boolean takeCard(Card card)
    {
-      myCards[numCards] = card;
+
+      myCards[numCards] = new Card(card.getValue(), card.getSuit());
       numCards++;
       return true;
    }
@@ -250,7 +222,8 @@ class Hand
    public Card playCard()
    {
       numCards--;
-      return new Card(myCards[numCards].getValue(), myCards[numCards].getSuit());
+      System.out.println(myCards[numCards]);
+      return myCards[numCards];
    }
 
    /**
@@ -285,5 +258,47 @@ class Hand
          return new Card('0', Card.Suit.spades);
       }
       return myCards[k];
+   }
+}
+
+class Deck
+{
+   public static final int MAX_CARDS = 312;
+
+   private static Card[] masterPack = new Card[52];
+
+   private Card[] cards;
+
+   private int topCard;
+
+   public Deck()
+   {
+      allocateMasterPack();
+   }
+
+   public Deck(int numPacks)
+   {
+
+   }
+
+   public int getTopCard()
+   {
+      return topCard;
+   }
+
+   private static void allocateMasterPack()
+   {
+      int i;
+
+      for (i = 0; i < 52; i++)
+      {
+         System.out.println("Number " + (i + 1) + ": " + masterPack[i].toString());
+      }
+
+      for (i = 0; i < 52; i++)
+      {
+         masterPack[i] = new Card('A', Card.Suit.spades);
+         System.out.println("Number " + (i + 1) + ": " + masterPack[i].toString());
+      }
    }
 }
