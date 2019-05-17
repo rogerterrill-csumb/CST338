@@ -361,17 +361,6 @@ class Deck
       return cards[k];
    }
 
-   public String toString()
-   {
-      int i;
-      for(i=0; i< topCard; i++)
-      {
-         System.out.println("Position " + (i+1) + ": " + cards[i]);
-      }
-
-      return "Done tostring";
-   }
-
    private static void allocateMasterPack()
    {
       int i;
