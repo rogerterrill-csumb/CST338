@@ -276,7 +276,7 @@ class Deck
 
    private Card[] cards = new Card[MAX_CARDS];
 
-   private int topCard;
+   private int topCard = 0;
 
    public Deck()
    {
@@ -285,6 +285,7 @@ class Deck
       for(i = 0; i < 52; i++)
       {
          cards[i] = masterPack[i%52];
+         topCard++;
       }
    }
 
@@ -295,6 +296,7 @@ class Deck
       for(i = 0; i < numPacks * 52; i++)
       {
          cards[i] = masterPack[i%52];
+         topCard++;
       }
 
    }
@@ -302,19 +304,20 @@ class Deck
    public void init(int numPacks)
    {
       int i;
+      topCard = 0;
       for(i = 0; i < numPacks * 52; i++)
       {
          cards[i] = masterPack[i%52];
+         topCard++;
 
       }
    }
 
    public void shuffle()
    {
-      int numOfCards = 104;
-      for (int i = 0; i < numOfCards; i++)
+      for (int i = 0; i < topCard; i++)
       {
-         int second = (int)(Math.random() * numOfCards);
+         int second = (int)(Math.random() * topCard);
          Card temp = cards[i];
          cards[i] = cards[second];
          cards[second] = temp;
@@ -341,7 +344,7 @@ class Deck
    public String toString()
    {
       int i;
-      for(i=0; i< 104; i++)
+      for(i=0; i< topCard; i++)
       {
          System.out.println("Position " + i + ": " + cards[i]);
       }
