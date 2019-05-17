@@ -20,27 +20,21 @@ public class Assig3
     */
    public static void main(String[] args)
    {
-//      Card one = new Card('2', Card.Suit.spades);
-//      Card two = new Card('3', Card.Suit.spades);
-//
-//      Hand myHand = new Hand();
-//
-//      myHand.takeCard(one);
-//      myHand.takeCard(two);
-//
-//      myHand.toString();
-//
-//      myHand.playCard();
-//      myHand.toString();
-
-
-
-
+      int i;
       Deck myDeck = new Deck(2);
-      myDeck.toString();
+      for(i = 0; i< myDeck.getTopCard(); i++)
+      {
+         myDeck.dealCard();
+      }
 
+      System.out.println("\n\n");
+      myDeck.init(2);
       myDeck.shuffle();
-      myDeck.toString();
+      for(i = 0; i< myDeck.getTopCard(); i++)
+      {
+         myDeck.dealCard();
+      }
+      
    }
 }
 
@@ -326,8 +320,14 @@ class Deck
 
    public Card dealCard()
    {
-
-      return new Card();
+      if(topCard > 0)
+      {
+         topCard--;
+         Card tempCard = cards[topCard];
+         System.out.print(tempCard.toString() + " / ");
+         return tempCard;
+      }
+      return new Card('-', Card.Suit.spades);
    }
 
    public int getTopCard()
@@ -337,8 +337,12 @@ class Deck
 
    public Card inspectCard(int k)
    {
+      if(k > topCard)
+      {
+         return new Card('0', Card.Suit.spades);
+      }
 
-      return new Card();
+      return cards[k];
    }
 
    public String toString()
@@ -346,7 +350,7 @@ class Deck
       int i;
       for(i=0; i< topCard; i++)
       {
-         System.out.println("Position " + i + ": " + cards[i]);
+         System.out.println("Position " + (i+1) + ": " + cards[i]);
       }
 
       return "Done tostring";
