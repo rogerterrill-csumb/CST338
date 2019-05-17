@@ -20,21 +20,27 @@ public class Assig3
     */
    public static void main(String[] args)
    {
-      Card one = new Card('2', Card.Suit.spades);
-      Card two = new Card('3', Card.Suit.spades);
+//      Card one = new Card('2', Card.Suit.spades);
+//      Card two = new Card('3', Card.Suit.spades);
+//
+//      Hand myHand = new Hand();
+//
+//      myHand.takeCard(one);
+//      myHand.takeCard(two);
+//
+//      myHand.toString();
+//
+//      myHand.playCard();
+//      myHand.toString();
 
-      Hand myHand = new Hand();
-
-      myHand.takeCard(one);
-      myHand.takeCard(two);
-
-      myHand.toString();
-
-      myHand.playCard();
-      myHand.toString();
 
 
-//      Deck myDeck = new Deck();
+
+      Deck myDeck = new Deck(2);
+      myDeck.toString();
+
+      myDeck.shuffle();
+      myDeck.toString();
    }
 }
 
@@ -176,12 +182,12 @@ class Hand
    public static final int MAX_CARDS = 50;
    private Card[] myCards;
 
+   private int numCards;
+
    public int getNumCards()
    {
       return numCards;
    }
-
-   private int numCards;
 
    /**
     * Purpose: Default constructor to initialize hand object
@@ -261,24 +267,64 @@ class Hand
    }
 }
 
+
 class Deck
 {
    public static final int MAX_CARDS = 312;
 
    private static Card[] masterPack = new Card[52];
 
-   private Card[] cards;
+   private Card[] cards = new Card[MAX_CARDS];
 
    private int topCard;
 
    public Deck()
    {
+      int i;
       allocateMasterPack();
+      for(i = 0; i < 52; i++)
+      {
+         cards[i] = masterPack[i%52];
+      }
    }
 
    public Deck(int numPacks)
    {
+      int i;
+      allocateMasterPack();
+      for(i = 0; i < numPacks * 52; i++)
+      {
+         cards[i] = masterPack[i%52];
+      }
 
+   }
+
+   public void init(int numPacks)
+   {
+      int i;
+      for(i = 0; i < numPacks * 52; i++)
+      {
+         cards[i] = masterPack[i%52];
+
+      }
+   }
+
+   public void shuffle()
+   {
+      int numOfCards = 104;
+      for (int i = 0; i < numOfCards; i++)
+      {
+         int second = (int)(Math.random() * numOfCards);
+         Card temp = cards[i];
+         cards[i] = cards[second];
+         cards[second] = temp;
+      }
+   }
+
+   public Card dealCard()
+   {
+
+      return new Card();
    }
 
    public int getTopCard()
@@ -286,19 +332,55 @@ class Deck
       return topCard;
    }
 
+   public Card inspectCard(int k)
+   {
+
+      return new Card();
+   }
+
+   public String toString()
+   {
+      int i;
+      for(i=0; i< 104; i++)
+      {
+         System.out.println("Position " + i + ": " + cards[i]);
+      }
+
+      return "Done tostring";
+   }
+
    private static void allocateMasterPack()
    {
       int i;
 
-      for (i = 0; i < 52; i++)
-      {
-         System.out.println("Number " + (i + 1) + ": " + masterPack[i].toString());
-      }
+      String cardValues = "A23456789TJQK";
+
 
       for (i = 0; i < 52; i++)
       {
-         masterPack[i] = new Card('A', Card.Suit.spades);
-         System.out.println("Number " + (i + 1) + ": " + masterPack[i].toString());
+         if(masterPack[i] == null)
+         {
+            if(i/13 == 0)
+            {
+               masterPack[i] = new Card(cardValues.charAt(i%13), Card.Suit.spades);
+//               System.out.println(masterPack[i].toString());
+            }
+            if(i/13 == 1)
+            {
+               masterPack[i] = new Card(cardValues.charAt(i%13), Card.Suit.clubs);
+//               System.out.println(masterPack[i].toString());
+            }
+            if(i/13 == 2)
+            {
+               masterPack[i] = new Card(cardValues.charAt(i%13), Card.Suit.hearts);
+//               System.out.println(masterPack[i].toString());
+            }
+            if(i/13 == 3)
+            {
+               masterPack[i] = new Card(cardValues.charAt(i%13), Card.Suit.diamonds);
+//               System.out.println(masterPack[i].toString());
+            }
+         }
       }
    }
 }
