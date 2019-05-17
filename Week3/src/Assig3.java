@@ -34,7 +34,23 @@ public class Assig3
       {
          myDeck.dealCard();
       }
-      
+
+
+      System.out.println("\n\n");
+      Deck newDeck = new Deck();
+      for(i = 0; i< newDeck.getTopCard(); i++)
+      {
+         newDeck.dealCard();
+      }
+
+      System.out.println("\n\n");
+      newDeck.init(1);
+      newDeck.shuffle();
+      for(i = 0; i< newDeck.getTopCard(); i++)
+      {
+         newDeck.dealCard();
+      }
+
    }
 }
 
