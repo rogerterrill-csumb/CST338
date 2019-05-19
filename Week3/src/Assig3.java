@@ -8,11 +8,13 @@
 // TA's Name:           Joseph Appleton
 // Lab Section:         CST 338
 
+import java.util.Scanner;
 /**
  * Main working class that utilizes the card class to build card objects
  */
 public class Assig3
 {
+
    /**
     * Purpose: Initialize cards and display there values.
     * Preconditions: Requires access to the Card class.
@@ -20,35 +22,85 @@ public class Assig3
     */
    public static void main(String[] args)
    {
+//      int i;
+//      Deck myDeck = new Deck(2);
+//      for(i = 0; i< myDeck.getTopCard(); i++)
+//      {
+//         myDeck.dealCard();
+//      }
+//
+//      System.out.println("\n\n");
+//      myDeck.init(2);
+//      myDeck.shuffle();
+//      for(i = 0; i< myDeck.getTopCard(); i++)
+//      {
+//         myDeck.dealCard();
+//      }
+//
+//
+//      System.out.println("\n\n");
+//      Deck newDeck = new Deck();
+//      for(i = 0; i< newDeck.getTopCard(); i++)
+//      {
+//         newDeck.dealCard();
+//      }
+//
+//      System.out.println("\n\n");
+//      newDeck.init(1);
+//      newDeck.shuffle();
+//      for(i = 0; i< newDeck.getTopCard(); i++)
+//      {
+//         newDeck.dealCard();
+//      }
+
+      Scanner keyboard = new Scanner(System.in);
       int i;
-      Deck myDeck = new Deck(2);
-      for(i = 0; i< myDeck.getTopCard(); i++)
+
+      int chooseNumPacks = 0;
+      while(chooseNumPacks < 1 || chooseNumPacks > 10)
       {
-         myDeck.dealCard();
+         System.out.print("How many hands? (1 - 10), please: ");
+         chooseNumPacks = keyboard.nextInt();
       }
 
-      System.out.println("\n\n");
-      myDeck.init(2);
-      myDeck.shuffle();
-      for(i = 0; i< myDeck.getTopCard(); i++)
-      {
-         myDeck.dealCard();
-      }
+      Hand[] hands = new Hand[chooseNumPacks];
 
-
-      System.out.println("\n\n");
       Deck newDeck = new Deck();
-      for(i = 0; i< newDeck.getTopCard(); i++)
+
+      for(i=0; i< chooseNumPacks; i++)
       {
-         newDeck.dealCard();
+         hands[i] = new Hand();
       }
 
-      System.out.println("\n\n");
+      for(i = 0; i < 52; i++)
+      {
+         hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
+      }
+
+      for(i = 0; i < chooseNumPacks; i++)
+      {
+         hands[i].toString();
+         System.out.println();
+      }
+
+      for(i = 0; i < chooseNumPacks; i++)
+      {
+         hands[i].resetHand();
+      }
+
+      System.out.println("Here are our hands, from SHUFFLED deck: ");
       newDeck.init(1);
       newDeck.shuffle();
-      for(i = 0; i< newDeck.getTopCard(); i++)
+
+      for(i = 0; i < 52; i++)
       {
-         newDeck.dealCard();
+         hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
+      }
+
+      for(i = 0; i < chooseNumPacks; i++)
+      {
+         hands[i].toString();
+         System.out.println();
       }
 
    }
@@ -189,7 +241,7 @@ class Card
  */
 class Hand
 {
-   public static final int MAX_CARDS = 50;
+   public static final int MAX_CARDS = 100;
    private Card[] myCards;
 
    private int numCards;
@@ -340,7 +392,7 @@ class Deck
       {
          topCard--;
          Card tempCard = cards[topCard];
-         System.out.print(tempCard.toString() + " / ");
+//         System.out.print(tempCard.toString() + " / ");
          return tempCard;
       }
       return new Card('-', Card.Suit.spades);
@@ -399,6 +451,7 @@ class Deck
 
 
 /*****************Output**************************
+ * PHASE 3
  K of diamonds / Q of diamonds / J of diamonds / T of diamonds / 9 of diamonds / 8 of diamonds / 7 of diamonds / 6 of diamonds / 5 of diamonds / 4 of diamonds / 3 of diamonds / 2 of diamonds / A of diamonds / K of hearts / Q of hearts / J of hearts / T of hearts / 9 of hearts / 8 of hearts / 7 of hearts / 6 of hearts / 5 of hearts / 4 of hearts / 3 of hearts / 2 of hearts / A of hearts / K of clubs / Q of clubs / J of clubs / T of clubs / 9 of clubs / 8 of clubs / 7 of clubs / 6 of clubs / 5 of clubs / 4 of clubs / 3 of clubs / 2 of clubs / A of clubs / K of spades / Q of spades / J of spades / T of spades / 9 of spades / 8 of spades / 7 of spades / 6 of spades / 5 of spades / 4 of spades / 3 of spades / 2 of spades / A of spades /
 
 
@@ -409,4 +462,31 @@ class Deck
 
 
  A of spades / Q of hearts / 9 of hearts / 6 of spades / 5 of clubs / 7 of hearts / Q of spades / 3 of diamonds / J of diamonds / Q of diamonds / T of diamonds / 5 of hearts / K of diamonds / A of hearts / 8 of clubs / 5 of spades / 6 of clubs / 2 of spades / 4 of diamonds / 2 of diamonds / 9 of clubs / 6 of hearts / 3 of hearts / 9 of spades / 8 of hearts / 8 of diamonds /
+
+ PHASE4
+ How many hands? (1 - 10), please: 6
+ Hand = ( K of diamonds, 7 of diamonds, A of diamonds, 8 of hearts, 2 of hearts, 9 of clubs, 3 of clubs, T of spades, 4 of spades )
+
+ Hand = ( Q of diamonds, 6 of diamonds, K of hearts, 7 of hearts, A of hearts, 8 of clubs, 2 of clubs, 9 of spades, 3 of spades )
+
+ Hand = ( J of diamonds, 5 of diamonds, Q of hearts, 6 of hearts, K of clubs, 7 of clubs, A of clubs, 8 of spades, 2 of spades )
+
+ Hand = ( T of diamonds, 4 of diamonds, J of hearts, 5 of hearts, Q of clubs, 6 of clubs, K of spades, 7 of spades, A of spades )
+
+ Hand = ( 9 of diamonds, 3 of diamonds, T of hearts, 4 of hearts, J of clubs, 5 of clubs, Q of spades, 6 of spades )
+
+ Hand = ( 8 of diamonds, 2 of diamonds, 9 of hearts, 3 of hearts, T of clubs, 4 of clubs, J of spades, 5 of spades )
+
+ Here are our hands, from SHUFFLED deck:
+ Hand = ( A of diamonds, 4 of hearts, Q of hearts, 8 of diamonds, 5 of clubs, 9 of clubs, 5 of diamonds, K of spades, 2 of spades )
+
+ Hand = ( 9 of diamonds, Q of spades, 5 of spades, Q of clubs, Q of diamonds, J of diamonds, 7 of hearts, T of diamonds, 6 of clubs )
+
+ Hand = ( 4 of diamonds, 3 of hearts, 5 of hearts, J of spades, 6 of hearts, J of hearts, 7 of diamonds, 7 of spades, T of spades )
+
+ Hand = ( 6 of spades, 3 of diamonds, 3 of clubs, 8 of clubs, A of spades, 2 of diamonds, K of clubs, J of clubs, 9 of hearts )
+
+ Hand = ( 7 of clubs, K of hearts, 8 of spades, 4 of spades, 8 of hearts, 9 of spades, T of hearts, K of diamonds )
+
+ Hand = ( 4 of clubs, A of hearts, A of clubs, 2 of clubs, 2 of hearts, 3 of spades, T of clubs, 6 of diamonds )
  **************************************************/
