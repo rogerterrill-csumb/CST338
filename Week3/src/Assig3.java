@@ -72,7 +72,7 @@ public class Assig3
          hands[i] = new Hand();
       }
 
-      for(i = 0; i < 52; i++)
+      for(i = 0; i < Deck.DECK_SIZE; i++)
       {
          hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
       }
@@ -92,7 +92,7 @@ public class Assig3
       newDeck.init(1);
       newDeck.shuffle();
 
-      for(i = 0; i < 52; i++)
+      for(i = 0; i < Deck.DECK_SIZE; i++)
       {
          hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
       }
@@ -333,6 +333,7 @@ class Hand
 class Deck
 {
    public static final int MAX_CARDS = 312;
+   public static final int DECK_SIZE = 52;
 
    private static Card[] masterPack = new Card[52];
 
@@ -422,7 +423,7 @@ class Deck
 
       if(masterPack[0] == null)
       {
-         for (i = 0; i < 52; i++)
+         for (i = 0; i < DECK_SIZE; i++)
          {
             if(i/13 == 0)
             {
