@@ -56,6 +56,7 @@ public class Assig3
       Scanner keyboard = new Scanner(System.in);
       int i;
 
+      // Check to make sure a valid number is entered
       int chooseNumPacks = 0;
       while(chooseNumPacks < 1 || chooseNumPacks > 10)
       {
@@ -63,39 +64,51 @@ public class Assig3
          chooseNumPacks = keyboard.nextInt();
       }
 
+      // Initialize a hand
       Hand[] hands = new Hand[chooseNumPacks];
+
+      // Initialize a new single deck
       Deck newDeck = new Deck();
 
+      // Initialize each number of players hands
       for(i=0; i< chooseNumPacks; i++)
       {
          hands[i] = new Hand();
       }
 
+      // Deal each player a card
       for(i = 0; i < Deck.DECK_SIZE; i++)
       {
          hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
       }
 
+      // Show all players hands
       for(i = 0; i < chooseNumPacks; i++)
       {
          hands[i].toString();
          System.out.println();
       }
 
+      // Reset all players hands
       for(i = 0; i < chooseNumPacks; i++)
       {
          hands[i].resetHand();
       }
 
       System.out.println("Here are our hands, from SHUFFLED deck: ");
+      // Initialize deck to 1 pack
       newDeck.init(1);
+
+      // Shuffle the deck of cards
       newDeck.shuffle();
 
+      // Deal all the cards
       for(i = 0; i < Deck.DECK_SIZE; i++)
       {
          hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
       }
 
+      // Display each hand
       for(i = 0; i < chooseNumPacks; i++)
       {
          hands[i].toString();
