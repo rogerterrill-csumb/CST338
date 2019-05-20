@@ -280,6 +280,12 @@ class Hand
       return true;
    }
 
+   /**
+    * Purpose: Reduces number of cards in hand
+    * Preconditions: Valid card must exist
+    * Postconditions: Decrements numCards 1
+    * @return Returns the top card
+    */
    public Card playCard()
    {
       numCards--;
@@ -287,16 +293,22 @@ class Hand
       return myCards[numCards];
    }
 
+   /**
+    * Purpose: Gives the number of cards in hand
+    * Preconditions: hand object must exist
+    * Postconditions: None
+    * @return Return int of top card
+    */
    public int getNumCards()
    {
       return numCards;
    }
 
    /**
-    * Purpose: Takes card and adds it to myCards array
-    * Preconditions: Zero or more cards existing in array
+    * Purpose: Displays the cards in the Hand
+    * Preconditions: Hand object exist
     * Postconditions: None
-    * @return Returns String that displays myCards array
+    * @return Returns String that displays card in Hand object
     */
    public String toString()
    {
@@ -317,6 +329,12 @@ class Hand
       return str;
    }
 
+   /**
+    * Purpose: Checks to see if card is still valid and enables errorFlag if not
+    * Preconditions: Cards in Hand
+    * Postconditions: Changes card errorFlag to true if card is invalid
+    * @return Returns Card with error flag True or False
+    */
    public Card inspectCard(int k)
    {
       if(k > numCards)
@@ -327,7 +345,9 @@ class Hand
    }
 }
 
-
+/**
+ * A class that provides a card object and checks to see if the card created has valid values.
+ */
 class Deck
 {
    public static final int MAX_CARDS = 312;
@@ -337,6 +357,11 @@ class Deck
    private Card[] cards = new Card[MAX_CARDS];
    private int topCard = 0;
 
+   /**
+    * Purpose: Constructor to build single deck
+    * Preconditions: None
+    * Postconditions: Creates a single deck of cards
+    */
    public Deck()
    {
       int i;
@@ -348,6 +373,12 @@ class Deck
       }
    }
 
+   /**
+    * Purpose: Constructor to build multiple decks
+    * Preconditions: None
+    * Postconditions: Creates a multiple deck of cards
+    * @param numPacks The number of pack of cards
+    */
    public Deck(int numPacks)
    {
       int i;
@@ -360,6 +391,12 @@ class Deck
 
    }
 
+   /**
+    * Purpose: Constructor to build multiple decks
+    * Preconditions: None
+    * Postconditions: Creates a multiple deck of cards
+    * @param numPacks The number of pack of cards
+    */
    public void init(int numPacks)
    {
       int i;
@@ -372,6 +409,11 @@ class Deck
       }
    }
 
+   /**
+    * Purpose: Shuffles the deck of cards
+    * Preconditions: Need a full deck of cards
+    * Postconditions: Shuffled deck
+    */
    public void shuffle()
    {
       for (int i = 0; i < topCard; i++)
@@ -383,6 +425,11 @@ class Deck
       }
    }
 
+   /**
+    * Purpose: Deals the card from the deck
+    * Preconditions: Initialized deck
+    * Postconditions: Decrements to rid of top card and returns top card
+    */
    public Card dealCard()
    {
       if(topCard > 0)
@@ -394,12 +441,22 @@ class Deck
       }
       return new Card('-', Card.Suit.spades);
    }
-
+   /**
+    * Purpose: Get the top card int
+    * Preconditions: Cards in the deck
+    * Postconditions: The int of the top card position
+    */
    public int getTopCard()
    {
       return topCard;
    }
 
+   /**
+    * Purpose: Checks the validity of card
+    * Preconditions: Cards in list
+    * Postconditions: Changes the card error attribute to true if valid and false if not valid
+    * @param k The value of the index position of card
+    */
    public Card inspectCard(int k)
    {
       if(k > topCard)
@@ -410,6 +467,11 @@ class Deck
       return cards[k];
    }
 
+   /**
+    * Purpose: Creates the initial pack all other packs reference
+    * Preconditions: none
+    * Postconditions: Masterpack created
+    */
    private static void allocateMasterPack()
    {
       int i;
