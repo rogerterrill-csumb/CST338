@@ -64,7 +64,6 @@ public class Assig3
       }
 
       Hand[] hands = new Hand[chooseNumPacks];
-
       Deck newDeck = new Deck();
 
       for(i=0; i< chooseNumPacks; i++)
@@ -243,13 +242,7 @@ class Hand
 {
    public static final int MAX_CARDS = 100;
    private Card[] myCards;
-
    private int numCards;
-
-   public int getNumCards()
-   {
-      return numCards;
-   }
 
    /**
     * Purpose: Default constructor to initialize hand object
@@ -294,6 +287,11 @@ class Hand
       return myCards[numCards];
    }
 
+   public int getNumCards()
+   {
+      return numCards;
+   }
+
    /**
     * Purpose: Takes card and adds it to myCards array
     * Preconditions: Zero or more cards existing in array
@@ -336,16 +334,14 @@ class Deck
    public static final int DECK_SIZE = 52;
 
    private static Card[] masterPack = new Card[52];
-
    private Card[] cards = new Card[MAX_CARDS];
-
    private int topCard = 0;
 
    public Deck()
    {
       int i;
       allocateMasterPack();
-      for(i = 0; i < 52; i++)
+      for(i = 0; i < DECK_SIZE; i++)
       {
          cards[i] = masterPack[i%52];
          topCard++;
@@ -356,9 +352,9 @@ class Deck
    {
       int i;
       allocateMasterPack();
-      for(i = 0; i < numPacks * 52; i++)
+      for(i = 0; i < numPacks * DECK_SIZE; i++)
       {
-         cards[i] = masterPack[i%52];
+         cards[i] = masterPack[i%DECK_SIZE];
          topCard++;
       }
 
@@ -368,9 +364,9 @@ class Deck
    {
       int i;
       topCard = 0;
-      for(i = 0; i < numPacks * 52; i++)
+      for(i = 0; i < numPacks * DECK_SIZE; i++)
       {
-         cards[i] = masterPack[i%52];
+         cards[i] = masterPack[i%DECK_SIZE];
          topCard++;
 
       }
