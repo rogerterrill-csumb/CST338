@@ -22,16 +22,27 @@ public class Assig3
     */
    public static void main(String[] args)
    {
+      //********Phase 3************/
 //      int i;
+
+      // Initialize Deck with two packs
 //      Deck myDeck = new Deck(2);
+
+      // Deal all the cards in the deck
 //      for(i = 0; i< myDeck.getTopCard(); i++)
 //      {
 //         myDeck.dealCard();
 //      }
 //
 //      System.out.println("\n\n");
+
+      // Reinitialize the deck with 2 packs
 //      myDeck.init(2);
+
+      // Shuffle cards
 //      myDeck.shuffle();
+
+      // 
 //      for(i = 0; i< myDeck.getTopCard(); i++)
 //      {
 //         myDeck.dealCard();
@@ -53,6 +64,7 @@ public class Assig3
 //         newDeck.dealCard();
 //      }
 
+      //********Phase 4************/
       Scanner keyboard = new Scanner(System.in);
       int i;
 
