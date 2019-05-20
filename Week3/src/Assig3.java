@@ -420,9 +420,9 @@ class Deck
       String cardValues = "A23456789TJQK";
 
 
-      for (i = 0; i < 52; i++)
+      if(masterPack[0] == null)
       {
-         if(masterPack[i] == null)
+         for (i = 0; i < 52; i++)
          {
             if(i/13 == 0)
             {
