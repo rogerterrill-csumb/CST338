@@ -76,6 +76,7 @@ public class Assig3
          hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
       }
 
+      System.out.println("Here are our hands, from UNSHUFFLED deck: ");
       for(i = 0; i < chooseNumPacks; i++)
       {
          hands[i].toString();
@@ -280,6 +281,12 @@ class Hand
       return true;
    }
 
+   /**
+    * Purpose: Returns and removes the card in the top occupied position of the array.
+    * Preconditions: Hand object with cards must exist
+    * Postconditions: Removes top card
+    * @return Returns the top card.
+    */
    public Card playCard()
    {
       numCards--;
@@ -287,16 +294,22 @@ class Hand
       return myCards[numCards];
    }
 
+   /**
+    * Purpose: Returns the number of cards in hand
+    * Preconditions: Existing hand object
+    * Postconditions: None
+    * @return Returns number of card int.
+    */
    public int getNumCards()
    {
       return numCards;
    }
 
    /**
-    * Purpose: Takes card and adds it to myCards array
-    * Preconditions: Zero or more cards existing in array
+    * Purpose: Displays the hand.
+    * Preconditions: None
     * Postconditions: None
-    * @return Returns String that displays myCards array
+    * @return Returns String that displays cards in hand
     */
    public String toString()
    {
@@ -317,6 +330,12 @@ class Hand
       return str;
    }
 
+   /**
+    * Purpose: Checks if the card is within hand range
+    * Preconditions: Hand object with card
+    * Postconditions: None
+    * @return Returns String that displays cards in hand
+    */
    public Card inspectCard(int k)
    {
       if(k > numCards)
@@ -462,6 +481,7 @@ class Deck
 
  PHASE4
  How many hands? (1 - 10), please: 6
+ Here are our hands, from UNSHUFFLED deck:
  Hand = ( K of diamonds, 7 of diamonds, A of diamonds, 8 of hearts, 2 of hearts, 9 of clubs, 3 of clubs, T of spades, 4 of spades )
 
  Hand = ( Q of diamonds, 6 of diamonds, K of hearts, 7 of hearts, A of hearts, 8 of clubs, 2 of clubs, 9 of spades, 3 of spades )
