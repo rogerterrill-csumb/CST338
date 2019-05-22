@@ -130,13 +130,13 @@ class BarcodeImage implements Cloneable
 
    public void displayToConsole()
    {
-      for(boolean[] i : imageData)
+      for (boolean[] i : imageData)
       {
          // Going through each row
-         for(boolean j: i)
+         for (boolean j : i)
          {
             // Knows that element i is also an iterable since it's a String
-            if(j)
+            if (j)
             {
                System.out.print('*');
             }
@@ -154,8 +154,8 @@ class BarcodeImage implements Cloneable
    {
       try
       {
-         BarcodeImage copy = (BarcodeImage)super.clone();
-         copy.imageData = (boolean[][])imageData.clone();
+         BarcodeImage copy = (BarcodeImage) super.clone();
+         copy.imageData = (boolean[][]) imageData.clone();
          return copy;
       }
       catch (CloneNotSupportedException e)
@@ -167,44 +167,57 @@ class BarcodeImage implements Cloneable
 }
 
 
-//class DataMatrix implements BarcodeIO
-//{
-//    // METHODS
-//    public DataMatrix()
-//    {
-//
-//    }
-//
-//    public DataMatrix(BarcodeImage image)
-//    {
-//
-//    }
-//
-//    public DataMatrix(String text)
-//    {
-//
-//    }
-//
-//    public readText(String text)
-//    {
-//
-//    }
-//
-//    public scan(BarcodeImage image)
-//    {
-//
-//    }
-//
-//    public actualWidth()
-//    {
-//
-//    }
-//
-//    public actualHeight()
-//    {
-//
-//    }
-//
+class DataMatrix implements BarcodeIO
+{
+   // DATA
+   public static final char BLACK_CHAR = '*';
+   public static final char WHITE_CHAR = ' ';
+   private BarcodeImage image;
+   private String text;
+   private int actualWidth, actualHeight;
+
+   // METHODS
+   public DataMatrix()
+   {
+      image = new BarcodeImage();
+      actualHeight = 0;
+      actualWidth = 0;
+      text = "";
+   }
+
+   public DataMatrix(BarcodeImage image)
+   {
+      this.image = image;
+      text = "";
+   }
+
+   public DataMatrix(String text)
+   {
+      this.text = text;
+      image = new BarcodeImage();
+   }
+
+   public boolean readText(String text)
+   {
+      this.text = text;
+      return true;
+   }
+
+   public boolean scan(BarcodeImage image)
+   {
+
+   }
+
+    public int actualWidth()
+    {
+      return actualWidth;
+    }
+
+    public int actualHeight()
+    {
+      return actualHeight;
+    }
+
 //    private int computeSignalWidth()
 //    {
 //
@@ -214,4 +227,4 @@ class BarcodeImage implements Cloneable
 //    {
 //
 //    }
-//}
+}
