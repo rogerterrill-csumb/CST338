@@ -13,7 +13,9 @@ public class Assig4
 {
    public static void main(String[] args)
    {
-      BarcodeImage newCode = new BarcodeImage();
+
+      String[] myString = {"    **", "  **  "};
+      BarcodeImage newCode = new BarcodeImage(myString);
    }
 
 
@@ -57,20 +59,53 @@ class BarcodeImage implements Cloneable
       }
    }
 
-//    public BarcodeImage(String[] strData)
-//    {
-//
-//    }
-//
-//    public boolean getPixel(int row, int col)
-//    {
-//
-//    }
-//
-//    public boolean setPixel(int row, int col, boolean value)
-//    {
-//
-//    }
+   public BarcodeImage(String[] strData)
+   {
+      imageData = new boolean[MAX_HEIGHT][MAX_WIDTH];
+      int i, j;
+      for (i = 0; i < MAX_HEIGHT; i++)
+      {
+         for (j = 0; j < MAX_WIDTH; j++)
+         {
+            imageData[i][j] = false;
+         }
+      }
+
+      for(i = 0; i < strData.length; i++)
+      {
+         for(j = 0; j < strData[i].length(); j++)
+         {
+            System.out.print(strData[i].length());
+            System.out.print(strData[i].charAt(j));
+            if(strData[i].charAt(j) == ' ')
+            {
+               System.out.println("space");
+               setPixel(i,j,false);
+            }
+            else if (strData[i].charAt(j) == '*')
+            {
+               System.out.println("space");
+               setPixel(i,j,true);
+            }
+         }
+         System.out.println();
+      }
+   }
+
+   public boolean getPixel(int row, int col)
+   {
+      return imageData[row][col];
+   }
+
+   public boolean setPixel(int row, int col, boolean value)
+   {
+      if((row < MAX_WIDTH)&& (col < MAX_HEIGHT))
+      {
+         imageData[row][col] = value;
+         return true;
+      }
+      return false;
+   }
 //
 //    // PRIVATE UTILITY METHOD
 //    private void checkSize(String[] data)
