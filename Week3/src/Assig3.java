@@ -22,16 +22,27 @@ public class Assig3
     */
    public static void main(String[] args)
    {
+      //********Phase 3************/
 //      int i;
+
+      // Initialize Deck with two packs
 //      Deck myDeck = new Deck(2);
+
+      // Deal all the cards in the deck
 //      for(i = 0; i< myDeck.getTopCard(); i++)
 //      {
 //         myDeck.dealCard();
 //      }
 //
 //      System.out.println("\n\n");
+
+      // Reinitialize the deck with 2 packs
 //      myDeck.init(2);
+
+      // Shuffle cards
 //      myDeck.shuffle();
+
+      // 
 //      for(i = 0; i< myDeck.getTopCard(); i++)
 //      {
 //         myDeck.dealCard();
@@ -53,9 +64,11 @@ public class Assig3
 //         newDeck.dealCard();
 //      }
 
+      //********Phase 4************/
       Scanner keyboard = new Scanner(System.in);
       int i;
 
+      // Check to make sure a valid number is entered
       int chooseNumPacks = 0;
       while(chooseNumPacks < 1 || chooseNumPacks > 10)
       {
@@ -63,40 +76,51 @@ public class Assig3
          chooseNumPacks = keyboard.nextInt();
       }
 
+      // Initialize a hand
       Hand[] hands = new Hand[chooseNumPacks];
+
+      // Initialize a new single deck
       Deck newDeck = new Deck();
 
+      // Initialize each number of players hands
       for(i=0; i< chooseNumPacks; i++)
       {
          hands[i] = new Hand();
       }
 
+      // Deal each player a card
       for(i = 0; i < Deck.DECK_SIZE; i++)
       {
          hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
       }
 
-      System.out.println("Here are our hands, from UNSHUFFLED deck: ");
+      // Show all players hands
       for(i = 0; i < chooseNumPacks; i++)
       {
          hands[i].toString();
          System.out.println();
       }
 
+      // Reset all players hands
       for(i = 0; i < chooseNumPacks; i++)
       {
          hands[i].resetHand();
       }
 
       System.out.println("Here are our hands, from SHUFFLED deck: ");
+      // Initialize deck to 1 pack
       newDeck.init(1);
+
+      // Shuffle the deck of cards
       newDeck.shuffle();
 
+      // Deal all the cards
       for(i = 0; i < Deck.DECK_SIZE; i++)
       {
          hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
       }
 
+      // Display each hand
       for(i = 0; i < chooseNumPacks; i++)
       {
          hands[i].toString();
@@ -282,10 +306,10 @@ class Hand
    }
 
    /**
-    * Purpose: Returns and removes the card in the top occupied position of the array.
-    * Preconditions: Hand object with cards must exist
-    * Postconditions: Removes top card
-    * @return Returns the top card.
+    * Purpose: Reduces number of cards in hand
+    * Preconditions: Valid card must exist
+    * Postconditions: Decrements numCards 1
+    * @return Returns the top card
     */
    public Card playCard()
    {
@@ -295,10 +319,10 @@ class Hand
    }
 
    /**
-    * Purpose: Returns the number of cards in hand
-    * Preconditions: Existing hand object
+    * Purpose: Gives the number of cards in hand
+    * Preconditions: hand object must exist
     * Postconditions: None
-    * @return Returns number of card int.
+    * @return Return int of top card
     */
    public int getNumCards()
    {
@@ -306,10 +330,10 @@ class Hand
    }
 
    /**
-    * Purpose: Displays the hand.
-    * Preconditions: None
+    * Purpose: Displays the cards in the Hand
+    * Preconditions: Hand object exist
     * Postconditions: None
-    * @return Returns String that displays cards in hand
+    * @return Returns String that displays card in Hand object
     */
    public String toString()
    {
@@ -331,10 +355,10 @@ class Hand
    }
 
    /**
-    * Purpose: Checks if the card is within hand range
-    * Preconditions: Hand object with card
-    * Postconditions: None
-    * @return Returns String that displays cards in hand
+    * Purpose: Checks to see if card is still valid and enables errorFlag if not
+    * Preconditions: Cards in Hand
+    * Postconditions: Changes card errorFlag to true if card is invalid
+    * @return Returns Card with error flag True or False
     */
    public Card inspectCard(int k)
    {
@@ -346,7 +370,9 @@ class Hand
    }
 }
 
-
+/**
+ * A class that provides a card object and checks to see if the card created has valid values.
+ */
 class Deck
 {
    public static final int MAX_CARDS = 312;
@@ -356,6 +382,11 @@ class Deck
    private Card[] cards = new Card[MAX_CARDS];
    private int topCard = 0;
 
+   /**
+    * Purpose: Constructor to build single deck
+    * Preconditions: None
+    * Postconditions: Creates a single deck of cards
+    */
    public Deck()
    {
       int i;
@@ -367,6 +398,12 @@ class Deck
       }
    }
 
+   /**
+    * Purpose: Constructor to build multiple decks
+    * Preconditions: None
+    * Postconditions: Creates a multiple deck of cards
+    * @param numPacks The number of pack of cards
+    */
    public Deck(int numPacks)
    {
       int i;
@@ -379,6 +416,12 @@ class Deck
 
    }
 
+   /**
+    * Purpose: Constructor to build multiple decks
+    * Preconditions: None
+    * Postconditions: Creates a multiple deck of cards
+    * @param numPacks The number of pack of cards
+    */
    public void init(int numPacks)
    {
       int i;
@@ -391,6 +434,11 @@ class Deck
       }
    }
 
+   /**
+    * Purpose: Shuffles the deck of cards
+    * Preconditions: Need a full deck of cards
+    * Postconditions: Shuffled deck
+    */
    public void shuffle()
    {
       for (int i = 0; i < topCard; i++)
@@ -402,6 +450,11 @@ class Deck
       }
    }
 
+   /**
+    * Purpose: Deals the card from the deck
+    * Preconditions: Initialized deck
+    * Postconditions: Decrements to rid of top card and returns top card
+    */
    public Card dealCard()
    {
       if(topCard > 0)
@@ -413,12 +466,22 @@ class Deck
       }
       return new Card('-', Card.Suit.spades);
    }
-
+   /**
+    * Purpose: Get the top card int
+    * Preconditions: Cards in the deck
+    * Postconditions: The int of the top card position
+    */
    public int getTopCard()
    {
       return topCard;
    }
 
+   /**
+    * Purpose: Checks the validity of card
+    * Preconditions: Cards in list
+    * Postconditions: Changes the card error attribute to true if valid and false if not valid
+    * @param k The value of the index position of card
+    */
    public Card inspectCard(int k)
    {
       if(k > topCard)
@@ -429,6 +492,11 @@ class Deck
       return cards[k];
    }
 
+   /**
+    * Purpose: Creates the initial pack all other packs reference
+    * Preconditions: none
+    * Postconditions: Masterpack created
+    */
    private static void allocateMasterPack()
    {
       int i;
@@ -469,41 +537,22 @@ class Deck
 /*****************Output**************************
  * PHASE 3
  K of diamonds / Q of diamonds / J of diamonds / T of diamonds / 9 of diamonds / 8 of diamonds / 7 of diamonds / 6 of diamonds / 5 of diamonds / 4 of diamonds / 3 of diamonds / 2 of diamonds / A of diamonds / K of hearts / Q of hearts / J of hearts / T of hearts / 9 of hearts / 8 of hearts / 7 of hearts / 6 of hearts / 5 of hearts / 4 of hearts / 3 of hearts / 2 of hearts / A of hearts / K of clubs / Q of clubs / J of clubs / T of clubs / 9 of clubs / 8 of clubs / 7 of clubs / 6 of clubs / 5 of clubs / 4 of clubs / 3 of clubs / 2 of clubs / A of clubs / K of spades / Q of spades / J of spades / T of spades / 9 of spades / 8 of spades / 7 of spades / 6 of spades / 5 of spades / 4 of spades / 3 of spades / 2 of spades / A of spades /
-
-
  3 of hearts / J of clubs / 9 of clubs / 4 of clubs / 6 of diamonds / 2 of hearts / 7 of diamonds / Q of spades / 8 of clubs / 7 of clubs / 4 of diamonds / Q of clubs / K of spades / 8 of hearts / J of spades / Q of clubs / 3 of diamonds / 5 of hearts / T of hearts / K of hearts / 6 of hearts / K of spades / T of spades / 3 of clubs / A of diamonds / 8 of spades / K of clubs / 5 of diamonds / 3 of spades / K of diamonds / T of diamonds / A of clubs / 5 of spades / J of hearts / 6 of spades / 3 of hearts / A of spades / 8 of clubs / 9 of spades / 8 of diamonds / 4 of hearts / 9 of clubs / 2 of clubs / T of diamonds / Q of diamonds / K of diamonds / 9 of diamonds / 7 of clubs / 8 of spades / J of diamonds / 3 of clubs / K of hearts /
-
-
  K of diamonds / Q of diamonds / J of diamonds / T of diamonds / 9 of diamonds / 8 of diamonds / 7 of diamonds / 6 of diamonds / 5 of diamonds / 4 of diamonds / 3 of diamonds / 2 of diamonds / A of diamonds / K of hearts / Q of hearts / J of hearts / T of hearts / 9 of hearts / 8 of hearts / 7 of hearts / 6 of hearts / 5 of hearts / 4 of hearts / 3 of hearts / 2 of hearts / A of hearts /
-
-
  A of spades / Q of hearts / 9 of hearts / 6 of spades / 5 of clubs / 7 of hearts / Q of spades / 3 of diamonds / J of diamonds / Q of diamonds / T of diamonds / 5 of hearts / K of diamonds / A of hearts / 8 of clubs / 5 of spades / 6 of clubs / 2 of spades / 4 of diamonds / 2 of diamonds / 9 of clubs / 6 of hearts / 3 of hearts / 9 of spades / 8 of hearts / 8 of diamonds /
-
  PHASE4
  How many hands? (1 - 10), please: 6
- Here are our hands, from UNSHUFFLED deck:
  Hand = ( K of diamonds, 7 of diamonds, A of diamonds, 8 of hearts, 2 of hearts, 9 of clubs, 3 of clubs, T of spades, 4 of spades )
-
  Hand = ( Q of diamonds, 6 of diamonds, K of hearts, 7 of hearts, A of hearts, 8 of clubs, 2 of clubs, 9 of spades, 3 of spades )
-
  Hand = ( J of diamonds, 5 of diamonds, Q of hearts, 6 of hearts, K of clubs, 7 of clubs, A of clubs, 8 of spades, 2 of spades )
-
  Hand = ( T of diamonds, 4 of diamonds, J of hearts, 5 of hearts, Q of clubs, 6 of clubs, K of spades, 7 of spades, A of spades )
-
  Hand = ( 9 of diamonds, 3 of diamonds, T of hearts, 4 of hearts, J of clubs, 5 of clubs, Q of spades, 6 of spades )
-
  Hand = ( 8 of diamonds, 2 of diamonds, 9 of hearts, 3 of hearts, T of clubs, 4 of clubs, J of spades, 5 of spades )
-
  Here are our hands, from SHUFFLED deck:
  Hand = ( A of diamonds, 4 of hearts, Q of hearts, 8 of diamonds, 5 of clubs, 9 of clubs, 5 of diamonds, K of spades, 2 of spades )
-
  Hand = ( 9 of diamonds, Q of spades, 5 of spades, Q of clubs, Q of diamonds, J of diamonds, 7 of hearts, T of diamonds, 6 of clubs )
-
  Hand = ( 4 of diamonds, 3 of hearts, 5 of hearts, J of spades, 6 of hearts, J of hearts, 7 of diamonds, 7 of spades, T of spades )
-
  Hand = ( 6 of spades, 3 of diamonds, 3 of clubs, 8 of clubs, A of spades, 2 of diamonds, K of clubs, J of clubs, 9 of hearts )
-
  Hand = ( 7 of clubs, K of hearts, 8 of spades, 4 of spades, 8 of hearts, 9 of spades, T of hearts, K of diamonds )
-
  Hand = ( 4 of clubs, A of hearts, A of clubs, 2 of clubs, 2 of hearts, 3 of spades, T of clubs, 6 of diamonds )
  **************************************************/
