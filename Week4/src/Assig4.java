@@ -16,12 +16,12 @@ public class Assig4
 
       String[] myString = {"    **", "  **  "};
       BarcodeImage newCode = new BarcodeImage(myString);
-      BarcodeImage copy = (BarcodeImage)newCode.clone();
-      System.out.println(newCode.getPixel(0, 5)); //True
-      System.out.println(copy.getPixel(0, 5)); //True
-      copy.setPixel(0,5,false);
-      System.out.println(newCode.getPixel(0, 5)); //False
-      System.out.println(copy.getPixel(0, 5)); //False
+//      BarcodeImage copy = (BarcodeImage)newCode.clone();
+//      System.out.println(newCode.getPixel(0, 5)); //True
+//      System.out.println(copy.getPixel(0, 5)); //True
+//      copy.setPixel(0,5,false);
+//      System.out.println(newCode.getPixel(0, 5)); //False
+//      System.out.println(copy.getPixel(0, 5)); //False
       newCode.displayToConsole();
    }
 
@@ -71,23 +71,30 @@ class BarcodeImage implements Cloneable
       if (checkSize(strData))
       {
          imageData = new boolean[MAX_HEIGHT][MAX_WIDTH];
-         int i, j;
+         int i, j, position;
+         int startRow = MAX_HEIGHT - strData.length;
+
          for (i = 0; i < MAX_HEIGHT; i++)
          {
+
             for (j = 0; j < MAX_WIDTH; j++)
             {
                imageData[i][j] = false;
             }
          }
 
-         for (i = 0; i < strData.length; i++)
+         for (i = startRow; i < MAX_HEIGHT; i++)
          {
-            for (j = 0; j < strData[i].length(); j++)
+            // This position variable is important because we want to start at the top of the strData array
+            // Despite being at the bottom of the imageData[][]
+            position = i - startRow;
+            for (j = 0; j < strData[position].length(); j++)
             {
-               if (strData[i].charAt(j) == ' ')
+               // If the first element at a particular String index
+               if (strData[position].charAt(j) == ' ')
                   setPixel(i, j, false);
 
-               else if (strData[i].charAt(j) == '*')
+               else if (strData[position].charAt(j) == '*')
                   setPixel(i, j, true);
             }
          }
