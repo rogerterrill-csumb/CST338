@@ -16,6 +16,7 @@ public class Assig4
 
       String[] myString = {"    **", "  **  "};
       BarcodeImage newCode = new BarcodeImage(myString);
+      System.out.println(newCode.getPixel(0,5));
    }
 
 
@@ -75,31 +76,27 @@ class BarcodeImage implements Cloneable
       {
          for(j = 0; j < strData[i].length(); j++)
          {
-            System.out.print(strData[i].length());
-            System.out.print(strData[i].charAt(j));
             if(strData[i].charAt(j) == ' ')
-            {
-               System.out.println("space");
                setPixel(i,j,false);
-            }
+
             else if (strData[i].charAt(j) == '*')
-            {
-               System.out.println("space");
                setPixel(i,j,true);
-            }
          }
-         System.out.println();
       }
    }
 
    public boolean getPixel(int row, int col)
    {
-      return imageData[row][col];
+      if(imageData != null)
+      {
+         return imageData[row][col];
+      }
+      return false;
    }
 
    public boolean setPixel(int row, int col, boolean value)
    {
-      if((row < MAX_WIDTH)&& (col < MAX_HEIGHT))
+      if(row < MAX_WIDTH && col < MAX_HEIGHT)
       {
          imageData[row][col] = value;
          return true;
