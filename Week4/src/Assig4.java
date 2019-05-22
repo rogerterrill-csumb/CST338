@@ -16,7 +16,13 @@ public class Assig4
 
       String[] myString = {"    **", "  **  "};
       BarcodeImage newCode = new BarcodeImage(myString);
+      BarcodeImage copy = (BarcodeImage) newCode.clone();
       System.out.println(newCode.getPixel(0,5));
+      System.out.println(copy.getPixel(0,5));
+      BarcodeImage copy2 = newCode;
+      copy.setPixel(0,5,false);
+      System.out.println(newCode.getPixel(0,5));
+      System.out.println(copy.getPixel(0,5));
    }
 
 
@@ -26,15 +32,10 @@ public class Assig4
 interface BarcodeIO
 {
    public boolean scan(BarcodeImage bc);
-
    public boolean readText(String text);
-
    public boolean generateImageFromText();
-
    public boolean translateImageToText();
-
    public void displayTextToConsole();
-
    public void displayImageToConsole();
 }
 
@@ -62,27 +63,31 @@ class BarcodeImage implements Cloneable
 
    public BarcodeImage(String[] strData)
    {
-      imageData = new boolean[MAX_HEIGHT][MAX_WIDTH];
-      int i, j;
-      for (i = 0; i < MAX_HEIGHT; i++)
+      if(checkSize(strData))
       {
-         for (j = 0; j < MAX_WIDTH; j++)
+         imageData = new boolean[MAX_HEIGHT][MAX_WIDTH];
+         int i, j;
+         for (i = 0; i < MAX_HEIGHT; i++)
          {
-            imageData[i][j] = false;
+            for (j = 0; j < MAX_WIDTH; j++)
+            {
+               imageData[i][j] = false;
+            }
+         }
+
+         for(i = 0; i < strData.length; i++)
+         {
+            for(j = 0; j < strData[i].length(); j++)
+            {
+               if(strData[i].charAt(j) == ' ')
+                  setPixel(i,j,false);
+
+               else if (strData[i].charAt(j) == '*')
+                  setPixel(i,j,true);
+            }
          }
       }
 
-      for(i = 0; i < strData.length; i++)
-      {
-         for(j = 0; j < strData[i].length(); j++)
-         {
-            if(strData[i].charAt(j) == ' ')
-               setPixel(i,j,false);
-
-            else if (strData[i].charAt(j) == '*')
-               setPixel(i,j,true);
-         }
-      }
    }
 
    public boolean getPixel(int row, int col)
@@ -103,22 +108,33 @@ class BarcodeImage implements Cloneable
       }
       return false;
    }
-//
-//    // PRIVATE UTILITY METHOD
-//    private void checkSize(String[] data)
-//    {
-//
-//    }
-//
+
+    // OPTIONAL PRIVATE HELPER METHODS
+    private boolean checkSize(String[] data)
+    {
+       if (data != null)
+         return data.length < MAX_HEIGHT && data[0].length()<MAX_WIDTH;
+       return false;
+    }
+
 //    public void displayToConsole()
 //    {
 //
 //    }
 //
-//    public void clone()
-//    {
-//
-//    }
+   @Override
+    public Object clone()
+    {
+       try
+       {
+          return super.clone();
+       }
+       catch(CloneNotSupportedException e)
+       {
+          return null;
+       }
+
+    }
 }
 
 
