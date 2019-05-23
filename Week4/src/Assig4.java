@@ -74,14 +74,14 @@ class BarcodeImage implements Cloneable
          int i, j, position;
          int startRow = MAX_HEIGHT - strData.length;
 
-         for (i = 0; i < MAX_HEIGHT; i++)
-         {
-
-            for (j = 0; j < MAX_WIDTH; j++)
-            {
-               imageData[i][j] = false;
-            }
-         }
+//         for (i = 0; i < MAX_HEIGHT; i++)
+//         {
+//
+//            for (j = 0; j < MAX_WIDTH; j++)
+//            {
+//               imageData[i][j] = false;
+//            }
+//         }
 
          for (i = startRow; i < MAX_HEIGHT; i++)
          {
@@ -139,8 +139,7 @@ class BarcodeImage implements Cloneable
             if (j)
             {
                System.out.print('*');
-            }
-            else
+            } else
             {
                System.out.print(' ');
             }
@@ -154,9 +153,7 @@ class BarcodeImage implements Cloneable
    {
       try
       {
-         BarcodeImage copy = (BarcodeImage) super.clone();
-         copy.imageData = (boolean[][]) imageData.clone();
-         return copy;
+         return (BarcodeImage) super.clone();
       }
       catch (CloneNotSupportedException e)
       {
@@ -167,64 +164,64 @@ class BarcodeImage implements Cloneable
 }
 
 
-class DataMatrix implements BarcodeIO
-{
-   // DATA
-   public static final char BLACK_CHAR = '*';
-   public static final char WHITE_CHAR = ' ';
-   private BarcodeImage image;
-   private String text;
-   private int actualWidth, actualHeight;
-
-   // METHODS
-   public DataMatrix()
-   {
-      image = new BarcodeImage();
-      actualHeight = 0;
-      actualWidth = 0;
-      text = "";
-   }
-
-   public DataMatrix(BarcodeImage image)
-   {
-      this.image = image;
-      text = "";
-   }
-
-   public DataMatrix(String text)
-   {
-      this.text = text;
-      image = new BarcodeImage();
-   }
-
-   public boolean readText(String text)
-   {
-      this.text = text;
-      return true;
-   }
-
-   public boolean scan(BarcodeImage image)
-   {
-
-   }
-
-    public int actualWidth()
-    {
-      return actualWidth;
-    }
-
-    public int actualHeight()
-    {
-      return actualHeight;
-    }
-
-//    private int computeSignalWidth()
-//    {
+//class DataMatrix implements BarcodeIO
+//{
+//   // DATA
+//   public static final char BLACK_CHAR = '*';
+//   public static final char WHITE_CHAR = ' ';
+//   private BarcodeImage image;
+//   private String text;
+//   private int actualWidth, actualHeight;
 //
-//    }
+//   // METHODS
+//   public DataMatrix()
+//   {
+//      image = new BarcodeImage();
+//      actualHeight = 0;
+//      actualWidth = 0;
+//      text = "";
+//   }
 //
-//    private  int computeSignalHeight()
-//    {
+//   public DataMatrix(BarcodeImage image)
+//   {
+//      this.image = image;
+//      text = "";
+//   }
 //
-//    }
-}
+//   public DataMatrix(String text)
+//   {
+//      this.text = text;
+//      image = new BarcodeImage();
+//   }
+//
+//   public boolean readText(String text)
+//   {
+//      this.text = text;
+//      return true;
+//   }
+//
+//   public boolean scan(BarcodeImage image)
+//   {
+//
+//   }
+//
+//   public int actualWidth()
+//   {
+//      return actualWidth;
+//   }
+//
+//   public int actualHeight()
+//   {
+//      return actualHeight;
+//   }
+//
+////    private int computeSignalWidth()
+////    {
+////
+////    }
+////
+////    private  int computeSignalHeight()
+////    {
+////
+////    }
+//}
