@@ -272,10 +272,12 @@ class DataMatrix implements BarcodeIO
          return false;
       }
 
-      //cleanImage();
-      System.out.println(findHeightOffsetFromBottom());
-      System.out.println(findWidthOffsetFromLeft());
 
+      cleanImage();
+
+      System.out.println(computeSignalHeight());
+      System.out.println(computeSignalWidth());
+      
       actualHeight = 0;
       actualWidth = 0;
       return true;
@@ -283,20 +285,7 @@ class DataMatrix implements BarcodeIO
 
    private void cleanImage()
    {
-      int i,j;
-
-      for(i = BarcodeImage.MAX_HEIGHT-1; i > 0; i--)
-      {
-         for(j = 0; j < BarcodeImage.MAX_WIDTH; j++)
-         {
-            if(image.getPixel(i,j))
-            {
-               System.out.print("Found y offset at " + i);
-               break;
-            }
-         }
-         System.out.println();
-      }
+      moveImageToLowerLeft();
    }
 
    private int findHeightOffsetFromBottom()
@@ -309,7 +298,7 @@ class DataMatrix implements BarcodeIO
          {
             if(image.getPixel(i,j))
             {
-               return i;
+               return BarcodeImage.MAX_HEIGHT - i - 1;
             }
          }
       }
@@ -336,13 +325,20 @@ class DataMatrix implements BarcodeIO
    private void moveImageToLowerLeft()
    {
       int i,j;
-      int xOffset = findWidthOffsetFromLeft();
-      int yOffset = findHeightOffsetFromBottom();
-      for(i = BarcodeImage.MAX_HEIGHT; i > yOffset; i++)
+      int widthOffset = findWidthOffsetFromLeft();
+      int heightOffset = findHeightOffsetFromBottom();
+
+//      System.out.println(widthOffset);
+//      System.out.println(heightOffset);
+
+
+      for(i =BarcodeImage.MAX_HEIGHT-1 ; i > heightOffset; i--)
       {
-         for(j = 0; j < BarcodeImage.MAX_WIDTH - xOffset; j++)
+         for(j = 0; j < BarcodeImage.MAX_WIDTH - widthOffset; j++)
          {
-            image.setPixel(i,j, image.getPixel(i+xOffset, j+yOffset));
+            //System.out.println("i: " + (i-heightOffset) + " j: " + (j+widthOffset) + " " + image.getPixel(i-heightOffset, j+widthOffset));
+            image.setPixel(i,j, image.getPixel(i-heightOffset, j+widthOffset));
+            //System.out.println("i: " + i + " j: " + j + " " + image.getPixel(i,j));
          }
       }
    }
@@ -359,12 +355,30 @@ class DataMatrix implements BarcodeIO
 
    private int computeSignalWidth()
    {
-      return 0;
+      int i,j;
+      int width = 0;
+      for(i=0;i<BarcodeImage.MAX_WIDTH; i++)
+      {
+         if(image.getPixel(BarcodeImage.MAX_HEIGHT-1, i) == true)
+         {
+            width++;
+         }
+      }
+      return width;
    }
 
    private int computeSignalHeight()
    {
-      return 0;
+      int i,j;
+      int height = 0;
+      for(i=BarcodeImage.MAX_HEIGHT-1;i>0; i--)
+      {
+         if(image.getPixel(i, 0) == true)
+         {
+            height++;
+         }
+      }
+      return height;
    }
 
 
@@ -375,6 +389,7 @@ class DataMatrix implements BarcodeIO
 
    public void displayRawImage()
    {
+      System.out.println("Displaying RAW IMAGE");
       for (int i = 0; i<BarcodeImage.MAX_HEIGHT;i++)
       {
          // Going through each row
@@ -392,5 +407,6 @@ class DataMatrix implements BarcodeIO
          }
          System.out.println();
       }
+      System.out.println("Finished Displaying RAW IMAGE");
    }
 }
