@@ -355,7 +355,7 @@ class DataMatrix implements BarcodeIO
       int width = 0;
       for(i=0;i<BarcodeImage.MAX_WIDTH; i++)
       {
-         if(image.getPixel(BarcodeImage.MAX_HEIGHT-1, i) == true)
+         if(image.getPixel(BarcodeImage.MAX_HEIGHT-1, i))
          {
             width++;
          }
@@ -369,7 +369,7 @@ class DataMatrix implements BarcodeIO
       int height = 0;
       for(i=BarcodeImage.MAX_HEIGHT-1;i>0; i--)
       {
-         if(image.getPixel(i, 0) == true)
+         if(image.getPixel(i, 0))
          {
             height++;
          }
