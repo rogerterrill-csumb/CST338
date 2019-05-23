@@ -61,7 +61,8 @@ public class Assig4
 
       dm.scan(bc);
 
-      dm.displayRawImage();
+      //dm.displayRawImage();
+      dm.displayImageToConsole();
 //
 //      bc.displayToConsole();
 //
@@ -381,6 +382,35 @@ class DataMatrix implements BarcodeIO
    private void shiftImageDown()
    {
 
+   }
+
+   public void displayImageToConsole()
+   {
+      System.out.println("Displaying Image To Console");
+      int startHeight = BarcodeImage.MAX_HEIGHT - actualHeight;
+      for(int j = 0 ; j < actualWidth + 2 ; j++)
+      {
+         System.out.print('-');
+      }
+      System.out.println();
+      for (int i = startHeight; i < BarcodeImage.MAX_HEIGHT;i++)
+      {
+         System.out.print('|');
+         // Going through each row
+         for (int j = 0; j < actualWidth; j++)
+         {
+            // Knows that element i is also an iterable since it's a String
+            if (image.getPixel(i,j))
+            {
+               System.out.print('*');
+            }
+            else
+            {
+               System.out.print(' ');
+            }
+         }
+         System.out.println('|');
+      }
    }
 
    public void displayRawImage()
