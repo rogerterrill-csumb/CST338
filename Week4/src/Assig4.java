@@ -14,15 +14,74 @@ public class Assig4
    public static void main(String[] args)
    {
 
-      String[] myString = {"    **", "  **  "};
-      BarcodeImage newCode = new BarcodeImage(myString);
-//      BarcodeImage copy = (BarcodeImage)newCode.clone();
-//      System.out.println(newCode.getPixel(0, 5)); //True
-//      System.out.println(copy.getPixel(0, 5)); //True
-//      copy.setPixel(0,5,false);
-//      System.out.println(newCode.getPixel(0, 5)); //False
-//      System.out.println(copy.getPixel(0, 5)); //False
-      newCode.displayToConsole();
+      String[] sImageIn =
+            {
+                  "                                               ",
+                  "                                               ",
+                  "                                               ",
+                  "     * * * * * * * * * * * * * * * * * * * * * ",
+                  "     *                                       * ",
+                  "     ****** **** ****** ******* ** *** *****   ",
+                  "     *     *    ****************************** ",
+                  "     * **    * *        **  *    * * *   *     ",
+                  "     *   *    *  *****    *   * *   *  **  *** ",
+                  "     *  **     * *** **   **  *    **  ***  *  ",
+                  "     ***  * **   **  *   ****    *  *  ** * ** ",
+                  "     *****  ***  *  * *   ** ** **  *   * *    ",
+                  "     ***************************************** ",
+                  "                                               ",
+                  "                                               ",
+                  "                                               "
+
+            };
+
+      String[] sImageIn_2 =
+            {
+                  "                                          ",
+                  "                                          ",
+                  "* * * * * * * * * * * * * * * * * * *     ",
+                  "*                                    *    ",
+                  "**** *** **   ***** ****   *********      ",
+                  "* ************ ************ **********    ",
+                  "** *      *    *  * * *         * *       ",
+                  "***   *  *           * **    *      **    ",
+                  "* ** * *  *   * * * **  *   ***   ***     ",
+                  "* *           **    *****  *   **   **    ",
+                  "****  *  * *  * **  ** *   ** *  * *      ",
+                  "**************************************    ",
+                  "                                          ",
+                  "                                          ",
+                  "                                          ",
+                  "                                          "
+
+            };
+
+      BarcodeImage bc = new BarcodeImage(sImageIn);
+      DataMatrix dm = new DataMatrix(bc);
+
+      dm.scan(bc);
+
+      dm.displayRawImage();
+//
+//      bc.displayToConsole();
+//
+//      // First secret message
+//      dm.translateImageToText();
+//      dm.displayTextToConsole();
+//      dm.displayImageToConsole();
+//
+//      // second secret message
+//      bc = new BarcodeImage(sImageIn_2);
+//      dm.scan(bc);
+//      dm.translateImageToText();
+//      dm.displayTextToConsole();
+//      dm.displayImageToConsole();
+//
+//      // create your own message
+//      dm.readText("What a great resume builder this is!");
+//      dm.generateImageFromText();
+//      dm.displayTextToConsole();
+//      dm.displayImageToConsole();
    }
 
 
@@ -35,13 +94,13 @@ interface BarcodeIO
 
    public boolean readText(String text);
 
-   public boolean generateImageFromText();
-
-   public boolean translateImageToText();
-
-   public void displayTextToConsole();
-
-   public void displayImageToConsole();
+//   public boolean generateImageFromText();
+//
+//   public boolean translateImageToText();
+//
+//   public void displayTextToConsole();
+//
+//   public void displayImageToConsole();
 }
 
 // Phase 2 BarcodeImage class
@@ -103,11 +162,14 @@ class BarcodeImage implements Cloneable
 
    public boolean getPixel(int row, int col)
    {
-      if (imageData != null)
+      try
       {
          return imageData[row][col];
       }
-      return false;
+      catch (Error e)
+      {
+         return false;
+      }
    }
 
    public boolean setPixel(int row, int col, boolean value)
@@ -139,7 +201,8 @@ class BarcodeImage implements Cloneable
             if (j)
             {
                System.out.print('*');
-            } else
+            }
+            else
             {
                System.out.print(' ');
             }
@@ -163,65 +226,135 @@ class BarcodeImage implements Cloneable
    }
 }
 
+class DataMatrix implements BarcodeIO
+{
+   // DATA
+   public static final char BLACK_CHAR = '*';
+   public static final char WHITE_CHAR = ' ';
+   private BarcodeImage image;
+   private String text;
+   private int actualWidth, actualHeight;
 
-//class DataMatrix implements BarcodeIO
-//{
-//   // DATA
-//   public static final char BLACK_CHAR = '*';
-//   public static final char WHITE_CHAR = ' ';
-//   private BarcodeImage image;
-//   private String text;
-//   private int actualWidth, actualHeight;
-//
-//   // METHODS
-//   public DataMatrix()
-//   {
-//      image = new BarcodeImage();
-//      actualHeight = 0;
-//      actualWidth = 0;
-//      text = "";
-//   }
-//
-//   public DataMatrix(BarcodeImage image)
-//   {
-//      this.image = image;
-//      text = "";
-//   }
-//
-//   public DataMatrix(String text)
-//   {
-//      this.text = text;
-//      image = new BarcodeImage();
-//   }
-//
-//   public boolean readText(String text)
-//   {
-//      this.text = text;
-//      return true;
-//   }
-//
-//   public boolean scan(BarcodeImage image)
-//   {
-//
-//   }
-//
-//   public int actualWidth()
-//   {
-//      return actualWidth;
-//   }
-//
-//   public int actualHeight()
-//   {
-//      return actualHeight;
-//   }
-//
-////    private int computeSignalWidth()
-////    {
-////
-////    }
-////
-////    private  int computeSignalHeight()
-////    {
-////
-////    }
-//}
+   // METHODS
+   public DataMatrix()
+   {
+      image = new BarcodeImage();
+      actualHeight = 0;
+      actualWidth = 0;
+      text = "";
+   }
+
+   public DataMatrix(BarcodeImage image)
+   {
+      this.image = image;
+      text = "";
+   }
+
+   public DataMatrix(String text)
+   {
+      this.text = text;
+      image = new BarcodeImage();
+      actualHeight = 0;
+      actualWidth = 0;
+   }
+
+   public boolean readText(String text)
+   {
+      if (text == null)
+      {
+         return false;
+      }
+      this.text = text;
+      return true;
+   }
+
+   public boolean scan(BarcodeImage image)
+   {
+      try
+      {
+         this.image = (BarcodeImage) image.clone();
+      }
+      catch (CloneNotSupportedException e)
+      {
+         return false;
+      }
+
+      cleanImage();
+      actualHeight = 0;
+      actualWidth = 0;
+      return true;
+   }
+
+   public int actualWidth()
+   {
+      return actualWidth;
+   }
+
+   public int actualHeight()
+   {
+      return actualHeight;
+   }
+
+   private int computeSignalWidth()
+   {
+      return 0;
+   }
+
+   private int computeSignalHeight()
+   {
+      return 0;
+   }
+
+   private void cleanImage()
+   {
+      int i,j;
+
+      for(i = 0; i < BarcodeImage.MAX_HEIGHT; i++ )
+      {
+         for(j = 0; j < BarcodeImage.MAX_WIDTH; j++)
+         {
+            if(image.getPixel(i,j))
+            {
+               System.out.print("*");
+            }
+            else
+            {
+               System.out.print(" ");
+            }
+         }
+         System.out.println();
+      }
+      System.out.println(image.getPixel(27,10));
+   }
+
+   private void moveImageToLowerLeft()
+   {
+
+   }
+
+   private void shiftImageDown()
+   {
+
+   }
+
+   public void displayRawImage()
+   {
+      for (int i = 0; i<BarcodeImage.MAX_HEIGHT;i++)
+      {
+         // Going through each row
+         for (int j = 0; j<BarcodeImage.MAX_WIDTH; j++)
+         {
+            // Knows that element i is also an iterable since it's a String
+            if (image.getPixel(i,j))
+            {
+               System.out.print('*');
+            }
+            else
+            {
+               System.out.print(' ');
+            }
+         }
+         System.out.println();
+      }
+   }
+}
