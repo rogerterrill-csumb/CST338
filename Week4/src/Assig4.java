@@ -133,15 +133,6 @@ class BarcodeImage implements Cloneable
          int i, j, position;
          int startRow = MAX_HEIGHT - strData.length;
 
-//         for (i = 0; i < MAX_HEIGHT; i++)
-//         {
-//
-//            for (j = 0; j < MAX_WIDTH; j++)
-//            {
-//               imageData[i][j] = false;
-//            }
-//         }
-
          for (i = startRow; i < MAX_HEIGHT; i++)
          {
             // This position variable is important because we want to start at the top of the strData array
@@ -162,14 +153,11 @@ class BarcodeImage implements Cloneable
 
    public boolean getPixel(int row, int col)
    {
-      try
+      if (imageData != null)
       {
          return imageData[row][col];
       }
-      catch (Error e)
-      {
-         return false;
-      }
+      return false;
    }
 
    public boolean setPixel(int row, int col, boolean value)
@@ -252,15 +240,19 @@ class DataMatrix implements BarcodeIO
 
    public DataMatrix(String text)
    {
-      this.text = text;
+      if(!readText(text))
+      {
+         this.text = "";
+      }
       image = new BarcodeImage();
       actualHeight = 0;
       actualWidth = 0;
    }
 
+
    public boolean readText(String text)
    {
-      if (text == null)
+      if(text == null || (text.length() > BarcodeImage.MAX_WIDTH-2))
       {
          return false;
       }
@@ -268,18 +260,20 @@ class DataMatrix implements BarcodeIO
       return true;
    }
 
+
    public boolean scan(BarcodeImage image)
    {
       try
       {
-         this.image = (BarcodeImage) image.clone();
+         this.image = (BarcodeImage)image.clone();
       }
-      catch (CloneNotSupportedException e)
+      catch (Error e)
       {
          return false;
       }
 
       cleanImage();
+
       actualHeight = 0;
       actualWidth = 0;
       return true;
