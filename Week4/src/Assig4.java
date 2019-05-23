@@ -272,11 +272,79 @@ class DataMatrix implements BarcodeIO
          return false;
       }
 
-      cleanImage();
+      //cleanImage();
+      System.out.println(findHeightOffsetFromBottom());
+      System.out.println(findWidthOffsetFromLeft());
 
       actualHeight = 0;
       actualWidth = 0;
       return true;
+   }
+
+   private void cleanImage()
+   {
+      int i,j;
+
+      for(i = BarcodeImage.MAX_HEIGHT-1; i > 0; i--)
+      {
+         for(j = 0; j < BarcodeImage.MAX_WIDTH; j++)
+         {
+            if(image.getPixel(i,j))
+            {
+               System.out.print("Found y offset at " + i);
+               break;
+            }
+         }
+         System.out.println();
+      }
+   }
+
+   private int findHeightOffsetFromBottom()
+   {
+      int i,j;
+
+      for(i = BarcodeImage.MAX_HEIGHT-1; i > 0; i--)
+      {
+         for(j = 0; j < BarcodeImage.MAX_WIDTH; j++)
+         {
+            if(image.getPixel(i,j))
+            {
+               return i;
+            }
+         }
+      }
+      return -1;
+   }
+
+   private int findWidthOffsetFromLeft()
+   {
+      int i,j;
+
+      for(i = 0; i < BarcodeImage.MAX_HEIGHT; i++)
+      {
+         for(j = 0; j < BarcodeImage.MAX_WIDTH; j++)
+         {
+            if(image.getPixel(i,j))
+            {
+               return j;
+            }
+         }
+      }
+      return -1;
+   }
+
+   private void moveImageToLowerLeft()
+   {
+      int i,j;
+      int xOffset = findWidthOffsetFromLeft();
+      int yOffset = findHeightOffsetFromBottom();
+      for(i = BarcodeImage.MAX_HEIGHT; i > yOffset; i++)
+      {
+         for(j = 0; j < BarcodeImage.MAX_WIDTH - xOffset; j++)
+         {
+            image.setPixel(i,j, image.getPixel(i+xOffset, j+yOffset));
+         }
+      }
    }
 
    public int actualWidth()
@@ -299,32 +367,6 @@ class DataMatrix implements BarcodeIO
       return 0;
    }
 
-   private void cleanImage()
-   {
-      int i,j;
-
-      for(i = 0; i < BarcodeImage.MAX_HEIGHT; i++ )
-      {
-         for(j = 0; j < BarcodeImage.MAX_WIDTH; j++)
-         {
-            if(image.getPixel(i,j))
-            {
-               System.out.print("*");
-            }
-            else
-            {
-               System.out.print(" ");
-            }
-         }
-         System.out.println();
-      }
-      System.out.println(image.getPixel(27,10));
-   }
-
-   private void moveImageToLowerLeft()
-   {
-
-   }
 
    private void shiftImageDown()
    {
