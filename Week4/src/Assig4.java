@@ -272,14 +272,10 @@ class DataMatrix implements BarcodeIO
          return false;
       }
 
-
       cleanImage();
+      actualHeight = computeSignalHeight();
+      actualWidth = computeSignalWidth();
 
-      System.out.println(computeSignalHeight());
-      System.out.println(computeSignalWidth());
-      
-      actualHeight = 0;
-      actualWidth = 0;
       return true;
    }
 
