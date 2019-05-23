@@ -201,7 +201,7 @@ class BarcodeImage implements Cloneable
    }
 
    @Override
-   public Object clone()
+   public Object clone() throws CloneNotSupportedException
    {
       try
       {
@@ -268,7 +268,7 @@ class DataMatrix implements BarcodeIO
       {
          this.image = (BarcodeImage)image.clone();
       }
-      catch (Error e)
+      catch (CloneNotSupportedException e)
       {
          return false;
       }
