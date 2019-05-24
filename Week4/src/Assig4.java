@@ -60,16 +60,13 @@ public class Assig4
       BarcodeImage bc = new BarcodeImage(sImageIn);
       DataMatrix dm = new DataMatrix(bc);
 
-      dm.scan(bc);
-      System.out.println(dm.readCharFromCol(1));
-
-      //dm.displayRawImage();
-      dm.displayImageToConsole();
-//
-//      bc.displayToConsole();
+//      dm.scan(bc);
+////
+//      dm.displayRawImage();
+//      dm.displayImageToConsole();
 //
 //      // First secret message
-//      dm.translateImageToText();
+      dm.translateImageToText();
 //      dm.displayTextToConsole();
 //      dm.displayImageToConsole();
 //
@@ -133,21 +130,16 @@ class BarcodeImage implements Cloneable
       if (checkSize(strData))
       {
          imageData = new boolean[MAX_HEIGHT][MAX_WIDTH];
-         int i, j, position;
-         int startRow = MAX_HEIGHT - strData.length;
+         int i, j;
 
-         for (i = startRow; i < MAX_HEIGHT; i++)
+         for (i = 0; i < strData.length; i++)
          {
-            // This position variable is important because we want to start at the top of the strData array
-            // Despite being at the bottom of the imageData[][]
-            position = i - startRow;
-            for (j = 0; j < strData[position].length(); j++)
+            for (j = 0; j < strData[i].length(); j++)
             {
-               // If the first element at a particular String index
-               if (strData[position].charAt(j) == ' ')
+               if (strData[i].charAt(j) == ' ')
                   setPixel(i, j, false);
 
-               else if (strData[position].charAt(j) == '*')
+               else if (strData[i].charAt(j) == '*')
                   setPixel(i, j, true);
             }
          }
@@ -165,7 +157,7 @@ class BarcodeImage implements Cloneable
 
    public boolean setPixel(int row, int col, boolean value)
    {
-      if (row < MAX_WIDTH && col < MAX_HEIGHT)
+      if (row < MAX_HEIGHT && col < MAX_WIDTH)
       {
          imageData[row][col] = value;
          return true;
@@ -183,13 +175,13 @@ class BarcodeImage implements Cloneable
 
    public void displayToConsole()
    {
-      for (boolean[] i : imageData)
+      for (int i = 0; i < MAX_HEIGHT; i++)
       {
          // Going through each row
-         for (boolean j : i)
+         for (int j = 0; j < MAX_WIDTH; j++)
          {
             // Knows that element i is also an iterable since it's a String
-            if (j)
+            if (imageData[i][j])
             {
                System.out.print('*');
             }
@@ -235,7 +227,12 @@ class DataMatrix implements BarcodeIO
 
    public DataMatrix(BarcodeImage image)
    {
-      this.image = image;
+      if(image == null)
+      {
+         this.image = new BarcodeImage();
+         text = "";
+      }
+      scan(image);
       text = "";
    }
 
@@ -352,7 +349,7 @@ class DataMatrix implements BarcodeIO
 
    private int computeSignalWidth()
    {
-      int i,j;
+      int i;
       int width = 0;
       for(i=0;i<BarcodeImage.MAX_WIDTH; i++)
       {
@@ -432,7 +429,13 @@ class DataMatrix implements BarcodeIO
 
    public boolean translateImageToText()
    {
+      String text = "";
+      for(int col = 1; col < actualWidth-1; col++)
+      {
+         text += readCharFromCol(col);
+      }
 
+      System.out.println(text);
       return true;
    }
 
@@ -442,14 +445,14 @@ class DataMatrix implements BarcodeIO
       int power = 0;
       for(int row = BarcodeImage.MAX_HEIGHT-2; row > BarcodeImage.MAX_HEIGHT-actualHeight; row--)
       {
-         System.out.println("Row " + row + " Col " + col + "Pixel Value: " + image.getPixel(row,col) + " Power is: " + power);
+//         System.out.println("Row " + row + " Col " + col + "Pixel Value: " + image.getPixel(row,col) + " Power is: " + power);
          if(image.getPixel(row,col))
          {
             value += Math.pow(2,power);
          }
          power++;
       }
-      System.out.println(value);
+//      System.out.println(value);
 
       return (char)value;
    }
