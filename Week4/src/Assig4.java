@@ -8,6 +8,7 @@
 // Lecturer's Name:     Jesse Cecil, M.S.
 // TA's Name:           Joseph Appleton
 // Lab Section:         CST 338
+import java.lang.Math;
 
 public class Assig4
 {
@@ -60,6 +61,7 @@ public class Assig4
       DataMatrix dm = new DataMatrix(bc);
 
       dm.scan(bc);
+      System.out.println(dm.readCharFromCol(1));
 
       //dm.displayRawImage();
       dm.displayImageToConsole();
@@ -97,11 +99,11 @@ interface BarcodeIO
 
 //   public boolean generateImageFromText();
 //
-//   public boolean translateImageToText();
+   public boolean translateImageToText();
 //
 //   public void displayTextToConsole();
-//
-//   public void displayImageToConsole();
+
+   public void displayImageToConsole();
 }
 
 // Phase 2 BarcodeImage class
@@ -376,12 +378,6 @@ class DataMatrix implements BarcodeIO
       return height;
    }
 
-
-   private void shiftImageDown()
-   {
-
-   }
-
    public void displayImageToConsole()
    {
       System.out.println("Displaying Image To Console");
@@ -433,4 +429,29 @@ class DataMatrix implements BarcodeIO
       }
       System.out.println("Finished Displaying RAW IMAGE");
    }
+
+   public boolean translateImageToText()
+   {
+
+      return true;
+   }
+
+   public char readCharFromCol(int col)
+   {
+      int value = 0;
+      int power = 0;
+      for(int row = BarcodeImage.MAX_HEIGHT-2; row > BarcodeImage.MAX_HEIGHT-actualHeight; row--)
+      {
+         System.out.println("Row " + row + " Col " + col + "Pixel Value: " + image.getPixel(row,col) + " Power is: " + power);
+         if(image.getPixel(row,col))
+         {
+            value += Math.pow(2,power);
+         }
+         power++;
+      }
+      System.out.println(value);
+
+      return (char)value;
+   }
+
 }
