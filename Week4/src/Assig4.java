@@ -64,15 +64,15 @@ public class Assig4
       dm.translateImageToText();
       dm.displayTextToConsole();
       dm.displayImageToConsole();
-//
-//      // second secret message
+
+      // second secret message
       bc = new BarcodeImage(sImageIn_2);
       dm.scan(bc);
       dm.translateImageToText();
       dm.displayTextToConsole();
       dm.displayImageToConsole();
-//
-//      // create your own message
+
+      // create your own message
 //      dm.readText("What a great resume builder this is!");
 //      dm.generateImageFromText();
 //      dm.displayTextToConsole();
@@ -433,7 +433,7 @@ class DataMatrix implements BarcodeIO
       return true;
    }
 
-   public char readCharFromCol(int col)
+   private char readCharFromCol(int col)
    {
       int value = 0;
       int power = 0;
@@ -449,6 +449,24 @@ class DataMatrix implements BarcodeIO
 //      System.out.println(value);
 
       return (char)value;
+   }
+
+   public boolean WriteCharToCol(int col, int code)
+   {
+      int testCode = 67;
+      int value = 0;
+      int power = 7;
+      for(int i=BarcodeImage.MAX_HEIGHT-2; i < BarcodeImage.MAX_HEIGHT-10; i--)
+      {
+         if(Math.pow(2,i) >= testCode)
+         {
+            image.setPixel(i,col, true);
+         }
+         power--;
+      }
+//      System.out.println(value);
+
+      return true;
    }
 
    public void displayTextToConsole()
