@@ -66,11 +66,11 @@ public class Assig4
       dm.displayImageToConsole();
 //
 //      // second secret message
-//      bc = new BarcodeImage(sImageIn_2);
-//      dm.scan(bc);
-//      dm.translateImageToText();
-//      dm.displayTextToConsole();
-//      dm.displayImageToConsole();
+      bc = new BarcodeImage(sImageIn_2);
+      dm.scan(bc);
+      dm.translateImageToText();
+      dm.displayTextToConsole();
+      dm.displayImageToConsole();
 //
 //      // create your own message
 //      dm.readText("What a great resume builder this is!");
@@ -93,7 +93,7 @@ interface BarcodeIO
 //
    public boolean translateImageToText();
 //
-//   public void displayTextToConsole();
+   public void displayTextToConsole();
 
    public void displayImageToConsole();
 }
@@ -227,6 +227,7 @@ class DataMatrix implements BarcodeIO
          this.image = new BarcodeImage();
          text = "";
       }
+//      this.image = image;
       scan(image);
       text = "";
    }
@@ -316,18 +317,16 @@ class DataMatrix implements BarcodeIO
       int i,j;
       int widthOffset = findWidthOffsetFromLeft();
       int heightOffset = findHeightOffsetFromBottom();
-
-//      System.out.println(widthOffset);
-//      System.out.println(heightOffset);
-
+//      System.out.println("Width Offset is: " + widthOffset + " and height offset is " + heightOffset);
 
       for(i =BarcodeImage.MAX_HEIGHT-1 ; i > heightOffset; i--)
       {
          for(j = 0; j < BarcodeImage.MAX_WIDTH - widthOffset; j++)
          {
-            //System.out.println("i: " + (i-heightOffset) + " j: " + (j+widthOffset) + " " + image.getPixel(i-heightOffset, j+widthOffset));
+//            System.out.println("i: " + (i-heightOffset) + " j: " + (j+widthOffset) + " " + image.getPixel(i-heightOffset, j+widthOffset));
             image.setPixel(i,j, image.getPixel(i-heightOffset, j+widthOffset));
-            //System.out.println("i: " + i + " j: " + j + " " + image.getPixel(i,j));
+            image.setPixel(i-heightOffset, j+widthOffset, false);
+//            System.out.println("i: " + i + " j: " + j + " " + image.getPixel(i,j));
          }
       }
    }
@@ -372,7 +371,7 @@ class DataMatrix implements BarcodeIO
 
    public void displayImageToConsole()
    {
-      System.out.println("Displaying Image To Console");
+//      System.out.println("Displaying Image To Console");
       int startHeight = BarcodeImage.MAX_HEIGHT - actualHeight;
       for(int j = 0 ; j < actualWidth + 2 ; j++)
       {
