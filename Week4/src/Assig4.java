@@ -11,7 +11,7 @@
 
 public class Assig4
 {
-   public static void main(String[] args) throws CloneNotSupportedException
+   public static void main(String[] args)
    {
 
       String[] sImageIn =
@@ -58,16 +58,6 @@ public class Assig4
 
       BarcodeImage bc = new BarcodeImage(sImageIn);
       DataMatrix dm = new DataMatrix(bc);
-
-      String[] myString = {"    **", "  **  "};
-      BarcodeImage newCode = new BarcodeImage(myString);
-      BarcodeImage copy = (BarcodeImage)newCode.clone();
-      System.out.println(newCode.getPixel(29, 3)); //True
-      System.out.println(copy.getPixel(29, 3)); //True
-      copy.setPixel(29,3, false);
-      System.out.println(newCode.getPixel(29, 3)); //True
-      System.out.println(copy.getPixel(29, 3)); //True
-
 
       dm.scan(bc);
 
