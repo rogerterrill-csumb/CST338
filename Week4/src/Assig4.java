@@ -11,53 +11,63 @@
 
 public class Assig4
 {
-   public static void main(String[] args)
+   public static void main(String[] args) throws CloneNotSupportedException
    {
 
       String[] sImageIn =
-            {
-                  "                                               ",
-                  "                                               ",
-                  "                                               ",
-                  "     * * * * * * * * * * * * * * * * * * * * * ",
-                  "     *                                       * ",
-                  "     ****** **** ****** ******* ** *** *****   ",
-                  "     *     *    ****************************** ",
-                  "     * **    * *        **  *    * * *   *     ",
-                  "     *   *    *  *****    *   * *   *  **  *** ",
-                  "     *  **     * *** **   **  *    **  ***  *  ",
-                  "     ***  * **   **  *   ****    *  *  ** * ** ",
-                  "     *****  ***  *  * *   ** ** **  *   * *    ",
-                  "     ***************************************** ",
-                  "                                               ",
-                  "                                               ",
-                  "                                               "
+              {
+                      "                                               ",
+                      "                                               ",
+                      "                                               ",
+                      "     * * * * * * * * * * * * * * * * * * * * * ",
+                      "     *                                       * ",
+                      "     ****** **** ****** ******* ** *** *****   ",
+                      "     *     *    ****************************** ",
+                      "     * **    * *        **  *    * * *   *     ",
+                      "     *   *    *  *****    *   * *   *  **  *** ",
+                      "     *  **     * *** **   **  *    **  ***  *  ",
+                      "     ***  * **   **  *   ****    *  *  ** * ** ",
+                      "     *****  ***  *  * *   ** ** **  *   * *    ",
+                      "     ***************************************** ",
+                      "                                               ",
+                      "                                               ",
+                      "                                               "
 
-            };
+              };
 
       String[] sImageIn_2 =
-            {
-                  "                                          ",
-                  "                                          ",
-                  "* * * * * * * * * * * * * * * * * * *     ",
-                  "*                                    *    ",
-                  "**** *** **   ***** ****   *********      ",
-                  "* ************ ************ **********    ",
-                  "** *      *    *  * * *         * *       ",
-                  "***   *  *           * **    *      **    ",
-                  "* ** * *  *   * * * **  *   ***   ***     ",
-                  "* *           **    *****  *   **   **    ",
-                  "****  *  * *  * **  ** *   ** *  * *      ",
-                  "**************************************    ",
-                  "                                          ",
-                  "                                          ",
-                  "                                          ",
-                  "                                          "
+              {
+                      "                                          ",
+                      "                                          ",
+                      "* * * * * * * * * * * * * * * * * * *     ",
+                      "*                                    *    ",
+                      "**** *** **   ***** ****   *********      ",
+                      "* ************ ************ **********    ",
+                      "** *      *    *  * * *         * *       ",
+                      "***   *  *           * **    *      **    ",
+                      "* ** * *  *   * * * **  *   ***   ***     ",
+                      "* *           **    *****  *   **   **    ",
+                      "****  *  * *  * **  ** *   ** *  * *      ",
+                      "**************************************    ",
+                      "                                          ",
+                      "                                          ",
+                      "                                          ",
+                      "                                          "
 
-            };
+              };
 
       BarcodeImage bc = new BarcodeImage(sImageIn);
       DataMatrix dm = new DataMatrix(bc);
+
+      String[] myString = {"    **", "  **  "};
+      BarcodeImage newCode = new BarcodeImage(myString);
+      BarcodeImage copy = (BarcodeImage)newCode.clone();
+      System.out.println(newCode.getPixel(29, 3)); //True
+      System.out.println(copy.getPixel(29, 3)); //True
+      copy.setPixel(29,3, false);
+      System.out.println(newCode.getPixel(29, 3)); //True
+      System.out.println(copy.getPixel(29, 3)); //True
+
 
       dm.scan(bc);
 
@@ -203,15 +213,15 @@ class BarcodeImage implements Cloneable
    @Override
    public Object clone() throws CloneNotSupportedException
    {
-      try
+      BarcodeImage copy = new BarcodeImage();
+      for (int i = 0; i < MAX_HEIGHT; i++)
       {
-         return (BarcodeImage) super.clone();
+         for (int j = 0; j < MAX_WIDTH; j++)
+         {
+            copy.setPixel(i, j, imageData[i][j]);
+         }
       }
-      catch (CloneNotSupportedException e)
-      {
-         return null;
-      }
-
+      return copy;
    }
 }
 
