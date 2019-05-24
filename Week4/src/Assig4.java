@@ -60,15 +60,10 @@ public class Assig4
       BarcodeImage bc = new BarcodeImage(sImageIn);
       DataMatrix dm = new DataMatrix(bc);
 
-//      dm.scan(bc);
-////
-//      dm.displayRawImage();
-//      dm.displayImageToConsole();
-//
-//      // First secret message
+      // First secret message
       dm.translateImageToText();
-//      dm.displayTextToConsole();
-//      dm.displayImageToConsole();
+      dm.displayTextToConsole();
+      dm.displayImageToConsole();
 //
 //      // second secret message
 //      bc = new BarcodeImage(sImageIn_2);
@@ -435,7 +430,7 @@ class DataMatrix implements BarcodeIO
          text += readCharFromCol(col);
       }
 
-      System.out.println(text);
+      this.text = text ;
       return true;
    }
 
@@ -455,6 +450,11 @@ class DataMatrix implements BarcodeIO
 //      System.out.println(value);
 
       return (char)value;
+   }
+
+   public void displayTextToConsole()
+   {
+      System.out.println(text);
    }
 
 }
