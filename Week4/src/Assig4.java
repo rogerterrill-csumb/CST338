@@ -203,13 +203,11 @@ class BarcodeImage implements Cloneable
    @Override
    public Object clone() throws CloneNotSupportedException
    {
-      BarcodeImage copy = new BarcodeImage();
-      for (int i = 0; i < MAX_HEIGHT; i++)
+      BarcodeImage copy = (BarcodeImage)super.clone();
+      copy.imageData = imageData.clone();
+      for(int i = 0; i < MAX_HEIGHT; i++)
       {
-         for (int j = 0; j < MAX_WIDTH; j++)
-         {
-            copy.setPixel(i, j, imageData[i][j]);
-         }
+         copy.imageData[i] = imageData[i].clone();
       }
       return copy;
    }
