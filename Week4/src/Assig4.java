@@ -459,28 +459,29 @@ class DataMatrix implements BarcodeIO
       int values = 0;
       int startingRow = 21;
 
-      for(int i=startingRow; i < BarcodeImage.MAX_HEIGHT; i++)
+      if(code > 0 && code < 255)
       {
-         values = (int)Math.pow(2,power);
-         System.out.println("2^" + power + "= " + values + " and code is:" + code);
-         System.out.println(values <= code);
+         for(int i=startingRow; i < BarcodeImage.MAX_HEIGHT; i++)
+         {
+            values = (int)Math.pow(2,power);
+            System.out.println("2^" + power + "= " + values + " and code is:" + code);
+            System.out.println(values <= code);
 
-         if((int)Math.pow(2,power) <= code)
-         {
-            System.out.println("setimage at location " + i + " " + col);
-            image.setPixel(i,col, true);
-            code -= values;
+            if((int)Math.pow(2,power) <= code)
+            {
+               System.out.println("setimage at location " + i + " " + col);
+               image.setPixel(i,col, true);
+               code -= values;
+            }
+            else
+            {
+               image.setPixel(i, col, false);
+            }
+            power--;
          }
-         else
-         {
-            image.setPixel(i, col, false);
-         }
-         power--;
+         return true;
       }
-
-//      image.setPixel(29,0,false);
-
-      return true;
+      return false;
    }
 
    public void displayTextToConsole()
