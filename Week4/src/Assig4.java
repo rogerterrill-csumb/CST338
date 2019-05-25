@@ -74,11 +74,10 @@ public class Assig4
 
       // create your own message
       dm.readText("What a great resume builder this is!");
-      dm.WriteCharToCol(0,89);
       dm.displayImageToConsole();
-//      dm.generateImageFromText();
-//      dm.displayTextToConsole();
-//      dm.displayImageToConsole();
+      dm.generateImageFromText();
+      dm.displayTextToConsole();
+      dm.displayImageToConsole();
    }
 
 
@@ -91,7 +90,7 @@ interface BarcodeIO
 
    public boolean readText(String text);
 
-//   public boolean generateImageFromText();
+   public boolean generateImageFromText();
 //
    public boolean translateImageToText();
 //
@@ -464,12 +463,12 @@ class DataMatrix implements BarcodeIO
          for(int i=startingRow; i < BarcodeImage.MAX_HEIGHT; i++)
          {
             values = (int)Math.pow(2,power);
-            System.out.println("2^" + power + "= " + values + " and code is:" + code);
-            System.out.println(values <= code);
+//            System.out.println("2^" + power + "= " + values + " and code is:" + code);
+//            System.out.println(values <= code);
 
             if((int)Math.pow(2,power) <= code)
             {
-               System.out.println("setimage at location " + i + " " + col);
+//               System.out.println("setimage at location " + i + " " + col);
                image.setPixel(i,col, true);
                code -= values;
             }
@@ -482,6 +481,19 @@ class DataMatrix implements BarcodeIO
          return true;
       }
       return false;
+   }
+
+   public boolean generateImageFromText()
+   {
+      int length = text.length();
+      actualWidth = length+2; //The 2 is for the left spine and right broken spine
+
+      for(int col = 0; col < length; col++)
+      {
+         System.out.println((int)text.charAt(col));
+         WriteCharToCol(col+1,(int)text.charAt(col));
+      }
+      return true;
    }
 
    public void displayTextToConsole()
