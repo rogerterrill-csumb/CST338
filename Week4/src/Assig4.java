@@ -91,9 +91,9 @@ interface BarcodeIO
    public boolean readText(String text);
 
    public boolean generateImageFromText();
-//
+
    public boolean translateImageToText();
-//
+
    public void displayTextToConsole();
 
    public void displayImageToConsole();
@@ -401,7 +401,6 @@ class DataMatrix implements BarcodeIO
 
    public void displayRawImage()
    {
-      System.out.println("Displaying RAW IMAGE");
       for (int i = 0; i<BarcodeImage.MAX_HEIGHT;i++)
       {
          // Going through each row
@@ -419,7 +418,6 @@ class DataMatrix implements BarcodeIO
          }
          System.out.println();
       }
-      System.out.println("Finished Displaying RAW IMAGE");
    }
 
    public boolean translateImageToText()
@@ -452,7 +450,7 @@ class DataMatrix implements BarcodeIO
       return (char)value;
    }
 
-   public boolean WriteCharToCol(int col, int code)
+   private boolean WriteCharToCol(int col, int code)
    {
       int power = 7;
       int values = 0;
@@ -490,7 +488,6 @@ class DataMatrix implements BarcodeIO
 
       for(int col = 0; col < length; col++)
       {
-         System.out.println((int)text.charAt(col));
          WriteCharToCol(col+1,(int)text.charAt(col));
       }
       return true;
