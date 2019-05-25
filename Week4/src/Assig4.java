@@ -73,7 +73,9 @@ public class Assig4
       dm.displayImageToConsole();
 
       // create your own message
-//      dm.readText("What a great resume builder this is!");
+      dm.readText("What a great resume builder this is!");
+      dm.WriteCharToCol(0,89);
+      dm.displayImageToConsole();
 //      dm.generateImageFromText();
 //      dm.displayTextToConsole();
 //      dm.displayImageToConsole();
@@ -453,18 +455,30 @@ class DataMatrix implements BarcodeIO
 
    public boolean WriteCharToCol(int col, int code)
    {
-      int testCode = 67;
-      int value = 0;
       int power = 7;
-      for(int i=BarcodeImage.MAX_HEIGHT-2; i < BarcodeImage.MAX_HEIGHT-10; i--)
+      int values = 0;
+      int startingRow = 21;
+
+      for(int i=startingRow; i < BarcodeImage.MAX_HEIGHT; i++)
       {
-         if(Math.pow(2,i) >= testCode)
+         values = (int)Math.pow(2,power);
+         System.out.println("2^" + power + "= " + values + " and code is:" + code);
+         System.out.println(values <= code);
+
+         if((int)Math.pow(2,power) <= code)
          {
+            System.out.println("setimage at location " + i + " " + col);
             image.setPixel(i,col, true);
+            code -= values;
+         }
+         else
+         {
+            image.setPixel(i, col, false);
          }
          power--;
       }
-//      System.out.println(value);
+
+//      image.setPixel(29,0,false);
 
       return true;
    }
