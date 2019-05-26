@@ -483,8 +483,25 @@ class DataMatrix implements BarcodeIO
 
    public boolean generateImageFromText()
    {
+      clearImage();
       int length = text.length();
       actualWidth = length+2; //The 2 is for the left spine and right broken spine
+
+      for(int i = BarcodeImage.MAX_HEIGHT-1; i > BarcodeImage.MAX_HEIGHT - 11 ; i--)
+      {
+         image.setPixel(i, 0, true);
+         for(int j = 0; j < actualWidth; j++)
+         {
+            if(i == 20 && j%2 == 0)
+            {
+               image.setPixel(i,j,true);
+            }
+            if((i%2) == 1 && j == actualWidth-1)
+            {
+               image.setPixel(i,j,true);
+            }
+         }
+      }
 
       for(int col = 0; col < length; col++)
       {
@@ -496,6 +513,13 @@ class DataMatrix implements BarcodeIO
    public void displayTextToConsole()
    {
       System.out.println(text);
+   }
+
+   private void clearImage()
+   {
+      for (int row = 0; row < image.MAX_HEIGHT - 1; row ++)
+         for (int col = 0; col < image.MAX_WIDTH - 1; col ++)
+            image.setPixel(row, col, false);
    }
 
 }
