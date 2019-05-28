@@ -236,18 +236,25 @@ class BarcodeImage implements Cloneable
     * Purpose: Overrides the method of that name in Cloneable interface.
     *
     * @return Returns the cloned object
-    * @throws CloneNotSupportedException
     */
    @Override
-   public Object clone() throws CloneNotSupportedException
+   public Object clone()
    {
-      BarcodeImage copy = (BarcodeImage) super.clone();
-      copy.imageData = imageData.clone();
-      for (int i = 0; i < MAX_HEIGHT; i++)
+      try
       {
-         copy.imageData[i] = imageData[i].clone();
+         BarcodeImage copy = (BarcodeImage) super.clone();
+         copy.imageData = imageData.clone();
+         for (int i = 0; i < MAX_HEIGHT; i++)
+         {
+            copy.imageData[i] = imageData[i];//.clone();
+         }
+         return copy;
       }
-      return copy;
+      catch (CloneNotSupportedException e)
+      {
+         //do nothing
+         return null;
+      }
    }
 }
 
@@ -263,19 +270,25 @@ class DataMatrix implements BarcodeIO
    public static final char BLACK_CHAR = '*';
    public static final char WHITE_CHAR = ' ';
 
-   /*  A single internal copy of any image scanned-in OR passed-into
-     the constructor OR created by BarcodeIO's generateImageFromText().*/
+   /**
+    * A single internal copy of any image scanned-in OR passed-int
+    * the constructor OR created by BarcodeIO's generateImageFromText().
+    */
    private BarcodeImage image;
 
-   // A single internal copy of any text read-in OR passed-into
-   // the constructor OR created by BarcodeIO's translateImageToText().
+   /**
+    * A single internal copy of any text read-in OR passed-into
+    * the constructor OR created by BarcodeIO's translateImageToText().
+    */
    private String text;
 
-   //  Two ints that are typically less than BarcodeImage.MAX_WIDTH
-   //  and BarcodeImage.MAX_HEIGHT which represent the actual portion
-   //  of the BarcodeImage that has the real signal.  This is dependent
-   //  on the data in the image, and can change as the image changes
-   //  through mutators.  It can be computed from the "spine" of the image.
+   /**
+    * Two ints that are typically less than BarcodeImage.MAX_WIDTH
+    * and BarcodeImage.MAX_HEIGHT which represent the actual portion
+    * of the BarcodeImage that has the real signal.  This is dependent
+    * on the data in the image, and can change as the image changes
+    * through mutators.  It can be computed from the "spine" of the image.
+    */
    private int actualWidth, actualHeight;
 
    // METHODS
@@ -358,23 +371,16 @@ class DataMatrix implements BarcodeIO
     * be compatible with the underlying BarcodeIO interface.  The catches(...) clause
     * can have an empty body that does nothing.
     *
-    * @param image a BarcodeImage object
+    * @param bc a BarcodeImage object
     * @return Returns true if successfully cloned and false if not.
     */
-   public boolean scan(BarcodeImage image)
+   public boolean scan(BarcodeImage bc)
    {
-      try
-      {
-         this.image = (BarcodeImage) image.clone();
-      }
-      catch (CloneNotSupportedException e)
-      {
-         return false;
-      }
-
+      //clone
+      this.image = (BarcodeImage) bc.clone();
       cleanImage();
-      actualHeight = computeSignalHeight();
-      actualWidth = computeSignalWidth();
+      this.actualWidth = computeSignalWidth();
+      this.actualHeight = computeSignalHeight();
 
       return true;
    }
@@ -573,14 +579,19 @@ class DataMatrix implements BarcodeIO
     */
    public boolean translateImageToText()
    {
-      String text = "";
-      for (int col = 1; col < actualWidth - 1; col++)
+      if(image != null)
       {
-         text += readCharFromCol(col);
-      }
+         String text = "";
+         for (int col = 1; col < actualWidth - 1; col++)
+         {
+            text += readCharFromCol(col);
+         }
 
-      this.text = text;
-      return true;
+         this.text = text;
+         return true;
+      }
+      return false;
+
    }
 
    /**
