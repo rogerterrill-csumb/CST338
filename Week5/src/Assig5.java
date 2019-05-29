@@ -22,16 +22,15 @@ public class Assig5
 
         for(int i = 0; i < NUM_CARD_IMAGES; i++)
         {
+            // Checks for last card and sets it to back of card and then breaks out of loop.
             if(i == NUM_CARD_IMAGES - 1)
             {
                 str = directoryPrefix + "BK.gif";
                 icon[i] = new ImageIcon(str);
-//                System.out.println(str);
                 break;
             }
             str = directoryPrefix + turnIntIntoCardValue(i%14) + turnIntIntoCardSuit(i/14) + ".gif";
             icon[i] = new ImageIcon(str);
-//            System.out.println(str);
         }
 
     }
