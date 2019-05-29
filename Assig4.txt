@@ -2,10 +2,10 @@
 // Files:               Assig4.java
 // Semester:            Summer A, 2019
 //
-// Author:              Roger Terrill, George Blombach, Dalia Faria,
+// Author:              Roger Terrill, George Blombach, Dalia Faria, 
 //                      Abby Packham, Carlos Orduna
-// Email:               rchicasterrill@csumb.edu, gblombach@csumb.edu,
-//                      dfaria@csumb.edu, apackham@csumb.edu,
+// Email:               rchicasterrill@csumb.edu, gblombach@csumb.edu, 
+//                      dfaria@csumb.edu, apackham@csumb.edu, 
 //                      cordunacorrales@csumb.edu
 // Lecturer's Name:     Jesse Cecil, M.S.
 // TA's Name:           Joseph Appleton
@@ -126,7 +126,7 @@ class BarcodeImage implements Cloneable
    // METHODs
 
    /*
-    * Purpose: Default Constructor -  instantiates a 2D array (MAX_HEIGHT x
+    * Purpose: Default Constructor -  instantiates a 2D array (MAX_HEIGHT x 
     * MAX_WIDTH) and stuffs it all with blanks (false).
     */
    public BarcodeImage()
@@ -140,7 +140,7 @@ class BarcodeImage implements Cloneable
    }
 
    /*
-    * Purpose: takes a 1D array of Strings and converts it to the internal
+    * Purpose: takes a 1D array of Strings and converts it to the internal 
     * 2D array of booleans.
     *
     * @param strData String of data that gets converted to a BarcodeImage
@@ -181,7 +181,7 @@ class BarcodeImage implements Cloneable
     * @param row   Row of the BarcodeImage object
     * @param col   Column of the BarcodeImage object
     * @param value The boolean value to change the pixel too
-    * @return Returns boolean value, true for successfully changed, and false
+    * @return Returns boolean value, true for successfully changed, and false 
     * if not.
     */
    public boolean setPixel(int row, int col, boolean value)
@@ -260,10 +260,10 @@ class BarcodeImage implements Cloneable
 }
 
 /**
- * Purpose: This class is a pseudo Datamatrix data structure, not a true
- * Datamatrix,because it does not contain any error correction or encoding.
- * However, it does have the 2D array format and a left and bottom BLACK
- * "spine" as well as an alternating right and top BLACK-WHITE pattern as seen
+ * Purpose: This class is a pseudo Datamatrix data structure, not a true 
+ * Datamatrix,because it does not contain any error correction or encoding.  
+ * However, it does have the 2D array format and a left and bottom BLACK 
+ * "spine" as well as an alternating right and top BLACK-WHITE pattern as seen 
  * in the image.
  */
 /* Name: Class DataMatrix
@@ -341,7 +341,7 @@ class DataMatrix implements BarcodeIO
    }
 
    /* Name: computeSignalWidth()
-    * Purpose: Determines the the width of the signal by counting the bottom
+    * Purpose: Determines the the width of the signal by counting the bottom 
     *    spine
     * Preconditions: None
     * Postconditions: Returns integer
@@ -444,13 +444,13 @@ class DataMatrix implements BarcodeIO
          this.image.setPixel(image.MAX_HEIGHT - this.actualHeight + i, 0, true);
          if (i % 2 == 0)
             this.image.setPixel(image.MAX_HEIGHT - this.actualHeight + i,
-                    this.actualWidth - 1, true);
+               this.actualWidth - 1, true);
       }
 
       //get ascii value of string
       for (int index = 0; index < text.length(); index++)
-         writeCharToCol(index, (int) text.charAt(index)); //write to array col
-
+          writeCharToCol(index, (int) text.charAt(index)); //write to array col
+ 
       return true;
    }
 
@@ -467,7 +467,7 @@ class DataMatrix implements BarcodeIO
       for (int index = 0; index < binData.length(); index++)
          if ((int) (binData.charAt(index)) == one)
             this.image.setPixel((this.image.MAX_HEIGHT - this.actualHeight - 1 +
-                    (this.actualHeight - binData.length()) + index), col + 1, true);
+               (this.actualHeight - binData.length()) + index), col + 1, true);
 
       return true;
    }
@@ -529,7 +529,7 @@ class DataMatrix implements BarcodeIO
       for (int row = (image.MAX_HEIGHT - getActualHeight());
            row < image.MAX_HEIGHT; row++)
       {
-         //print left side border
+         //print left side border 
          System.out.print("|");
          for (int col = 0; col < getActualWidth(); col++)
             if (image.getPixel(row, col) == true)
