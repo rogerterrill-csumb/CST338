@@ -15,22 +15,29 @@ public class Assig5
       // build the file names ("AC.gif", "2C.gif", "3C.gif", "TC.gif", etc.)
       // in a SHORT loop.  For each file name, read it in and use it to
       // instantiate each of the 57 Icons in the icon[] array.
+
+      // String to save the concatenated file name
       String str = "";
 
       // Directory prefix to take into account different IDEs
       String directoryPrefix = "images\\";
 
-      for (int i = 0; i < NUM_CARD_IMAGES; i++)
+      // Loop that concatenates strings to create filename corresponding to the images directory
+      for (int card = 0; card < NUM_CARD_IMAGES; card++)
       {
-         // Checks for last card and sets it to back of card and then breaks out of loop.
-         if (i == NUM_CARD_IMAGES - 1)
+         // Checks for last card and sets it to "BK.gif" and then breaks out of loop.
+         if (card == NUM_CARD_IMAGES - 1)
          {
             str = directoryPrefix + "BK.gif";
-            icon[i] = new ImageIcon(str);
+            icon[card] = new ImageIcon(str);
             break;
          }
-         str = directoryPrefix + turnIntIntoCardValue(i % 14) + turnIntIntoCardSuit(i / 14) + ".gif";
-         icon[i] = new ImageIcon(str);
+
+         // Concatenated string representing the filename of the card
+         str = directoryPrefix + turnIntIntoCardValue(card % 14) + turnIntIntoCardSuit(card / 14) + ".gif";
+
+         // Newly created card with file path
+         icon[card] = new ImageIcon(str);
       }
 
    }
