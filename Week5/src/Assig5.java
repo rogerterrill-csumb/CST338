@@ -16,7 +16,9 @@ public class Assig5
         // in a SHORT loop.  For each file name, read it in and use it to
         // instantiate each of the 57 Icons in the icon[] array.
         String str = "";
-        String directoryPrefix = "resources\\";
+
+        // Directory prefix to take into account different IDEs
+        String directoryPrefix = "images\\";
 
         for(int i = 0; i < NUM_CARD_IMAGES; i++)
         {
