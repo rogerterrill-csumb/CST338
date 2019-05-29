@@ -20,6 +20,7 @@ public class Assig5
       String str = "";
 
       // Directory prefix to take into account different IDEs
+      // Might need to change prefix to something else ie "images/"
       String directoryPrefix = "images\\";
 
       // Loop that concatenates strings to create filename corresponding to the images directory
@@ -47,6 +48,12 @@ public class Assig5
    {
       // an idea for a helper method (do it differently if you wish)
       String[] cardValues = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "X"};
+
+      // Checks to see if k is outside the range of cardValues index
+      if(k < 0 || k > cardValues.length-1)
+      {
+         return "Invalid Value";
+      }
       return cardValues[k];
    }
 
@@ -55,6 +62,12 @@ public class Assig5
    {
       // an idea for another helper method (do it differently if you wish)
       String[] cardSuits = {"C", "D", "H", "S"};
+
+      // Check to see if j outside the range of cardSuits
+      if( j < 0 || j > cardSuits.length-1)
+      {
+         return "Invalid Suit";
+      }
       return cardSuits[j];
    }
 
