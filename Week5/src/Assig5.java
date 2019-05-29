@@ -24,12 +24,12 @@ public class Assig5
             {
                 str = directoryPrefix + "BK.gif";
                 icon[i] = new ImageIcon(str);
-                System.out.println(str);
+//                System.out.println(str);
                 break;
             }
             str = directoryPrefix + turnIntIntoCardValue(i%14) + turnIntIntoCardSuit(i/14) + ".gif";
             icon[i] = new ImageIcon(str);
-            System.out.println(str);
+//            System.out.println(str);
         }
 
     }
@@ -37,64 +37,16 @@ public class Assig5
     static String turnIntIntoCardValue(int k)
     {
         // an idea for a helper method (do it differently if you wish)
-        switch (k)
-        {
-            case 0:
-                return "A";
-            case 1:
-                return "2";
-            case 2:
-                return "3";
-            case 3:
-                return "4";
-            case 4:
-                return "5";
-            case 5:
-                return "6";
-            case 6:
-                return "7";
-            case 7:
-                return "8";
-            case 8:
-                return "9";
-            case 9:
-                return "T";
-            case 10:
-                return "J";
-            case 11:
-                return "Q";
-            case 12:
-                return "K";
-            case 13:
-                return "X";
-            default:
-                System.out.println("ERROR: Unknown value");
-                break;
-
-        }
-        return "Error";
+        String[] cardValues = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "X"};
+        return cardValues[k];
     }
 
     // turns 0 - 3 into "C", "D", "H", "S"
     static String turnIntIntoCardSuit(int j)
     {
         // an idea for another helper method (do it differently if you wish)
-        switch(j)
-        {
-            case 0:
-                return "C";
-            case 1:
-                return "D";
-            case 2:
-                return "H";
-            case 3:
-                return "S";
-            default:
-                System.out.println("ERROR: Unknown suit");
-                break;
-
-        }
-        return "Error";
+        String[] cardSuits = {"C", "D", "H", "S"};
+        return cardSuits[j];
     }
 
     // a simple main to throw all the JLabels out there for the world to see
