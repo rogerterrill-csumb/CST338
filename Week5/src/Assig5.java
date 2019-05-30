@@ -45,7 +45,9 @@ public class Assig5
       for (int card = 0; card < NUM_CARD_IMAGES - 1; card++)
       {
          // Concatenated string representing the filename of the card
-         str = directoryPrefix + turnIntIntoCardValue(card % 14) + turnIntIntoCardSuit(card / 14) + ".gif";
+         str = directoryPrefix +
+                 turnIntIntoCardValue(card % 14) +
+                 turnIntIntoCardSuit(card / 14) + ".gif";
 
          // Newly created card with file path
          icon[card] = new ImageIcon(str);
@@ -60,7 +62,8 @@ public class Assig5
    static String turnIntIntoCardValue(int k)
    {
       // an idea for a helper method (do it differently if you wish)
-      String[] cardValues = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "X"};
+      String[] cardValues = {"A", "2", "3", "4", "5", "6",
+              "7", "8", "9", "T", "J", "Q", "K", "X"};
 
       // Checks to see if k is outside the range of cardValues index
       if (k < 0 || k > cardValues.length - 1)
