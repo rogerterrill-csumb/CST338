@@ -45,9 +45,9 @@ public class Assig5
 
       // Loop that concatenates strings to create filename corresponding
       // to the images directory
-      for( int value = 0; value < 14 ; value++)
+      for( int suit = 0; suit < 4 ; suit++)
       {
-         for ( int suit = 0; suit < 4; suit++)
+         for ( int value = 0; value < 14; value++)
          {
             // Concatenated string representing the filename of the card
             str = directoryPrefix +
