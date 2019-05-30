@@ -36,21 +36,27 @@ public class Assig5
       // String to save the concatenated file name
       String str = "";
 
+      int card = 0;
+
       // Directory prefix to take into account different IDEs
       // Might need to change prefix to something else ie "images/"
       String directoryPrefix = "images\\";
 
+
       // Loop that concatenates strings to create filename corresponding
       // to the images directory
-      for (int card = 0; card < NUM_CARD_IMAGES - 1; card++)
+      for( int value = 0; value < 14 ; value++)
       {
-         // Concatenated string representing the filename of the card
-         str = directoryPrefix +
-                 turnIntIntoCardValue(card % 14) +
-                 turnIntIntoCardSuit(card / 14) + ".gif";
-
-         // Newly created card with file path
-         icon[card] = new ImageIcon(str);
+         for ( int suit = 0; suit < 4; suit++)
+         {
+            // Concatenated string representing the filename of the card
+            str = directoryPrefix +
+                    turnIntIntoCardValue(value) +
+                    turnIntIntoCardSuit(suit) + ".gif";
+            // Create ImageIcon per card
+            icon[card] = new ImageIcon(str);
+            card++;
+         }
       }
 
       // Checks for last card and sets it to "BK.gif" and then breaks out of loop.
