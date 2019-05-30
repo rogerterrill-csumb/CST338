@@ -22,47 +22,6 @@ public class Assig3
     */
    public static void main(String[] args)
    {
-      //********Phase 3************/
-//      int i;
-
-      // Initialize Deck with two packs
-//      Deck myDeck = new Deck(2);
-
-      // Deal all the cards in the deck
-//      for(i = 0; i< myDeck.getTopCard(); i++)
-//      {
-//         myDeck.dealCard();
-//      }
-//
-//      System.out.println("\n\n");
-
-      // Reinitialize the deck with 2 packs
-//      myDeck.init(2);
-
-      // Shuffle cards
-//      myDeck.shuffle();
-
-      //
-//      for(i = 0; i< myDeck.getTopCard(); i++)
-//      {
-//         myDeck.dealCard();
-//      }
-//
-//
-//      System.out.println("\n\n");
-//      Deck newDeck = new Deck();
-//      for(i = 0; i< newDeck.getTopCard(); i++)
-//      {
-//         newDeck.dealCard();
-//      }
-//
-//      System.out.println("\n\n");
-//      newDeck.init(1);
-//      newDeck.shuffle();
-//      for(i = 0; i< newDeck.getTopCard(); i++)
-//      {
-//         newDeck.dealCard();
-//      }
 
       //********Phase 4************/
       Scanner keyboard = new Scanner(System.in);
@@ -127,6 +86,7 @@ public class Assig3
          System.out.println();
       }
 
+      // Testing the sort method in the Card Class
       hands[0].sort();
       hands[1].sort();
 
