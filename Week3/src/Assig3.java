@@ -42,7 +42,7 @@ public class Assig3
       // Shuffle cards
 //      myDeck.shuffle();
 
-      // 
+      //
 //      for(i = 0; i< myDeck.getTopCard(); i++)
 //      {
 //         myDeck.dealCard();
@@ -127,6 +127,16 @@ public class Assig3
          System.out.println();
       }
 
+      hands[0].sort();
+      hands[1].sort();
+
+      for(i = 0; i < chooseNumPacks; i++)
+      {
+         hands[i].toString();
+         System.out.println();
+      }
+
+
    }
 }
 
@@ -136,7 +146,7 @@ public class Assig3
 class Card
 {
    public enum Suit {clubs, diamonds, hearts, spades}
-
+   public static char[] valuRanks = {'A','2','3','4','5','6','7','8','9','T','J','Q','K','X'};
    private char value;
    private Suit suit;
    private boolean errorFlag;
@@ -258,6 +268,42 @@ class Card
       }
       return false;
    }
+
+   public static void arraySort(Card[] cardArray, int arraySize)
+   { // cardArray is Hand myCards, arraySize is numCards
+
+      int n = arraySize;
+      Card temp;
+
+      for (int i = 0; i < n; i++)
+      {
+         for (int j = 1; j < (n - i); j++)
+         {
+            int value1 = valueOfCard(cardArray[j - 1]);
+            int value2 = valueOfCard(cardArray[j]);
+
+            if (value1 > value2)
+            {
+               temp = cardArray[j - 1];
+               cardArray[j - 1] = cardArray[j];
+               cardArray[j] = temp;
+            }
+
+         }
+      }
+   }
+
+   static int valueOfCard(Card card)
+   {
+      for(int i = 0; i < valuRanks.length; i++)
+      {
+         if(card.getValue() == valuRanks[i])
+         {
+            return i;
+         }
+      }
+      return 0;
+   }
 }
 
 /**
@@ -367,6 +413,32 @@ class Hand
          return new Card('0', Card.Suit.spades);
       }
       return myCards[k];
+   }
+
+   public void sort()
+   {
+      Card.arraySort(myCards, numCards);
+   }
+
+   public Card playCard(int cardIndex)
+   {
+      if ( numCards == 0 ) //error
+      {
+         //Creates a card that does not work
+         return new Card('M', Card.Suit.spades);
+      }
+      //Decreases numCards.
+      Card card = myCards[cardIndex];
+
+      numCards--;
+      for(int i = cardIndex; i < numCards; i++)
+      {
+         myCards[i] = myCards[i+1];
+      }
+
+      myCards[numCards] = null;
+
+      return card;
    }
 }
 
