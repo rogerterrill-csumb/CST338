@@ -2,7 +2,7 @@
  * Title:               GUI Cards Phase 1
  * Files:               Assig5.java
  * Semester:            Summer A, 2019
- * Date:
+ * Date:                June 3, 2019
  *
  * Author:              Roger Terrill, George Blombach, Dalia Faria,
  *                      Abby Packham, Carlos Orduna
