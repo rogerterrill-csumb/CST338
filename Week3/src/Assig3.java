@@ -101,6 +101,9 @@ public class Assig3
       Deck guiDeck = new Deck(3);
 
       Card newCard = new Card();
+
+
+      guiDeck.toString();
       // Testing adding card
       guiDeck.addCard(newCard);
 
@@ -111,6 +114,15 @@ public class Assig3
       guiDeck.removeCard(newCard);
       guiDeck.removeCard(newCard);
       guiDeck.removeCard(newCard);
+
+      // Shows deck with removed Ace of Spades
+      guiDeck.toString();
+
+      // Sorts the remaining Cards
+      guiDeck.sort();
+
+      // Displays the sorted cards
+      guiDeck.toString();
    }
 }
 
@@ -631,6 +643,30 @@ class Deck
       System.out.println("Did not remove card, none left");
       System.out.println(topCard);
       return false;
+   }
+
+   public void sort()
+   {
+      Card.arraySort(cards, topCard);
+   }
+
+   public String toString()
+   {
+      String str;
+      str = "Deck = ( ";
+      int i;
+      for(i=0; i < getNumCards(); i++)
+      {
+         str += (cards[i].toString());
+         if(i < getNumCards() -1)
+         {
+            str+= ", ";
+         }
+      }
+      str += " )";
+
+      System.out.println(str);
+      return str;
    }
 }
 
