@@ -44,13 +44,13 @@ public class Assig5_2
       myCardTable.setVisible(true);
 
       // CREATE LABELS ----------------------------------------------------
-      code goes here ...
+      //code goes here ...
 
       // ADD LABELS TO PANELS -----------------------------------------
-      code goes here ...
+      //code goes here ...
 
       // and two random cards in the play region (simulating a computer/hum ply)
-      code goes here ...
+      //code goes here ...
 
       // show everything to the user
       myCardTable.setVisible(true);
@@ -67,4 +67,23 @@ class CardTable extends JFrame
 
    public JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea;
 
+   /*
+   The constructor filters input, adds any panels to the JFrame,
+   and establishes layouts according to the general description
+    */
+   CardTable(String title, int numCardsPerHand, int numPlayers)
+   {
+      super(title);
+
+   }
+
+   public int getNumCardsPerHand()
+   {
+      return numCardsPerHand;
+   }
+
+   public int getNumPlayers()
+   {
+      return numPlayers;
+   }
 }
