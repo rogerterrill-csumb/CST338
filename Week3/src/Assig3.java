@@ -99,8 +99,18 @@ public class Assig3
 
       // Initialize a new single deck
       Deck guiDeck = new Deck(3);
-      guiDeck.addCard(new Card());
 
+      Card newCard = new Card();
+      // Testing adding card
+      guiDeck.addCard(newCard);
+
+      // Testing removeCard, three ace of spades are created
+      // in the new pack so I remove the three and the 4th is false
+      // as there are no more Ace of Spades left
+      guiDeck.removeCard(newCard);
+      guiDeck.removeCard(newCard);
+      guiDeck.removeCard(newCard);
+      guiDeck.removeCard(newCard);
    }
 }
 
@@ -603,6 +613,24 @@ class Deck
       System.out.println("Added the card to the deck");
       cards[topCard] = card;
       return true;
+   }
+
+   public boolean removeCard(Card card)
+   {
+      for(int i = 0; i < topCard; i++)
+      {
+         if(cards[i].equals(card))
+         {
+            System.out.println("Removed Card Successfully");
+            cards[i] = cards[topCard-1];
+            topCard--;
+            return true;
+         }
+      }
+
+      System.out.println("Did not remove card, none left");
+      System.out.println(topCard);
+      return false;
    }
 }
 
