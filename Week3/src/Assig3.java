@@ -9,6 +9,7 @@
 // Lab Section:         CST 338
 
 import java.util.Scanner;
+
 /**
  * Main working class that utilizes the card class to build card objects
  */
@@ -29,7 +30,7 @@ public class Assig3
 
       // Check to make sure a valid number is entered
       int chooseNumPacks = 0;
-      while(chooseNumPacks < 1 || chooseNumPacks > 10)
+      while (chooseNumPacks < 1 || chooseNumPacks > 10)
       {
          System.out.print("How many hands? (1 - 10), please: ");
          chooseNumPacks = keyboard.nextInt();
@@ -42,26 +43,26 @@ public class Assig3
       Deck newDeck = new Deck();
 
       // Initialize each number of players hands
-      for(i=0; i< chooseNumPacks; i++)
+      for (i = 0; i < chooseNumPacks; i++)
       {
          hands[i] = new Hand();
       }
 
       // Deal each player a card
-      for(i = 0; i < Deck.DECK_SIZE; i++)
+      for (i = 0; i < Deck.DECK_SIZE; i++)
       {
-         hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
+         hands[i % chooseNumPacks].takeCard(newDeck.dealCard());
       }
 
       // Show all players hands
-      for(i = 0; i < chooseNumPacks; i++)
+      for (i = 0; i < chooseNumPacks; i++)
       {
          hands[i].toString();
          System.out.println();
       }
 
       // Reset all players hands
-      for(i = 0; i < chooseNumPacks; i++)
+      for (i = 0; i < chooseNumPacks; i++)
       {
          hands[i].resetHand();
       }
@@ -74,13 +75,13 @@ public class Assig3
       newDeck.shuffle();
 
       // Deal all the cards
-      for(i = 0; i < Deck.DECK_SIZE; i++)
+      for (i = 0; i < Deck.DECK_SIZE; i++)
       {
-         hands[i%chooseNumPacks].takeCard(newDeck.dealCard());
+         hands[i % chooseNumPacks].takeCard(newDeck.dealCard());
       }
 
       // Display each hand
-      for(i = 0; i < chooseNumPacks; i++)
+      for (i = 0; i < chooseNumPacks; i++)
       {
          hands[i].toString();
          System.out.println();
@@ -90,14 +91,14 @@ public class Assig3
       hands[0].sort();
 //      hands[1].sort();
 
-      for(i = 0; i < chooseNumPacks; i++)
+      for (i = 0; i < chooseNumPacks; i++)
       {
          hands[i].toString();
          System.out.println();
       }
 
 
-      // Initialize a new single deck
+      // Initialize a new single deck to test GUI additions
       Deck guiDeck = new Deck(3);
 
       Card newCard = new Card();
@@ -123,16 +124,26 @@ public class Assig3
 
       // Displays the sorted cards
       guiDeck.toString();
+
+      // Add two Ace of Spades back
+      guiDeck.addCard(newCard);
+      guiDeck.addCard(newCard);
+
+      guiDeck.toString();
    }
 }
 
 /**
- * A class that provides a card object and checks to see if the card created has valid values.
+ * A class that provides a card object and checks to see if the card
+ * created has valid values.
  */
 class Card
 {
-   public enum Suit {clubs, diamonds, hearts, spades}
-   public static char[] valuRanks = {'A','2','3','4','5','6','7','8','9','T','J','Q','K','X'};
+   public enum Suit
+   {clubs, diamonds, hearts, spades}
+
+   public static char[] valuRanks = {'A', '2', '3', '4', '5', '6', '7', '8',
+         '9', 'T', 'J', 'Q', 'K', 'X'};
    private char value;
    private Suit suit;
    private boolean errorFlag;
@@ -152,8 +163,9 @@ class Card
     * Purpose: Overloaded constructor with two parameters to initialize card.
     * Preconditions: Access to set() method.
     * Postconditions: Utilizes set method to initialize card.
+    *
     * @param value The char value of the card.
-    * @param suit The enum suit of the card
+    * @param suit  The enum suit of the card
     */
    public Card(char value, Suit suit)
    {
@@ -164,6 +176,7 @@ class Card
     * Purpose: To return a String that displays card value and suit.
     * Preconditions: Initialized card object.
     * Postconditions: Sets value for card object based on parameters.
+    *
     * @return Returns a String displaying the value and suit of card or illegal if a errorFlag is true
     */
    public String toString()
@@ -179,6 +192,7 @@ class Card
     * Purpose: Sets card value and suit if the arguments are valid.
     * Preconditions: empty card initialized
     * Postconditions: Sets the errorFlag to true if valid or false otherwise.
+    *
     * @return Returns a boolean of true if arguments are valid and false if not
     */
    public boolean set(char value, Suit suit)
@@ -198,6 +212,7 @@ class Card
     * Purpose: Get value of value.
     * Preconditions: card object successfully set
     * Postconditions: none
+    *
     * @return Returns char value of card object
     */
    public char getValue()
@@ -209,6 +224,7 @@ class Card
     * Purpose: Get enum suit of suit.
     * Preconditions: card object successfully set
     * Postconditions: none
+    *
     * @return Returns enum suit
     */
    public Suit getSuit()
@@ -220,6 +236,7 @@ class Card
     * Purpose: Get value of errorFlag.
     * Preconditions: card object successfully set
     * Postconditions: none
+    *
     * @return Returns char value of card object
     */
    public boolean isErrorFlag()
@@ -231,6 +248,7 @@ class Card
     * Purpose: Checks the equality of two objects and there members
     * Preconditions: card object successfully set
     * Postconditions: none
+    *
     * @return Returns boolean result after checking if both value and suit are equal
     */
    public boolean equals(Card card)
@@ -241,57 +259,73 @@ class Card
 
    /**
     * Purpose: Checks the validity of the arguments passed into method by
-    *          checking if they are in our cardValues array
+    * checking if they are in our cardValues array
     * Preconditions: card object initialized
     * Postconditions: none
+    *
     * @return Returns boolean depending if the value passed into the method is
-    *          in our approved array list as true and if not in our list,
-    *          returns false
+    * in our approved array list as true and if not in our list,
+    * returns false
     */
    private boolean isValid(char value, Suit suit)
    {
       String cardValues = "A23456789TJQKX";
-      if(cardValues.indexOf(value) != -1)
+      if (cardValues.indexOf(value) != -1)
       {
          return true;
       }
       return false;
    }
 
+   /**
+    * Purpose: Sort an array of cards from smallest to largest
+    *
+    * @param cardArray Array of cards
+    * @param arraySize Number of cards in the array
+    */
    public static void arraySort(Card[] cardArray, int arraySize)
    { // cardArray is Hand myCards, arraySize is numCards
 
-      int n = arraySize;
       Card temp;
 
-      for (int i = 0; i < n; i++)
+      // Bubble sort algorithm
+      for (int card = 0; card < arraySize; card++)
       {
-         for (int j = 1; j < (n - i); j++)
+         for (int nextCard = 1; nextCard < (arraySize - card); nextCard++)
          {
-            int value1 = valueOfCard(cardArray[j - 1]);
-            int value2 = valueOfCard(cardArray[j]);
+            int previousCard = valueOfCard(cardArray[nextCard - 1]);
+            int currentCard = valueOfCard(cardArray[nextCard]);
 
-            if (value1 > value2)
+            if (previousCard > currentCard)
             {
-               temp = cardArray[j - 1];
-               cardArray[j - 1] = cardArray[j];
-               cardArray[j] = temp;
+               temp = cardArray[nextCard - 1];
+               cardArray[nextCard - 1] = cardArray[nextCard];
+               cardArray[nextCard] = temp;
             }
 
          }
       }
    }
 
+   /**
+    * Purpose: Return the numerical value of card based on index position
+    *
+    * @param card Card object whose value we want
+    * @return Returns int card value
+    */
    static int valueOfCard(Card card)
    {
-      for(int i = 0; i < valuRanks.length; i++)
+
+      // It traverses the valueRanks and check which matches the card value
+      // Then it returns the index position as the value
+      for (int value = 0; value < valuRanks.length; value++)
       {
-         if(card.getValue() == valuRanks[i])
+         if (card.getValue() == valuRanks[value])
          {
-            return i;
+            return value;
          }
       }
-      return 0;
+      return -1;
    }
 }
 
@@ -330,6 +364,7 @@ class Hand
     * Purpose: Takes card and adds it to myCards array
     * Preconditions: Valid card must exist
     * Postconditions: Adds card to array and iterates numCards +1
+    *
     * @param card A valid card object from the card class
     * @return Returns true if successfully took card
     */
@@ -345,6 +380,7 @@ class Hand
     * Purpose: Reduces number of cards in hand
     * Preconditions: Valid card must exist
     * Postconditions: Decrements numCards 1
+    *
     * @return Returns the top card
     */
    public Card playCard()
@@ -358,6 +394,7 @@ class Hand
     * Purpose: Gives the number of cards in hand
     * Preconditions: hand object must exist
     * Postconditions: None
+    *
     * @return Return int of top card
     */
    public int getNumCards()
@@ -369,6 +406,7 @@ class Hand
     * Purpose: Displays the cards in the Hand
     * Preconditions: Hand object exist
     * Postconditions: None
+    *
     * @return Returns String that displays card in Hand object
     */
    public String toString()
@@ -376,12 +414,12 @@ class Hand
       String str;
       str = "Hand = ( ";
       int i;
-      for(i=0; i < numCards; i++)
+      for (i = 0; i < numCards; i++)
       {
          str += (myCards[i].toString());
-         if(i < numCards -1)
+         if (i < numCards - 1)
          {
-            str+= ", ";
+            str += ", ";
          }
       }
       str += " )";
@@ -394,25 +432,35 @@ class Hand
     * Purpose: Checks to see if card is still valid and enables errorFlag if not
     * Preconditions: Cards in Hand
     * Postconditions: Changes card errorFlag to true if card is invalid
+    *
     * @return Returns Card with error flag True or False
     */
    public Card inspectCard(int k)
    {
-      if(k > numCards)
+      if (k > numCards)
       {
          return new Card('0', Card.Suit.spades);
       }
       return myCards[k];
    }
 
+   /**
+    * Purpose: Sort the card in Hand object
+    */
    public void sort()
    {
       Card.arraySort(myCards, numCards);
    }
 
+   /**
+    * Purpose: Plays Cards
+    *
+    * @param cardIndex The index of the card in the array
+    * @return Returns a card that was played
+    */
    public Card playCard(int cardIndex)
    {
-      if ( numCards == 0 ) //error
+      if (numCards == 0) //error
       {
          //Creates a card that does not work
          return new Card('M', Card.Suit.spades);
@@ -421,9 +469,9 @@ class Hand
       Card card = myCards[cardIndex];
 
       numCards--;
-      for(int i = cardIndex; i < numCards; i++)
+      for (int i = cardIndex; i < numCards; i++)
       {
-         myCards[i] = myCards[i+1];
+         myCards[i] = myCards[i + 1];
       }
 
       myCards[numCards] = null;
@@ -455,9 +503,9 @@ class Deck
    {
       int i;
       allocateMasterPack();
-      for(i = 0; i < DECK_SIZE; i++)
+      for (i = 0; i < DECK_SIZE; i++)
       {
-         cards[i] = masterPack[i%DECK_SIZE];
+         cards[i] = masterPack[i % DECK_SIZE];
          topCard++;
       }
    }
@@ -466,15 +514,16 @@ class Deck
     * Purpose: Constructor to build multiple decks
     * Preconditions: None
     * Postconditions: Creates a multiple deck of cards
+    *
     * @param numPacks The number of pack of cards
     */
    public Deck(int numPacks)
    {
       int i;
       allocateMasterPack();
-      for(i = 0; i < numPacks * DECK_SIZE; i++)
+      for (i = 0; i < numPacks * DECK_SIZE; i++)
       {
-         cards[i] = masterPack[i%DECK_SIZE];
+         cards[i] = masterPack[i % DECK_SIZE];
          topCard++;
       }
 
@@ -484,15 +533,16 @@ class Deck
     * Purpose: Constructor to build multiple decks
     * Preconditions: None
     * Postconditions: Creates a multiple deck of cards
+    *
     * @param numPacks The number of pack of cards
     */
    public void init(int numPacks)
    {
       int i;
       topCard = 0;
-      for(i = 0; i < numPacks * DECK_SIZE; i++)
+      for (i = 0; i < numPacks * DECK_SIZE; i++)
       {
-         cards[i] = masterPack[i%DECK_SIZE];
+         cards[i] = masterPack[i % DECK_SIZE];
          topCard++;
 
       }
@@ -507,7 +557,7 @@ class Deck
    {
       for (int i = 0; i < topCard; i++)
       {
-         int second = (int)(Math.random() * topCard);
+         int second = (int) (Math.random() * topCard);
          Card temp = cards[i];
          cards[i] = cards[second];
          cards[second] = temp;
@@ -521,7 +571,7 @@ class Deck
     */
    public Card dealCard()
    {
-      if(topCard > 0)
+      if (topCard > 0)
       {
          topCard--;
          Card tempCard = cards[topCard];
@@ -529,6 +579,7 @@ class Deck
       }
       return new Card('-', Card.Suit.spades);
    }
+
    /**
     * Purpose: Get the top card int
     * Preconditions: Cards in the deck
@@ -543,12 +594,13 @@ class Deck
     * Purpose: Checks the validity of card
     * Preconditions: Cards in list
     * Postconditions: Changes the card error attribute to true if valid and
-    *                   false if not valid
+    * false if not valid
+    *
     * @param k The value of the index position of card
     */
    public Card inspectCard(int k)
    {
-      if(k > topCard)
+      if (k > topCard)
       {
          return new Card('0', Card.Suit.spades);
       }
@@ -563,78 +615,112 @@ class Deck
     */
    private static void allocateMasterPack()
    {
-      int i;
+      int masterPackIndex;
 
       String cardValues = "A23456789TJQKX";
 
-
-      if(masterPack[0] == null)
+      if (masterPack[0] == null)
       {
-         for (i = 0; i < DECK_SIZE; i++)
+         for (masterPackIndex = 0; masterPackIndex < DECK_SIZE; masterPackIndex++)
          {
-            if(i/ NUM_OF_VALUES == 0)
+            if (masterPackIndex / NUM_OF_VALUES == 0)
             {
-               masterPack[i] = new Card(cardValues.charAt(i% NUM_OF_VALUES),
+               masterPack[masterPackIndex] =
+                     new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
                      Card.Suit.spades);
             }
-            if(i/ NUM_OF_VALUES == 1)
+            if (masterPackIndex / NUM_OF_VALUES == 1)
             {
-               masterPack[i] = new Card(cardValues.charAt(i% NUM_OF_VALUES),
+               masterPack[masterPackIndex] =
+                     new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
                      Card.Suit.clubs);
             }
-            if(i/ NUM_OF_VALUES == 2)
+            if (masterPackIndex / NUM_OF_VALUES == 2)
             {
-               masterPack[i] = new Card(cardValues.charAt(i% NUM_OF_VALUES),
+               masterPack[masterPackIndex] =
+                     new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
                      Card.Suit.hearts);
             }
-            if(i/ NUM_OF_VALUES == 3)
+            if (masterPackIndex / NUM_OF_VALUES == 3)
             {
-               masterPack[i] = new Card(cardValues.charAt(i% NUM_OF_VALUES),
+               masterPack[masterPackIndex] =
+                     new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
                      Card.Suit.diamonds);
             }
          }
       }
    }
 
+   /**
+    * Get the number of cards in Deck
+    * @return Returns int that is the number of cards
+    */
    public int getNumCards()
    {
       return topCard;
    }
 
+   /**
+    * Purpose: Adds a card to the deck and makes sure each card only has the
+    *    number of instances equal to or less than number of packs
+    * @param card The card to be inserted
+    * @return Returns true if successfully added, false if not
+    */
    public boolean addCard(Card card)
    {
-      int deckNum = topCard/56;
+      // The number of decks
+      int deckNum = topCard / DECK_SIZE;
+
+      // Keep track on the number of instances per card
       int cardInstances = 0;
 
-      for(int i = 0; i < topCard; i++)
+      // If the card matches, it adds to the instance count
+      for (int i = 0; i < topCard; i++)
       {
-
-//         if((cards[i].getValue() == card.getValue()) && (cards[i].getSuit() == card.getSuit()))
-         if(card.equals(cards[i]))
+         if (card.equals(cards[i]))
          {
             cardInstances++;
          }
       }
+
       System.out.println("Card instances is: " + cardInstances);
 
-      if( cardInstances >= deckNum)
+      // If card instance is equal or more than the number of decks ,it fails.
+      if (cardInstances >= deckNum)
       {
          System.out.println("Did not add card");
          return false;
       }
       System.out.println("Added the card to the deck");
+
+      // Take added card and assign it to the top card.
       cards[topCard] = card;
+
+      // Increase the topCard counter since we added a card
+      topCard++;
+      System.out.println("The topCard Value is: " + topCard);
       return true;
    }
 
+   /**
+    * Purpose: Removes a card for the Deck
+    * @param card Card to be removed
+    * @return Returns true if successfully removed, false if not
+    */
    public boolean removeCard(Card card)
    {
-      for(int i = 0; i < topCard; i++)
+      // Traverses array of cards to see if card exists
+      for (int cardsIndex = 0; cardsIndex < topCard; cardsIndex++)
       {
-         if(cards[i].equals(card))
+         // If card equals a card in deck, it removes it
+         if (cards[cardsIndex].equals(card))
          {
             System.out.println("Removed Card Successfully");
-            cards[i] = cards[topCard-1];
+
+            // Sets card to value of topCard
+            cards[cardsIndex] = cards[topCard - 1];
+
+            // Decrements topCard
             topCard--;
             return true;
          }
@@ -645,22 +731,28 @@ class Deck
       return false;
    }
 
+   /**
+    * Purpose: Sorts the array of cards in deck
+    */
    public void sort()
    {
       Card.arraySort(cards, topCard);
    }
 
+   /**
+    * Purpose: String to display to console the deck of cards
+    * @return String that holds the cards in hand
+    */
    public String toString()
    {
       String str;
       str = "Deck = ( ";
-      int i;
-      for(i=0; i < getNumCards(); i++)
+      for (int card = 0; card < getNumCards(); card++)
       {
-         str += (cards[i].toString());
-         if(i < getNumCards() -1)
+         str += (cards[card].toString());
+         if (card < getNumCards() - 1)
          {
-            str+= ", ";
+            str += ", ";
          }
       }
       str += " )";
@@ -673,7 +765,11 @@ class Deck
 
 /*****************Output**************************
  * PHASE 3
- K of diamonds / Q of diamonds / J of diamonds / T of diamonds / 9 of diamonds / 8 of diamonds / 7 of diamonds / 6 of diamonds / 5 of diamonds / 4 of diamonds / 3 of diamonds / 2 of diamonds / A of diamonds / K of hearts / Q of hearts / J of hearts / T of hearts / 9 of hearts / 8 of hearts / 7 of hearts / 6 of hearts / 5 of hearts / 4 of hearts / 3 of hearts / 2 of hearts / A of hearts / K of clubs / Q of clubs / J of clubs / T of clubs / 9 of clubs / 8 of clubs / 7 of clubs / 6 of clubs / 5 of clubs / 4 of clubs / 3 of clubs / 2 of clubs / A of clubs / K of spades / Q of spades / J of spades / T of spades / 9 of spades / 8 of spades / 7 of spades / 6 of spades / 5 of spades / 4 of spades / 3 of spades / 2 of spades / A of spades /
+ K of diamonds / Q of diamonds / J of diamonds / T of diamonds / 9 of diamonds /
+ 8 of diamonds / 7 of diamonds / 6 of diamonds / 5 of diamonds / 4 of diamonds /
+ 3 of diamonds / 2 of diamonds / A of diamonds / K of hearts / Q of hearts /
+ J of hearts / T of hearts / 9 of hearts / 8 of hearts / 7 of hearts / 6 of hearts /
+ 5 of hearts / 4 of hearts / 3 of hearts / 2 of hearts / A of hearts / K of clubs / Q of clubs / J of clubs / T of clubs / 9 of clubs / 8 of clubs / 7 of clubs / 6 of clubs / 5 of clubs / 4 of clubs / 3 of clubs / 2 of clubs / A of clubs / K of spades / Q of spades / J of spades / T of spades / 9 of spades / 8 of spades / 7 of spades / 6 of spades / 5 of spades / 4 of spades / 3 of spades / 2 of spades / A of spades /
  3 of hearts / J of clubs / 9 of clubs / 4 of clubs / 6 of diamonds / 2 of hearts / 7 of diamonds / Q of spades / 8 of clubs / 7 of clubs / 4 of diamonds / Q of clubs / K of spades / 8 of hearts / J of spades / Q of clubs / 3 of diamonds / 5 of hearts / T of hearts / K of hearts / 6 of hearts / K of spades / T of spades / 3 of clubs / A of diamonds / 8 of spades / K of clubs / 5 of diamonds / 3 of spades / K of diamonds / T of diamonds / A of clubs / 5 of spades / J of hearts / 6 of spades / 3 of hearts / A of spades / 8 of clubs / 9 of spades / 8 of diamonds / 4 of hearts / 9 of clubs / 2 of clubs / T of diamonds / Q of diamonds / K of diamonds / 9 of diamonds / 7 of clubs / 8 of spades / J of diamonds / 3 of clubs / K of hearts /
  K of diamonds / Q of diamonds / J of diamonds / T of diamonds / 9 of diamonds / 8 of diamonds / 7 of diamonds / 6 of diamonds / 5 of diamonds / 4 of diamonds / 3 of diamonds / 2 of diamonds / A of diamonds / K of hearts / Q of hearts / J of hearts / T of hearts / 9 of hearts / 8 of hearts / 7 of hearts / 6 of hearts / 5 of hearts / 4 of hearts / 3 of hearts / 2 of hearts / A of hearts /
  A of spades / Q of hearts / 9 of hearts / 6 of spades / 5 of clubs / 7 of hearts / Q of spades / 3 of diamonds / J of diamonds / Q of diamonds / T of diamonds / 5 of hearts / K of diamonds / A of hearts / 8 of clubs / 5 of spades / 6 of clubs / 2 of spades / 4 of diamonds / 2 of diamonds / 9 of clubs / 6 of hearts / 3 of hearts / 9 of spades / 8 of hearts / 8 of diamonds /
