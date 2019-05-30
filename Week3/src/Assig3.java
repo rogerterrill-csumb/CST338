@@ -88,7 +88,7 @@ public class Assig3
 
       // Testing the sort method in the Card Class
       hands[0].sort();
-      hands[1].sort();
+//      hands[1].sort();
 
       for(i = 0; i < chooseNumPacks; i++)
       {
@@ -96,6 +96,10 @@ public class Assig3
          System.out.println();
       }
 
+
+      // Initialize a new single deck
+      Deck guiDeck = new Deck(3);
+      guiDeck.addCard(new Card());
 
    }
 }
@@ -214,14 +218,17 @@ class Card
    }
 
    /**
-    * Purpose: Checks the validity of the arguments passed into method by checking if they are in our cardValues array
+    * Purpose: Checks the validity of the arguments passed into method by
+    *          checking if they are in our cardValues array
     * Preconditions: card object initialized
     * Postconditions: none
-    * @return Returns boolean depending if the value passed into the method is in our approved array list as true and if not in our list, returns false
+    * @return Returns boolean depending if the value passed into the method is
+    *          in our approved array list as true and if not in our list,
+    *          returns false
     */
    private boolean isValid(char value, Suit suit)
    {
-      String cardValues = "A23456789TJQK";
+      String cardValues = "A23456789TJQKX";
       if(cardValues.indexOf(value) != -1)
       {
          return true;
@@ -267,7 +274,8 @@ class Card
 }
 
 /**
- * A class that provides a card object and checks to see if the card created has valid values.
+ * A class that provides a card object and checks to see if the card created
+ * has valid values.
  */
 class Hand
 {
@@ -403,14 +411,16 @@ class Hand
 }
 
 /**
- * A class that provides a card object and checks to see if the card created has valid values.
+ * A class that provides a card object and checks to see if the card
+ * created has valid values.
  */
 class Deck
 {
-   public static final int MAX_CARDS = 312;
-   public static final int DECK_SIZE = 52;
+   public static final int DECK_SIZE = 56;
+   public static final int MAX_CARDS = 6 * DECK_SIZE;
+   public static final int NUM_OF_VALUES = 14;
 
-   private static Card[] masterPack = new Card[52];
+   private static Card[] masterPack = new Card[DECK_SIZE];
    private Card[] cards = new Card[MAX_CARDS];
    private int topCard = 0;
 
@@ -425,7 +435,7 @@ class Deck
       allocateMasterPack();
       for(i = 0; i < DECK_SIZE; i++)
       {
-         cards[i] = masterPack[i%52];
+         cards[i] = masterPack[i%DECK_SIZE];
          topCard++;
       }
    }
@@ -493,7 +503,6 @@ class Deck
       {
          topCard--;
          Card tempCard = cards[topCard];
-//         System.out.print(tempCard.toString() + " / ");
          return tempCard;
       }
       return new Card('-', Card.Suit.spades);
@@ -511,7 +520,8 @@ class Deck
    /**
     * Purpose: Checks the validity of card
     * Preconditions: Cards in list
-    * Postconditions: Changes the card error attribute to true if valid and false if not valid
+    * Postconditions: Changes the card error attribute to true if valid and
+    *                   false if not valid
     * @param k The value of the index position of card
     */
    public Card inspectCard(int k)
@@ -533,35 +543,64 @@ class Deck
    {
       int i;
 
-      String cardValues = "A23456789TJQK";
+      String cardValues = "A23456789TJQKX";
 
 
       if(masterPack[0] == null)
       {
          for (i = 0; i < DECK_SIZE; i++)
          {
-            if(i/13 == 0)
+            if(i/ NUM_OF_VALUES == 0)
             {
-               masterPack[i] = new Card(cardValues.charAt(i%13), Card.Suit.spades);
-//               System.out.println(masterPack[i].toString());
+               masterPack[i] = new Card(cardValues.charAt(i% NUM_OF_VALUES),
+                     Card.Suit.spades);
             }
-            if(i/13 == 1)
+            if(i/ NUM_OF_VALUES == 1)
             {
-               masterPack[i] = new Card(cardValues.charAt(i%13), Card.Suit.clubs);
-//               System.out.println(masterPack[i].toString());
+               masterPack[i] = new Card(cardValues.charAt(i% NUM_OF_VALUES),
+                     Card.Suit.clubs);
             }
-            if(i/13 == 2)
+            if(i/ NUM_OF_VALUES == 2)
             {
-               masterPack[i] = new Card(cardValues.charAt(i%13), Card.Suit.hearts);
-//               System.out.println(masterPack[i].toString());
+               masterPack[i] = new Card(cardValues.charAt(i% NUM_OF_VALUES),
+                     Card.Suit.hearts);
             }
-            if(i/13 == 3)
+            if(i/ NUM_OF_VALUES == 3)
             {
-               masterPack[i] = new Card(cardValues.charAt(i%13), Card.Suit.diamonds);
-//               System.out.println(masterPack[i].toString());
+               masterPack[i] = new Card(cardValues.charAt(i% NUM_OF_VALUES),
+                     Card.Suit.diamonds);
             }
          }
       }
+   }
+
+   public int getNumCards()
+   {
+      return topCard;
+   }
+
+   public boolean addCard(Card card)
+   {
+      int deckNum = topCard/56;
+      int cardInstances = 0;
+
+      for(int i = 0; i < topCard; i++)
+      {
+         if((cards[i].getValue() == card.getValue()) && (cards[i].getSuit() == card.getSuit()))
+         {
+            cardInstances++;
+         }
+      }
+      System.out.println("Card instances is: " + cardInstances);
+
+      if( cardInstances >= deckNum)
+      {
+         System.out.println("Did not add card");
+         return false;
+      }
+      System.out.println("Added the card to the deck");
+      cards[topCard] = card;
+      return true;
    }
 }
 
