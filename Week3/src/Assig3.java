@@ -586,7 +586,9 @@ class Deck
 
       for(int i = 0; i < topCard; i++)
       {
-         if((cards[i].getValue() == card.getValue()) && (cards[i].getSuit() == card.getSuit()))
+
+//         if((cards[i].getValue() == card.getValue()) && (cards[i].getSuit() == card.getSuit()))
+         if(card.equals(cards[i]))
          {
             cardInstances++;
          }
