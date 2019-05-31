@@ -557,11 +557,11 @@ class Hand
    {
       String str;
       str = "Hand = ( ";
-      int i;
-      for (i = 0; i < numCards; i++)
+      int card;
+      for (card = 0; card < numCards; card++)
       {
-         str += (myCards[i].toString());
-         if (i < numCards - 1)
+         str += (myCards[card].toString());
+         if (card < numCards - 1)
          {
             str += ", ";
          }
@@ -616,9 +616,9 @@ class Hand
       Card card = myCards[cardIndex];
 
       numCards--;
-      for (int i = cardIndex; i < numCards; i++)
+      for (int cardPosition = cardIndex; cardPosition < numCards; cardPosition++)
       {
-         myCards[i] = myCards[i + 1];
+         myCards[cardPosition] = myCards[cardPosition + 1];
       }
 
       myCards[numCards] = null;
@@ -651,11 +651,11 @@ class Deck
     */
    public Deck()
    {
-      int i;
+      int card;
       allocateMasterPack();
-      for (i = 0; i < DECK_SIZE; i++)
+      for (card = 0; card < DECK_SIZE; card++)
       {
-         cards[i] = masterPack[i % DECK_SIZE];
+         cards[card] = masterPack[card % DECK_SIZE];
          topCard++;
       }
    }
@@ -669,11 +669,11 @@ class Deck
     */
    public Deck(int numPacks)
    {
-      int i;
+      int card;
       allocateMasterPack();
-      for (i = 0; i < numPacks * DECK_SIZE; i++)
+      for (card = 0; card < numPacks * DECK_SIZE; card++)
       {
-         cards[i] = masterPack[i % DECK_SIZE];
+         cards[card] = masterPack[card % DECK_SIZE];
          topCard++;
       }
 
@@ -691,12 +691,12 @@ class Deck
    {
       if (numPacks <= 6)
       {
-         int i;
+         int card;
          topCard = 0;
 
-         for (i = 0; i < numPacks * DECK_SIZE; i++)
+         for (card = 0; card < numPacks * DECK_SIZE; card++)
          {
-            cards[i] = masterPack[i % DECK_SIZE];
+            cards[card] = masterPack[card % DECK_SIZE];
             topCard++;
          }
       }
@@ -709,11 +709,11 @@ class Deck
     */
    public void shuffle()
    {
-      for (int i = 0; i < topCard; i++)
+      for (int card = 0; card < topCard; card++)
       {
          int second = (int) (Math.random() * topCard);
-         Card temp = cards[i];
-         cards[i] = cards[second];
+         Card temp = cards[card];
+         cards[card] = cards[second];
          cards[second] = temp;
       }
    }
@@ -831,9 +831,9 @@ class Deck
       int cardInstances = 0;
 
       // If the card matches, it adds to the instance count
-      for (int i = 0; i < topCard; i++)
+      for (int cardPosition = 0; cardPosition < topCard; cardPosition++)
       {
-         if (card.equals(cards[i]))
+         if (card.equals(cards[cardPosition]))
          {
             cardInstances++;
          }
