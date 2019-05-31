@@ -2,11 +2,26 @@
 // Files:               Assig3.java
 // Semester:            Summer A, 2019
 //
-// Author:              Roger Terrill
-// Email:               rchicasterrill@csumb.edu
+// Author:              Roger Terrill, George Blombach, Dalia Faria.
+//                      Abby Packham, Carlos Orduna
+// Email:               rchicasterrill@csumb.edu, gblombach@csumb.edu,
+//                      dfaria@csumb.edu, apackham@csumb.edu, corduna@csumb.edu
 // Lecturer's Name:     Jesse Cecil, M.S.
 // TA's Name:           Joseph Appleton
 // Lab Section:         CST 338
+
+
+/*Implementing Professor suggested changes:
+-You should set numCards to 0 in the resetHand().
+-The takeCard() method should be returning a boolean according to the
+state of the fullness of the hand. Yours returns true all of the time,
+which defeats the purpose.
+-playCard() should  check for no more cards in the hand and then
+do something like return a bad card.
+-inspectCard() should validate k according to how many cards are in
+the myCards array.
+-init() should validate numPacks.
+*/
 
 import java.util.Scanner;
 
@@ -355,6 +370,7 @@ class Hand
     * Preconditions: initialized and declared hand
     * Postconditions: Changes numCards back to 0
     */
+   /* Fix:You should set numCards to 0 in the resetHand().*/
    public void resetHand()
    {
       numCards = 0;
@@ -368,13 +384,20 @@ class Hand
     * @param card A valid card object from the card class
     * @return Returns true if successfully took card
     */
+   /* Fix: The takeCard() method should be returning a boolean according to the
+   state of the fullness of the hand. Yours returns true all of the time,
+   which defeats the purpose.*/
    public boolean takeCard(Card card)
    {
-
-      myCards[numCards] = new Card(card.getValue(), card.getSuit());
-      numCards++;
-      return true;
+      if(numCards < MAX_CARDS)
+      {
+         myCards[numCards] = new Card(card.getValue(), card.getSuit());
+         numCards++;
+         return true;
+      }
+      return false;
    }
+
 
    /**
     * Purpose: Reduces number of cards in hand
@@ -383,11 +406,22 @@ class Hand
     *
     * @return Returns the top card
     */
+   /* Fix: playCard() should  check for no more cards in the hand and then
+   do something like return a bad card.
+   */
    public Card playCard()
    {
-      numCards--;
-      System.out.println(myCards[numCards]);
-      return myCards[numCards];
+      if(numCards > 0)
+      {
+         numCards--;
+         System.out.println(myCards[numCards]);
+         return myCards[numCards];
+      }
+      else
+      {
+         Card badCard = new Card('0', Card.Suit.spades);
+         return badCard;
+      }
    }
 
    /**
@@ -435,9 +469,12 @@ class Hand
     *
     * @return Returns Card with error flag True or False
     */
+   /* Fix: inspectCard() should validate k according to how many cards are in
+   the myCards array.
+   */
    public Card inspectCard(int k)
    {
-      if (k > numCards)
+      if (k > numCards || k < 0)
       {
          return new Card('0', Card.Suit.spades);
       }
@@ -536,15 +573,19 @@ class Deck
     *
     * @param numPacks The number of pack of cards
     */
+   /* Fix: init() should validate numPacks. */
    public void init(int numPacks)
    {
-      int i;
-      topCard = 0;
-      for (i = 0; i < numPacks * DECK_SIZE; i++)
+      if(numPacks <= 6)
       {
-         cards[i] = masterPack[i % DECK_SIZE];
-         topCard++;
+         int i;
+         topCard = 0;
 
+         for (i = 0; i < numPacks * DECK_SIZE; i++)
+         {
+            cards[i] = masterPack[i % DECK_SIZE];
+            topCard++;
+         }
       }
    }
 
@@ -627,25 +668,25 @@ class Deck
             {
                masterPack[masterPackIndex] =
                      new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
-                     Card.Suit.spades);
+                           Card.Suit.spades);
             }
             if (masterPackIndex / NUM_OF_VALUES == 1)
             {
                masterPack[masterPackIndex] =
                      new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
-                     Card.Suit.clubs);
+                           Card.Suit.clubs);
             }
             if (masterPackIndex / NUM_OF_VALUES == 2)
             {
                masterPack[masterPackIndex] =
                      new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
-                     Card.Suit.hearts);
+                           Card.Suit.hearts);
             }
             if (masterPackIndex / NUM_OF_VALUES == 3)
             {
                masterPack[masterPackIndex] =
                      new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
-                     Card.Suit.diamonds);
+                           Card.Suit.diamonds);
             }
          }
       }
