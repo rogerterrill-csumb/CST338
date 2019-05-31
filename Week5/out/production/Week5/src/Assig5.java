@@ -1,3 +1,20 @@
+/*
+ * Title:               GUI Cards Phase 1
+ * Files:               Assig5.java
+ * Semester:            Summer A, 2019
+ * Date:                June 3, 2019
+ *
+ * Author:              Roger Terrill, George Blombach, Dalia Faria,
+ *                      Abby Packham, Carlos Orduna
+ * Email:               rchicasterrill@csumb.edu, gblombach@csumb.edu,
+ *                      dfaria@csumb.edu, apackham@csumb.edu,
+ *                      cordunacorrales@csumb.edu
+ * Lecturer's Name:     Jesse Cecil, M.S.
+ * TA's Name:           Joseph Appleton
+ * Lab Section:         CST 338
+  */
+
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,38 +36,43 @@ public class Assig5
       // String to save the concatenated file name
       String str = "";
 
+      int card = 0;
+
       // Directory prefix to take into account different IDEs
       // Might need to change prefix to something else ie "images/"
       String directoryPrefix = "images\\";
 
-      // Loop that concatenates strings to create filename corresponding to the images directory
-      for (int card = 0; card < NUM_CARD_IMAGES; card++)
+
+      // Loop that concatenates strings to create filename corresponding
+      // to the images directory
+      for( int suit = 0; suit < 4 ; suit++)
       {
-         // Checks for last card and sets it to "BK.gif" and then breaks out of loop.
-         if (card == NUM_CARD_IMAGES - 1)
+         for ( int value = 0; value < 14; value++)
          {
-            str = directoryPrefix + "BK.gif";
+            // Concatenated string representing the filename of the card
+            str = directoryPrefix +
+                    turnIntIntoCardValue(value) +
+                    turnIntIntoCardSuit(suit) + ".gif";
+            // Create ImageIcon per card
             icon[card] = new ImageIcon(str);
-            break;
+            card++;
          }
-
-         // Concatenated string representing the filename of the card
-         str = directoryPrefix + turnIntIntoCardValue(card % 14) + turnIntIntoCardSuit(card / 14) + ".gif";
-
-         // Newly created card with file path
-         icon[card] = new ImageIcon(str);
       }
 
+      // Checks for last card and sets it to "BK.gif" and then breaks out of loop.
+      str = directoryPrefix + "BK.gif";
+      icon[56] = new ImageIcon(str);
    }
 
    // turns 0 - 13 into "A", "2", "3", ... "Q", "K", "X"
    static String turnIntIntoCardValue(int k)
    {
       // an idea for a helper method (do it differently if you wish)
-      String[] cardValues = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "X"};
+      String[] cardValues = {"A", "2", "3", "4", "5", "6",
+              "7", "8", "9", "T", "J", "Q", "K", "X"};
 
       // Checks to see if k is outside the range of cardValues index
-      if(k < 0 || k > cardValues.length-1)
+      if (k < 0 || k > cardValues.length - 1)
       {
          return "Invalid Value";
       }
@@ -64,7 +86,7 @@ public class Assig5
       String[] cardSuits = {"C", "D", "H", "S"};
 
       // Check to see if j outside the range of cardSuits
-      if( j < 0 || j > cardSuits.length-1)
+      if (j < 0 || j > cardSuits.length - 1)
       {
          return "Invalid Suit";
       }
