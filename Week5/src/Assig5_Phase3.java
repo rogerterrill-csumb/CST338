@@ -1154,6 +1154,7 @@ class CardListener implements ActionListener
    public int playerCard;
    public int compCard;
    public static int humanWonCards;
+   public static int compWonCards;
    public static int lastWonHand = 0;
 
 
@@ -1176,11 +1177,11 @@ class CardListener implements ActionListener
       compCard =
             Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex));
 
-      for(int i = 0; i < 6; i++)
-      {
-         System.out.println(Assig5_Phase3.highCardGame.getHand(0).inspectCard(i).toString());
-      }
-
+      // Displays the computers hand
+//      for(int i = 0; i < 6; i++)
+//      {
+//         System.out.println(Assig5_Phase3.highCardGame.getHand(0).inspectCard(i).toString());
+//      }
 
 
       if(playerCard >  compCard)
@@ -1199,24 +1200,26 @@ class CardListener implements ActionListener
 
          lastWonHand = 1;
       }
-      else if( compCard < playerCard)
+      else if( playerCard < compCard)
       {
          System.out.println("Your card is " + playerCard + " And Comp card is" +
                " " + compCard);
          System.out.println("YOU LOST");
 
-         Assig5_Phase3.compWinnings[humanWonCards] =
+         Assig5_Phase3.compWinnings[compWonCards] =
                Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex);
-         humanWonCards++;
+         compWonCards++;
 
-         Assig5_Phase3.compWinnings[humanWonCards] =
+         Assig5_Phase3.compWinnings[compWonCards] =
                Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
-         humanWonCards++;
+         compWonCards++;
 
          lastWonHand = 0;
       }
       else
       {
+         System.out.println("Your card is " + playerCard + " And Comp card is" +
+               " " + compCard);
          System.out.println("It's a draw");
       }
 
@@ -1239,7 +1242,7 @@ class CardListener implements ActionListener
       System.out.println(Assig5_Phase3.highCardGame.getHand(1));
 
       Assig5_Phase3.myCardTable.repaint();
-   }
 
+   }
 
 }
