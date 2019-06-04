@@ -1163,12 +1163,9 @@ class CardListener implements ActionListener
    public static int compCard;
    public static int humanWonCards;
    public static int compWonCards;
-   public int lastWonHand = 0;
+   public static int lastWonHand = 1;
    private static int humanScore = 0;
    private static int compScore = 0;
-   private int handCounter = Assig5_Phase3.NUM_CARDS_PER_HAND;
-
-
 
    CardListener(int cardIndex)
    {
@@ -1177,24 +1174,23 @@ class CardListener implements ActionListener
 
    public void actionPerformed(ActionEvent e)
    {
-      Assig5_Phase3.myCardTable.pnlHumanHand.remove(Assig5_Phase3.humanButton[cardIndex]);
-      Assig5_Phase3.myCardTable.pnlComputerHand.remove(Assig5_Phase3.computerLabels[cardIndex]);
-//      System.out.println("You clicked a card with CardListener index " + cardIndex);
-//      System.out.println("The card is " + Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
-//      System.out.println("The card value is " + Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex)));
-
+      if(lastWonHand == 0)
+      {
+         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getIcon(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex)));
+      }
+      else if(lastWonHand == 1)
+      {
+         Assig5_Phase3.playedCardLabels[0].setIcon(GUICard.getBackcardIcon());
+         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
+      }
 
       playerCard =
             Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
       compCard =
             Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex));
 
-
-      // Displays the computers hand
-//      for(int i = 0; i < 6; i++)
-//      {
-//         System.out.println(Assig5_Phase3.highCardGame.getHand(0).inspectCard(i).toString());
-//      }
+      Assig5_Phase3.myCardTable.pnlHumanHand.remove(Assig5_Phase3.humanButton[cardIndex]);
+      Assig5_Phase3.myCardTable.pnlComputerHand.remove(Assig5_Phase3.computerLabels[cardIndex]);
 
 
       if(playerCard >  compCard)
@@ -1212,6 +1208,7 @@ class CardListener implements ActionListener
          System.out.println("It's a draw");
       }
 
+      // Displays cards won
       for(int i = 0; i < humanWonCards; i++)
       {
          System.out.println(Assig5_Phase3.humanWinnings[i].toString());
@@ -1219,25 +1216,6 @@ class CardListener implements ActionListener
 
 
 
-//      System.out.println(Assig5_Phase3.highCardGame.getHand(0));
-//      System.out.println(Assig5_Phase3.highCardGame.getHand(1));
-
-//      for(int i = 0; i < humanWonCards; i++)
-//      {
-//         System.out.println(Assig5_Phase3.humanWinnings);
-//      }
-
-      //System.out.println(humanWinningsDisplay());
-
-      if(lastWonHand == 0)
-      {
-         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getIcon(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex)));
-      }
-      else if(lastWonHand == 1)
-      {
-         Assig5_Phase3.playedCardLabels[0].setIcon(GUICard.getBackcardIcon());
-         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
-      }
       Assig5_Phase3.myCardTable.repaint();
 
    }
@@ -1255,6 +1233,7 @@ class CardListener implements ActionListener
       Assig5_Phase3.humanWinnings[humanWonCards++] =
             Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
 
+
       humanScore++;
       updateGame("You win");
       lastWonHand = 1;
@@ -1263,7 +1242,6 @@ class CardListener implements ActionListener
 
    public void computerPlay()
    {
-
 
       System.out.println("Your card is " + playerCard + " And Comp card is" +
             " " + compCard);
