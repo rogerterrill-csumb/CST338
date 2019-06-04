@@ -18,10 +18,8 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.Random;
 
 
 public class Assig5_Phase3
@@ -29,14 +27,14 @@ public class Assig5_Phase3
    static int NUM_CARDS_PER_HAND = 7;
    static int NUM_PLAYERS = 2;
    static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
-   static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
    static JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
-   static JLabel[] playLabelText = new JLabel[NUM_PLAYERS];
    static JButton[] humanButton = new JButton[NUM_CARDS_PER_HAND];
    static CardTable myCardTable;
    static CardGameFramework highCardGame;
    static Card[] compWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
    static Card[] humanWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
+   static JLabel gameText = new JLabel();
+   static JLabel gameStatus = new JLabel();
 
    public static void main(String[] args)
    {
@@ -49,6 +47,12 @@ public class Assig5_Phase3
       int numJokersPerPack = 2;
       int numUnusedCardsPerPack = 0;
       Card[] unusedCardsPerPack = null;
+
+      //game controls
+      gameText = new JLabel("Welcome to High Card!");
+      gameStatus = new JLabel("Click on card to begin.");
+      gameText.setForeground(Color.red);
+      gameStatus.setForeground(Color.red);
 
       highCardGame = new CardGameFramework(
             numPacksPerDeck, numJokersPerPack,
@@ -122,10 +126,14 @@ public class Assig5_Phase3
       // Position 1,1
       myCardTable.pnlPlayArea.add(playedCardLabels[1]);
 
+      myCardTable.pnlPlayArea.add(gameText);
+
       // Position 2,0
       myCardTable.pnlPlayArea.add(playerCardLabel);
       // Position 2,1
       myCardTable.pnlPlayArea.add(computerCardLabel);
+
+      myCardTable.pnlPlayArea.add(gameStatus);
 
       // Removes all spacing around the cards
       myCardTable.pack();
@@ -184,7 +192,7 @@ class CardTable extends JFrame
       pnlHumanHand =
             new JPanel(new GridLayout(1, numCardsPerHand));
       pnlPlayArea =
-            new JPanel(new GridLayout(2, numPlayers));
+            new JPanel(new GridLayout(2, 3));
 
       //Place panels to their specific location
       add(pnlComputerHand, BorderLayout.NORTH);
@@ -1156,8 +1164,9 @@ class CardListener implements ActionListener
    public static int humanWonCards;
    public static int compWonCards;
    public int lastWonHand = 0;
-   private int humanScore = 0;
-   private int compScore = 0;
+   private static int humanScore = 0;
+   private static int compScore = 0;
+   private int handCounter = Assig5_Phase3.NUM_CARDS_PER_HAND;
 
 
 
@@ -1174,16 +1183,17 @@ class CardListener implements ActionListener
 //      System.out.println("The card is " + Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
 //      System.out.println("The card value is " + Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex)));
 
+
       playerCard =
             Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
       compCard =
             Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex));
 
       // Displays the computers hand
-//      for(int i = 0; i < 6; i++)
-//      {
-//         System.out.println(Assig5_Phase3.highCardGame.getHand(0).inspectCard(i).toString());
-//      }
+      for(int i = 0; i < 6; i++)
+      {
+         System.out.println(Assig5_Phase3.highCardGame.getHand(0).inspectCard(i).toString());
+      }
 
 
       if(playerCard >  compCard)
@@ -1216,9 +1226,13 @@ class CardListener implements ActionListener
          Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
       }
 
-      System.out.println(Assig5_Phase3.highCardGame.getHand(0));
-      System.out.println(Assig5_Phase3.highCardGame.getHand(1));
+//      System.out.println(Assig5_Phase3.highCardGame.getHand(0));
+//      System.out.println(Assig5_Phase3.highCardGame.getHand(1));
 
+//      for(int i = 0; i < humanWonCards; i++)
+//      {
+//         System.out.println(Assig5_Phase3.humanWinnings);
+//      }
 
       Assig5_Phase3.myCardTable.repaint();
 
@@ -1226,6 +1240,7 @@ class CardListener implements ActionListener
 
    public void humanPlay()
    {
+
       System.out.println("Your card is " + playerCard + " And Comp card is" +
             " " + compCard);
       System.out.println("You WON!");
@@ -1237,12 +1252,18 @@ class CardListener implements ActionListener
             Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
 
       humanScore++;
+      updateGame("You win");
       lastWonHand = 1;
 
    }
 
    public void computerPlay()
    {
+      playerCard =
+            Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
+      compCard =
+            Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex));
+
       System.out.println("Your card is " + playerCard + " And Comp card is" +
             " " + compCard);
       System.out.println("YOU LOST");
@@ -1254,7 +1275,21 @@ class CardListener implements ActionListener
             Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
 
       compScore++;
+      updateGame("Computer Wins");
       lastWonHand = 0;
+   }
+
+
+   private void updateGame(String message)
+   {
+      //show score
+      Assig5_Phase3.gameStatus.setText("Score: " + humanScore + "-" + compScore);
+      Assig5_Phase3.gameText.setText(message);
+      if (compScore + humanScore == Assig5_Phase3.NUM_CARDS_PER_HAND)
+         if (compScore > humanScore)
+            Assig5_Phase3.gameText.setText("Game Over Computer Wins");
+         else
+            Assig5_Phase3.gameText.setText("Game Over You Win!");
    }
 
 }
