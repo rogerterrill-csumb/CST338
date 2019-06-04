@@ -1,5 +1,5 @@
 /*
- * Title:               GUI Cards Phase 2
+ * Title:               GUI Cards Phase 3
  * Files:               Assig5.java
  * Semester:            Summer A, 2019
  * Date:
@@ -270,13 +270,13 @@ class GUICard
 
       switch (cardSuit)
       {
-         case SPADES:
-            return 0;
-         case HEARTS:
-            return 1;
-         case DIAMONDS:
-            return 2;
          case CLUBS:
+            return 0;
+         case DIAMONDS:
+            return 1;
+         case HEARTS:
+            return 2;
+         case SPADES:
             return 3;
          default:
             return -1;
@@ -1171,11 +1171,6 @@ class CardListener implements ActionListener
       System.out.println("The card is " + Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
       System.out.println("The card value is " + Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex)));
 
-      //Assig5_Phase3.playedCardLabels[0].setIcon(Assig5_Phase3
-      // .humanButton[cardIndex].getIcon());
-
-
-
       playerCard =
             Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
       compCard =
@@ -1193,20 +1188,36 @@ class CardListener implements ActionListener
          System.out.println("Your card is " + playerCard + " And Comp card is" +
                " " + compCard);
          System.out.println("You WON!");
+
          Assig5_Phase3.humanWinnings[humanWonCards] =
             Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex);
          humanWonCards++;
+
          Assig5_Phase3.humanWinnings[humanWonCards] =
                Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
          humanWonCards++;
+
          lastWonHand = 1;
       }
-      else
+      else if( compCard < playerCard)
       {
          System.out.println("Your card is " + playerCard + " And Comp card is" +
                " " + compCard);
          System.out.println("YOU LOST");
+
+         Assig5_Phase3.compWinnings[humanWonCards] =
+               Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex);
+         humanWonCards++;
+
+         Assig5_Phase3.compWinnings[humanWonCards] =
+               Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
+         humanWonCards++;
+
          lastWonHand = 0;
+      }
+      else
+      {
+         System.out.println("It's a draw");
       }
 
       for(int i = 0; i < humanWonCards; i++)
@@ -1224,6 +1235,11 @@ class CardListener implements ActionListener
          Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
       }
 
+      System.out.println(Assig5_Phase3.highCardGame.getHand(0));
+      System.out.println(Assig5_Phase3.highCardGame.getHand(1));
+
       Assig5_Phase3.myCardTable.repaint();
    }
+
+
 }
