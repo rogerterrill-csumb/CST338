@@ -18,6 +18,7 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Random;
@@ -32,6 +33,8 @@ public class Assig5_Phase3
    static JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
    static JLabel[] playLabelText = new JLabel[NUM_PLAYERS];
    static JButton[] humanButton = new JButton[NUM_CARDS_PER_HAND];
+   static CardTable myCardTable;
+   static CardGameFramework highCardGame;
 
    public static void main(String[] args)
    {
@@ -45,7 +48,7 @@ public class Assig5_Phase3
       int numUnusedCardsPerPack = 0;
       Card[] unusedCardsPerPack = null;
 
-      CardGameFramework highCardGame = new CardGameFramework(
+      highCardGame = new CardGameFramework(
             numPacksPerDeck, numJokersPerPack,
             numUnusedCardsPerPack, unusedCardsPerPack,
             NUM_PLAYERS, NUM_CARDS_PER_HAND);
@@ -56,7 +59,7 @@ public class Assig5_Phase3
       GUICard.loadCardIcons();
 
       // establish main frame in which program will run
-      CardTable myCardTable
+      myCardTable
             = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
       myCardTable.setSize(800, 600);
       myCardTable.setLocationRelativeTo(null);
@@ -78,6 +81,8 @@ public class Assig5_Phase3
          humanButton[card] =
                new JButton("",
                      GUICard.getIcon(highCardGame.getHand(1).inspectCard(card)));
+
+         humanButton[card].addActionListener(new CardListener(card));
       }
 
       // ADD LABELS TO PANELS -----------------------------------------
@@ -1139,4 +1144,22 @@ class CardGameFramework
       return hand[playerIndex].takeCard(deck.dealCard());
    }
 
+}
+
+class CardListener implements ActionListener
+{
+   public int cardIndex;
+
+   CardListener(int cardIndex)
+   {
+      this.cardIndex = cardIndex;
+   }
+
+   public void actionPerformed(ActionEvent e)
+   {
+      Assig5_Phase3.myCardTable.pnlHumanHand.remove(Assig5_Phase3.humanButton[cardIndex]);
+      System.out.println("You clicked a card with CardListener index " + cardIndex);
+      System.out.println("The card is " + Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex));
+      Assig5_Phase3.myCardTable.repaint();
+   }
 }

@@ -42,7 +42,7 @@ class EndingListener implements ActionListener
    public void actionPerformed(ActionEvent e)
    {
 
-      System.out.println("I just pretended to exit");
+      System.out.println(e.getActionCommand());
    }
 }
 
