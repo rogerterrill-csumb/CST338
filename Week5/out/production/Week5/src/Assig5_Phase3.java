@@ -256,7 +256,7 @@ class GUICard
    }
 
    //Check
-   private static int valueToInt(Card card)
+   public static int valueToInt(Card card)
    {
       return Card.valueOfCard(card);
    }
@@ -477,7 +477,7 @@ class Card
     * @param card Card object whose value we want
     * @return Returns int card value
     */
-   static int valueOfCard(Card card)
+   public static int valueOfCard(Card card)
    {
 
       // It traverses the valuRanks and check which matches the card value
@@ -1159,7 +1159,8 @@ class CardListener implements ActionListener
    {
       Assig5_Phase3.myCardTable.pnlHumanHand.remove(Assig5_Phase3.humanButton[cardIndex]);
       System.out.println("You clicked a card with CardListener index " + cardIndex);
-      System.out.println("The card is " + Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex));
+      System.out.println("The card is " + Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
+      System.out.println("The card value is " + Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
       Assig5_Phase3.myCardTable.repaint();
    }
 }
