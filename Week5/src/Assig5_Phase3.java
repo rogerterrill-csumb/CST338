@@ -894,22 +894,22 @@ class Deck
          }
       }
 
-      System.out.println("Card instances is: " + cardInstances);
+//      System.out.println("Card instances is: " + cardInstances);
 
       // If card instance is equal or more than the number of decks ,it fails.
       if (cardInstances >= deckNum)
       {
-         System.out.println("Did not add card" + card.toString());
+//         System.out.println("Did not add card" + card.toString());
          return false;
       }
-      System.out.println("Added the card to the deck");
+//      System.out.println("Added the card to the deck");
 
       // Take added card and assign it to the top card.
       cards[topCard] = card;
 
       // Increase the topCard counter since we added a card
       topCard++;
-      System.out.println("The topCard Value is: " + topCard);
+//      System.out.println("The topCard Value is: " + topCard);
       return true;
    }
 
@@ -1159,7 +1159,7 @@ class CardGameFramework
 class CardListener implements ActionListener
 {
    private int cardIndex;
-   public int playerCard;
+   public static int playerCard;
    public static int compCard;
    public static int humanWonCards;
    public static int compWonCards;
@@ -1189,11 +1189,12 @@ class CardListener implements ActionListener
       compCard =
             Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex));
 
+
       // Displays the computers hand
-      for(int i = 0; i < 6; i++)
-      {
-         System.out.println(Assig5_Phase3.highCardGame.getHand(0).inspectCard(i).toString());
-      }
+//      for(int i = 0; i < 6; i++)
+//      {
+//         System.out.println(Assig5_Phase3.highCardGame.getHand(0).inspectCard(i).toString());
+//      }
 
 
       if(playerCard >  compCard)
@@ -1216,15 +1217,7 @@ class CardListener implements ActionListener
          System.out.println(Assig5_Phase3.humanWinnings[i].toString());
       }
 
-      if(lastWonHand == 0)
-      {
-         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getIcon(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex)));
-      }
-      else if(lastWonHand == 1)
-      {
-         Assig5_Phase3.playedCardLabels[0].setIcon(GUICard.getBackcardIcon());
-         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
-      }
+
 
 //      System.out.println(Assig5_Phase3.highCardGame.getHand(0));
 //      System.out.println(Assig5_Phase3.highCardGame.getHand(1));
@@ -1234,6 +1227,17 @@ class CardListener implements ActionListener
 //         System.out.println(Assig5_Phase3.humanWinnings);
 //      }
 
+      //System.out.println(humanWinningsDisplay());
+
+      if(lastWonHand == 0)
+      {
+         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getIcon(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex)));
+      }
+      else if(lastWonHand == 1)
+      {
+         Assig5_Phase3.playedCardLabels[0].setIcon(GUICard.getBackcardIcon());
+         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
+      }
       Assig5_Phase3.myCardTable.repaint();
 
    }
@@ -1259,10 +1263,7 @@ class CardListener implements ActionListener
 
    public void computerPlay()
    {
-      playerCard =
-            Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
-      compCard =
-            Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex));
+
 
       System.out.println("Your card is " + playerCard + " And Comp card is" +
             " " + compCard);
@@ -1291,5 +1292,17 @@ class CardListener implements ActionListener
          else
             Assig5_Phase3.gameText.setText("Game Over You Win!");
    }
+
+   private String humanWinningsDisplay()
+   {
+      String winnings = "";
+      for(int i = 0; i < humanWonCards; i++)
+      {
+         winnings += Assig5_Phase3.humanWinnings[i].toString() + "\n";
+      }
+
+      return winnings;
+   }
+
 
 }
