@@ -18,6 +18,8 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.util.Random;
 
 
@@ -50,8 +52,6 @@ public class Assig5_Phase3
       //myCardTable.setVisible(true); Repeated setVisible method. Omitted
 
       // CREATE LABELS ----------------------------------------------------
-      GUICard.loadCardIcons();
-
       for (card = 0; card < NUM_CARDS_PER_HAND; card++)
       {
          //give the Computer a back card Label
@@ -160,8 +160,8 @@ class CardTable extends JFrame
 
       //Names each section and places a border
       pnlComputerHand.setBorder(new TitledBorder("Computer Hand"));
-      pnlHumanHand.setBorder(new TitledBorder("Playing Area"));
-      pnlPlayArea.setBorder(new TitledBorder("Your Hand"));
+      pnlHumanHand.setBorder(new TitledBorder("Your Hand"));
+      pnlPlayArea.setBorder(new TitledBorder("Playing Area"));
 
    }
 
@@ -936,3 +936,11 @@ class Deck
 /*****************************************************************************
  *                        End of Deck                                        *
  *****************************************************************************/
+
+class cardManager implements ActionListener
+{
+   public void actionPerformed(ActionEvent e)
+   {
+      System.exit(0);
+   }
+}

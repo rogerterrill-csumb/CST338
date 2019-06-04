@@ -21,7 +21,7 @@
 //import java.util.Random;
 //
 //
-//public class Assig5_2
+//public class Assig5_Phase3
 //{
 //   static int NUM_CARDS_PER_HAND = 7;
 //   static int NUM_PLAYERS = 2;
@@ -50,6 +50,8 @@
 //      //myCardTable.setVisible(true); Repeated setVisible method. Omitted
 //
 //      // CREATE LABELS ----------------------------------------------------
+//      GUICard.loadCardIcons();
+//
 //      for (card = 0; card < NUM_CARDS_PER_HAND; card++)
 //      {
 //         //give the Computer a back card Label
@@ -74,14 +76,26 @@
 //      // and two random cards in the play region (simulating a computer/hum ply)
 //      for (card = 0; card < NUM_PLAYERS; card++)
 //      {
-//         //getting random card
-//         tempIcon = GUICard.getIcon(generateRandomCard());
-//         //assigning 2 labels to playedCards
-//         playedCardLabels[card] = new JLabel(tempIcon);
-//         //adding labels to played area
-//         myCardTable.pnlPlayArea.add(playedCardLabels[card]);
+//         myCardTable.pnlComputerHand.add(computerLabels[card]);
+//         myCardTable.pnlHumanHand.add(humanLabels[card]);
 //      }
 //
+//      JLabel playerCardLabel;
+//      JLabel computerCardLabel;
+//
+//      playedCardLabels[0] = new JLabel(GUICard.getIcon(generateRandomCard()));
+//      playedCardLabels[1] = new JLabel(GUICard.getIcon(generateRandomCard()));
+//
+//      playerCardLabel = new JLabel("You", JLabel.CENTER);
+//
+//      computerCardLabel = new JLabel("Computer", JLabel.CENTER);
+//
+//      myCardTable.pnlPlayArea.add(playedCardLabels[0]);
+//      myCardTable.pnlPlayArea.add(playedCardLabels[1]);
+//
+//      myCardTable.pnlPlayArea.add(playerCardLabel);
+//      myCardTable.pnlPlayArea.add(computerCardLabel);
+//      myCardTable.pack();
 //
 //      // show everything to the user
 //      myCardTable.setVisible(true);
@@ -903,7 +917,7 @@
 //    */
 //   public String toString()
 //   {
-//      String str;
+////      String str;
 //      str = "Deck = ( ";
 //      for (int card = 0; card < getNumCards(); card++)
 //      {
