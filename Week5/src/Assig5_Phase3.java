@@ -35,6 +35,8 @@ public class Assig5_Phase3
    static JButton[] humanButton = new JButton[NUM_CARDS_PER_HAND];
    static CardTable myCardTable;
    static CardGameFramework highCardGame;
+   static Card[] compWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
+   static Card[] humanWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
 
    public static void main(String[] args)
    {
@@ -1149,6 +1151,12 @@ class CardGameFramework
 class CardListener implements ActionListener
 {
    public int cardIndex;
+   public int playerCard;
+   public int compCard;
+   public static int humanWonCards;
+   public static int lastWonHand = 0;
+
+
 
    CardListener(int cardIndex)
    {
@@ -1158,9 +1166,64 @@ class CardListener implements ActionListener
    public void actionPerformed(ActionEvent e)
    {
       Assig5_Phase3.myCardTable.pnlHumanHand.remove(Assig5_Phase3.humanButton[cardIndex]);
+      Assig5_Phase3.myCardTable.pnlComputerHand.remove(Assig5_Phase3.computerLabels[cardIndex]);
       System.out.println("You clicked a card with CardListener index " + cardIndex);
       System.out.println("The card is " + Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
-      System.out.println("The card value is " + Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
+      System.out.println("The card value is " + Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex)));
+
+      //Assig5_Phase3.playedCardLabels[0].setIcon(Assig5_Phase3
+      // .humanButton[cardIndex].getIcon());
+
+
+
+      playerCard =
+            Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
+      compCard =
+            Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex));
+
+      for(int i = 0; i < 6; i++)
+      {
+         System.out.println(Assig5_Phase3.highCardGame.getHand(0).inspectCard(i).toString());
+      }
+
+
+
+      if(playerCard >  compCard)
+      {
+         System.out.println("Your card is " + playerCard + " And Comp card is" +
+               " " + compCard);
+         System.out.println("You WON!");
+         Assig5_Phase3.humanWinnings[humanWonCards] =
+            Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex);
+         humanWonCards++;
+         Assig5_Phase3.humanWinnings[humanWonCards] =
+               Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
+         humanWonCards++;
+         lastWonHand = 1;
+      }
+      else
+      {
+         System.out.println("Your card is " + playerCard + " And Comp card is" +
+               " " + compCard);
+         System.out.println("YOU LOST");
+         lastWonHand = 0;
+      }
+
+      for(int i = 0; i < humanWonCards; i++)
+      {
+         System.out.println(Assig5_Phase3.humanWinnings[i].toString());
+      }
+
+      if(lastWonHand == 0)
+      {
+         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getIcon(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex)));
+      }
+      else if(lastWonHand == 1)
+      {
+         Assig5_Phase3.playedCardLabels[0].setIcon(GUICard.getBackcardIcon());
+         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
+      }
+
       Assig5_Phase3.myCardTable.repaint();
    }
 }
