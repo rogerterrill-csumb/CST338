@@ -31,6 +31,7 @@ public class Assig5_Phase3
    static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
    static JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
    static JLabel[] playLabelText = new JLabel[NUM_PLAYERS];
+   static JButton[] humanButton = new JButton[NUM_CARDS_PER_HAND];
 
    public static void main(String[] args)
    {
@@ -70,9 +71,13 @@ public class Assig5_Phase3
          //give the Computer a back card Label
          computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
 
-         //give Human a random Card Label
-         tempIcon = GUICard.getIcon(highCardGame.getHand(0).inspectCard(card));
-         humanLabels[card] = new JLabel(tempIcon);
+         //give Human a Hand from the deck
+//         humanLabels[card] =
+//            new JLabel(GUICard.getIcon(highCardGame.getHand(0).inspectCard(card)));
+
+         humanButton[card] =
+               new JButton("",
+                     GUICard.getIcon(highCardGame.getHand(1).inspectCard(card)));
       }
 
       // ADD LABELS TO PANELS -----------------------------------------
@@ -82,7 +87,7 @@ public class Assig5_Phase3
          myCardTable.pnlComputerHand.add(computerLabels[card]);
 
          //add indexed label to Human panel
-         myCardTable.pnlHumanHand.add(humanLabels[card]);
+         myCardTable.pnlHumanHand.add(humanButton[card]);
       }
 
 
@@ -90,7 +95,7 @@ public class Assig5_Phase3
       for (card = 0; card < NUM_PLAYERS; card++)
       {
          myCardTable.pnlComputerHand.add(computerLabels[card]);
-         myCardTable.pnlHumanHand.add(humanLabels[card]);
+         myCardTable.pnlHumanHand.add(humanButton[card]);
       }
 
       JLabel playerCardLabel;
@@ -103,11 +108,19 @@ public class Assig5_Phase3
 
       computerCardLabel = new JLabel("Computer", JLabel.CENTER);
 
+      // These are the two play area cards on the 2 x NUM_PLAYERS grid
+
+      // Position 1,0
       myCardTable.pnlPlayArea.add(playedCardLabels[0]);
+      // Position 1,1
       myCardTable.pnlPlayArea.add(playedCardLabels[1]);
 
+      // Position 2,0
       myCardTable.pnlPlayArea.add(playerCardLabel);
+      // Position 2,1
       myCardTable.pnlPlayArea.add(computerCardLabel);
+
+      // Removes all spacing around the cards
       myCardTable.pack();
 
       // show everything to the user
