@@ -1150,12 +1150,14 @@ class CardGameFramework
 
 class CardListener implements ActionListener
 {
-   public int cardIndex;
+   private int cardIndex;
    public int playerCard;
    public static int compCard;
    public static int humanWonCards;
    public static int compWonCards;
    public int lastWonHand = 0;
+   private int humanScore = 0;
+   private int compScore = 0;
 
 
 
@@ -1228,15 +1230,15 @@ class CardListener implements ActionListener
             " " + compCard);
       System.out.println("You WON!");
 
-      Assig5_Phase3.humanWinnings[humanWonCards] =
+      Assig5_Phase3.humanWinnings[humanWonCards++] =
             Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex);
-      humanWonCards++;
 
-      Assig5_Phase3.humanWinnings[humanWonCards] =
+      Assig5_Phase3.humanWinnings[humanWonCards++] =
             Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
-      humanWonCards++;
 
+      humanScore++;
       lastWonHand = 1;
+
    }
 
    public void computerPlay()
@@ -1245,14 +1247,13 @@ class CardListener implements ActionListener
             " " + compCard);
       System.out.println("YOU LOST");
 
-      Assig5_Phase3.compWinnings[compWonCards] =
+      Assig5_Phase3.compWinnings[compWonCards++] =
             Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex);
-      compWonCards++;
 
-      Assig5_Phase3.compWinnings[compWonCards] =
+      Assig5_Phase3.compWinnings[compWonCards++] =
             Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
-      compWonCards++;
 
+      compScore++;
       lastWonHand = 0;
    }
 

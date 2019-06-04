@@ -1150,12 +1150,14 @@ class CardGameFramework
 
 class CardListener implements ActionListener
 {
-   public int cardIndex;
+   private int cardIndex;
    public int playerCard;
    public static int compCard;
    public static int humanWonCards;
    public static int compWonCards;
    public int lastWonHand = 0;
+   private int humanScore = 0;
+   private int compScore = 0;
 
 
 
@@ -1231,6 +1233,7 @@ class CardListener implements ActionListener
       Assig5_Phase3.humanWinnings[humanWonCards] =
             Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex);
       humanWonCards++;
+
 
       Assig5_Phase3.humanWinnings[humanWonCards] =
             Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
