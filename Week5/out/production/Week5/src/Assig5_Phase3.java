@@ -1160,7 +1160,7 @@ class Deck
    {
       int masterPackIndex;
 
-      String cardValues = "A23456789TJQKX";
+      String cardValues = "A23456789TJQK";
 
       if (masterPack[0] == null)
       {
