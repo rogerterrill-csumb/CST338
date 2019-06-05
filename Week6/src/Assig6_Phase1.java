@@ -1221,7 +1221,14 @@ class GameController
         this.numUnusedCardsPerPack = 0;
         this.unusedCardsPerPack = null;
 
-//        this.highCardGame = 
+        // Creating highCardGame object
+        this.highCardGame = new CardGameFramework
+              (numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack,
+                    unusedCardsPerPack, GameModel.NUM_PLAYERS,
+                    GameModel.NUM_CARDS_PER_HAND);
+
+        // Deals cards between the number of players
+        this.highCardGame.deal();
     }
 
 
