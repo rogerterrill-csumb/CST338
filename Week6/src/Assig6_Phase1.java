@@ -27,11 +27,11 @@ public class Assig6_Phase1
 {
     public static void main(String[] args)
     {
-        GameModel gameModel = new GameModel();
-
         GameView gameView = new GameView();
 
-        GameController gameController = new GameController(gameView, gameModel);
+        GameModel gameModel = new GameModel(gameView);
+
+        GameController gameController = new GameController(gameModel);
     }
 }
 
@@ -1093,12 +1093,12 @@ class GameModel
     static int NUM_CARDS_PER_HAND = 7;
     static int NUM_PLAYERS = 2;
     static int playerScore, computerScore;
+    GameView gameView;
 
 
-
-
-    GameModel()
+    GameModel(GameView gameView)
     {
+        this.gameView = gameView;
         playerScore = 0;
         computerScore = 0;
     }
@@ -1109,13 +1109,8 @@ class GameModel
 
 class GameView extends JFrame
 {
-    GameModel gameModel;
     Icon tempIcon;
 
-    GameView( GameModel gameModel)
-    {
-        this.gameModel = gameModel;
-    }
 
     static JLabel[] computerLabels = new JLabel[GameModel.NUM_CARDS_PER_HAND];
     static JLabel[] humanLabels = new JLabel[GameModel.NUM_CARDS_PER_HAND];
@@ -1123,6 +1118,7 @@ class GameView extends JFrame
     static JLabel[] playLabelText = new JLabel[GameModel.NUM_PLAYERS];
     static JLabel gameText = new JLabel();
     static JLabel gameStatus = new JLabel();
+    private GameModel gameModel;
 
     GameView()
     {
@@ -1155,8 +1151,7 @@ class GameView extends JFrame
 
             //give Human a card
             tempIcon =
-                  //GUICard.getIcon(gameModel.getCardGame().getHand(1)
-                  // .inspectCard(card));
+//                  GUICard.getIcon();
                     GUICard.getBackcardIcon();
             humanLabels[card] = new JLabel(tempIcon);
 //            humanLabels[card].addMouseListener(mouseAdapter);
@@ -1202,7 +1197,6 @@ class GameView extends JFrame
 
 class GameController
 {
-    private GameView gameView;
     private GameModel gameModel;
 
     int numPacksPerDeck;
@@ -1211,9 +1205,8 @@ class GameController
     Card[] unusedCardsPerPack;
     CardGameFramework highCardGame;
 
-    GameController(GameView gameView, GameModel gameModel)
+    GameController(GameModel gameModel)
     {
-        this.gameView = gameView;
         this.gameModel = gameModel;
 
         this.numPacksPerDeck = 1;
@@ -1239,5 +1232,14 @@ class GameController
         return deck.inspectCard(randomGen.nextInt(deck.getNumCards()));
     }
 
+    public CardGameFramework getGame()
+    {
+        return this.highCardGame;
+    }
+
+    public Card getCardFromDeck(int hand, int card)
+    {
+        return highCardGame.getHand(hand).inspectCard(card);
+    }
 
 }
