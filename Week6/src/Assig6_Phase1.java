@@ -32,8 +32,6 @@ public class Assig6_Phase1
         GameModel gameModel = new GameModel();
 
         GameController gameController = new GameController(gameView, gameModel);
-
-        gameView.setVisible(true);
     }
 }
 
@@ -1190,13 +1188,13 @@ class GameView extends JFrame
 
         // add two random cards in the play region (simulating a computer/hum ply)
         //getting random card
-        tempIcon = GUICard.getIcon(generateRandomCard());
+        tempIcon = GUICard.getIcon(GameController.generateRandomCard());
 
         //assigning 2 labels to playedCards
         playedCardLabels[0] = new JLabel(tempIcon);
         playedCardLabels[0].setVisible(false);
 
-        tempIcon = GUICard.getIcon(generateRandomCard());
+        tempIcon = GUICard.getIcon(GameController.generateRandomCard());
 
         playedCardLabels[1] = new JLabel(tempIcon);
         playedCardLabels[1].setVisible(false);
@@ -1214,12 +1212,6 @@ class GameView extends JFrame
         myCardTable.setVisible(true);
     }
 
-    static Card generateRandomCard()
-    {
-        Deck deck = new Deck();
-        Random randomGen = new Random();
-        return deck.inspectCard(randomGen.nextInt(deck.getNumCards()));
-    }
 }
 
 class GameController
@@ -1231,5 +1223,12 @@ class GameController
     {
         this.gameView = gameView;
         this.gameModel = gameModel;
+    }
+
+    static Card generateRandomCard()
+    {
+        Deck deck = new Deck();
+        Random randomGen = new Random();
+        return deck.inspectCard(randomGen.nextInt(deck.getNumCards()));
     }
 }
