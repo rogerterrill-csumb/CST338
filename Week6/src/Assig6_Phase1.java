@@ -27,9 +27,9 @@ public class Assig6_Phase1
 {
     public static void main(String[] args)
     {
-        GameView gameView = new GameView();
-
         GameModel gameModel = new GameModel();
+
+        GameView gameView = new GameView();
 
         GameController gameController = new GameController(gameView, gameModel);
     }
@@ -1094,31 +1094,15 @@ class GameModel
     static int NUM_PLAYERS = 2;
     static int playerScore, computerScore;
 
-    int numPacksPerDeck = 1;
-    int numJokersPerPack = 2;
-    int numUnusedCardsPerPack = 0;
-    Card[] unusedCardsPerPack = null;
-    CardGameFramework highCardGame;
+
 
 
     GameModel()
     {
         playerScore = 0;
         computerScore = 0;
-        // Creating highCardGame object
-        this.highCardGame = new CardGameFramework
-              (numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack,
-                    unusedCardsPerPack, NUM_PLAYERS, NUM_CARDS_PER_HAND);
-
-        // Deals cards between the number of players
-        highCardGame.deal();
     }
 
-
-    public CardGameFramework getCardGame()
-    {
-        return this.highCardGame;
-    }
 
 
 }
@@ -1170,9 +1154,11 @@ class GameView extends JFrame
             computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
 
             //give Human a card
-//            tempIcon =
-//                  GUICard.getIcon(gameModel.getCardGame().getHand(1).inspectCard(card));
-            humanLabels[card] = new JLabel(GUICard.getBackcardIcon());
+            tempIcon =
+                  //GUICard.getIcon(gameModel.getCardGame().getHand(1)
+                  // .inspectCard(card));
+                    GUICard.getBackcardIcon();
+            humanLabels[card] = new JLabel(tempIcon);
 //            humanLabels[card].addMouseListener(mouseAdapter);
         }
 
@@ -1219,11 +1205,25 @@ class GameController
     private GameView gameView;
     private GameModel gameModel;
 
+    int numPacksPerDeck;
+    int numJokersPerPack;
+    int numUnusedCardsPerPack;
+    Card[] unusedCardsPerPack;
+    CardGameFramework highCardGame;
+
     GameController(GameView gameView, GameModel gameModel)
     {
         this.gameView = gameView;
         this.gameModel = gameModel;
+
+        this.numPacksPerDeck = 1;
+        this.numJokersPerPack = 2;
+        this.numUnusedCardsPerPack = 0;
+        this.unusedCardsPerPack = null;
+
+//        this.highCardGame = 
     }
+
 
     static Card generateRandomCard()
     {
