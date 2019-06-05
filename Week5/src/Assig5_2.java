@@ -21,7 +21,7 @@
 //import java.util.Random;
 //
 //
-//public class Assig5_2
+//public class Assig5
 //{
 //   static int NUM_CARDS_PER_HAND = 7;
 //   static int NUM_PLAYERS = 2;
@@ -41,7 +41,7 @@
 //
 //      // establish main frame in which program will run
 //      CardTable myCardTable
-//            = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
+//              = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
 //      myCardTable.setSize(800, 600);
 //      myCardTable.setLocationRelativeTo(null);
 //      myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,11 +133,11 @@
 //      //GridLayout(int rows, int columns)
 //      //defines a panel for each field
 //      pnlComputerHand =
-//            new JPanel(new GridLayout(1, numCardsPerHand));
+//              new JPanel(new GridLayout(1, numCardsPerHand));
 //      pnlHumanHand =
-//            new JPanel(new GridLayout(1, numCardsPerHand));
+//              new JPanel(new GridLayout(1, numCardsPerHand));
 //      pnlPlayArea =
-//            new JPanel(new GridLayout(2, numPlayers));
+//              new JPanel(new GridLayout(2, numPlayers));
 //
 //      //Place panels to their specific location
 //      add(pnlComputerHand, BorderLayout.NORTH);
@@ -197,7 +197,7 @@
 //   static String numCard(int cardNum)
 //   {
 //      String[] cardValues = {"A", "2", "3", "4", "5", "6",
-//            "7", "8", "9", "T", "J", "Q", "K", "X"};
+//              "7", "8", "9", "T", "J", "Q", "K", "X"};
 //      return cardValues[cardNum];
 //   }
 //
@@ -207,7 +207,7 @@
 //      if (suitNum < 0 || suitNum > 3)
 //         return "invalid";
 //      return Card.Suit.values()[suitNum]
-//            .toString().toUpperCase().substring(0, 1);
+//              .toString().toUpperCase().substring(0, 1);
 //   }
 //
 //   //Check
@@ -261,15 +261,14 @@
 //   {CLUBS, DIAMONDS, HEARTS, SPADES}
 //
 //   public static char[] valuRanks = {'A', '2', '3', '4', '5', '6', '7', '8',
-//         '9', 'T', 'J', 'Q', 'K', 'X'};
+//           '9', 'T', 'J', 'Q', 'K', 'X'};
 //   private char value;
 //   private Suit suit;
 //   private boolean errorFlag;
 //
 //   /**
-//    * Purpose: Constructor with no parameters to initialize card.
-//    * Preconditions: None.
-//    * Postconditions: Sets default value for a Card object.
+//    * Purpose: Constructor with no parameters to initialize card. Preconditions:
+//    * None. Postconditions: Sets default value for a Card object.
 //    */
 //   public Card()
 //   {
@@ -279,8 +278,8 @@
 //
 //   /**
 //    * Purpose: Overloaded constructor with two parameters to initialize card.
-//    * Preconditions: Access to set() method.
-//    * Postconditions: Utilizes set method to initialize card.
+//    * Preconditions: Access to set() method. Postconditions: Utilizes set method
+//    * to initialize card.
 //    *
 //    * @param value The char value of the card.
 //    * @param suit  The enum suit of the card
@@ -292,8 +291,8 @@
 //
 //   /**
 //    * Purpose: To return a String that displays card value and suit.
-//    * Preconditions: Initialized card object.
-//    * Postconditions: Sets value for card object based on parameters.
+//    * Preconditions: Initialized card object. Postconditions: Sets value for
+//    * card object based on parameters.
 //    *
 //    * @return Returns a String displaying the value and suit of card or illegal
 //    * if a errorFlag is true
@@ -309,8 +308,8 @@
 //
 //   /**
 //    * Purpose: Sets card value and suit if the arguments are valid.
-//    * Preconditions: empty card initialized
-//    * Postconditions: Sets the errorFlag to true if valid or false otherwise.
+//    * Preconditions: empty card initialized Postconditions: Sets the errorFlag
+//    * to true if valid or false otherwise.
 //    *
 //    * @return Returns a boolean of true if arguments are valid and false if not
 //    */
@@ -328,8 +327,7 @@
 //   }
 //
 //   /**
-//    * Purpose: Get value of value.
-//    * Preconditions: card object successfully set
+//    * Purpose: Get value of value. Preconditions: card object successfully set
 //    * Postconditions: none
 //    *
 //    * @return Returns char value of card object
@@ -340,9 +338,8 @@
 //   }
 //
 //   /**
-//    * Purpose: Get enum suit of suit.
-//    * Preconditions: card object successfully set
-//    * Postconditions: none
+//    * Purpose: Get enum suit of suit. Preconditions: card object successfully
+//    * set Postconditions: none
 //    *
 //    * @return Returns enum suit
 //    */
@@ -352,9 +349,8 @@
 //   }
 //
 //   /**
-//    * Purpose: Get value of errorFlag.
-//    * Preconditions: card object successfully set
-//    * Postconditions: none
+//    * Purpose: Get value of errorFlag. Preconditions: card object successfully
+//    * set Postconditions: none
 //    *
 //    * @return Returns char value of card object
 //    */
@@ -365,10 +361,10 @@
 //
 //   /**
 //    * Purpose: Checks the equality of two objects and there members
-//    * Preconditions: card object successfully set
-//    * Postconditions: none
+//    * Preconditions: card object successfully set Postconditions: none
 //    *
-//    * @return Returns boolean result after checking if both value and suit are equal
+//    * @return Returns boolean result after checking if both value and suit are
+//    * equal
 //    */
 //   public boolean equals(Card card)
 //   {
@@ -378,13 +374,11 @@
 //
 //   /**
 //    * Purpose: Checks the validity of the arguments passed into method by
-//    * checking if they are in our cardValues array
-//    * Preconditions: card object initialized
-//    * Postconditions: none
+//    * checking if they are in our cardValues array Preconditions: card object
+//    * initialized Postconditions: none
 //    *
 //    * @return Returns boolean depending if the value passed into the method is
-//    * in our approved array list as true and if not in our list,
-//    * returns false
+//    * in our approved array list as true and if not in our list, returns false
 //    */
 //   private boolean isValid(char value, Suit suit)
 //   {
@@ -463,9 +457,8 @@
 //   private int numCards;
 //
 //   /**
-//    * Purpose: Default constructor to initialize hand object
-//    * Preconditions: card object
-//    * Postconditions: Creates a hand
+//    * Purpose: Default constructor to initialize hand object Preconditions: card
+//    * object Postconditions: Creates a hand
 //    */
 //   public Hand()
 //   {
@@ -474,8 +467,7 @@
 //   }
 //
 //   /**
-//    * Purpose: Empty hand
-//    * Preconditions: initialized and declared hand
+//    * Purpose: Empty hand Preconditions: initialized and declared hand
 //    * Postconditions: Changes numCards back to 0
 //    */
 //   /* Fix:You should set numCards to 0 in the resetHand().*/
@@ -485,9 +477,8 @@
 //   }
 //
 //   /**
-//    * Purpose: Takes card and adds it to myCards array
-//    * Preconditions: Valid card must exist
-//    * Postconditions: Adds card to array and iterates numCards +1
+//    * Purpose: Takes card and adds it to myCards array Preconditions: Valid card
+//    * must exist Postconditions: Adds card to array and iterates numCards +1
 //    *
 //    * @param card A valid card object from the card class
 //    * @return Returns true if successfully took card
@@ -508,9 +499,8 @@
 //
 //
 //   /**
-//    * Purpose: Reduces number of cards in hand
-//    * Preconditions: Valid card must exist
-//    * Postconditions: Decrements numCards 1
+//    * Purpose: Reduces number of cards in hand Preconditions: Valid card must
+//    * exist Postconditions: Decrements numCards 1
 //    *
 //    * @return Returns the top card
 //    */
@@ -524,8 +514,7 @@
 //         numCards--;
 //         System.out.println(myCards[numCards]);
 //         return myCards[numCards];
-//      }
-//      else
+//      } else
 //      {
 //         Card badCard = new Card('0', Card.Suit.SPADES);
 //         return badCard;
@@ -535,9 +524,8 @@
 //   }
 //
 //   /**
-//    * Purpose: Gives the number of cards in hand
-//    * Preconditions: hand object must exist
-//    * Postconditions: None
+//    * Purpose: Gives the number of cards in hand Preconditions: hand object must
+//    * exist Postconditions: None
 //    *
 //    * @return Return int of top card
 //    */
@@ -547,8 +535,7 @@
 //   }
 //
 //   /**
-//    * Purpose: Displays the cards in the Hand
-//    * Preconditions: Hand object exist
+//    * Purpose: Displays the cards in the Hand Preconditions: Hand object exist
 //    * Postconditions: None
 //    *
 //    * @return Returns String that displays card in Hand object
@@ -574,8 +561,8 @@
 //
 //   /**
 //    * Purpose: Checks to see if card is still valid and enables errorFlag if not
-//    * Preconditions: Cards in Hand
-//    * Postconditions: Changes card errorFlag to true if card is invalid
+//    * Preconditions: Cards in Hand Postconditions: Changes card errorFlag to
+//    * true if card is invalid
 //    *
 //    * @return Returns Card with error flag True or False
 //    */
@@ -645,8 +632,7 @@
 //   private int topCard = 0;
 //
 //   /**
-//    * Purpose: Constructor to build single deck
-//    * Preconditions: None
+//    * Purpose: Constructor to build single deck Preconditions: None
 //    * Postconditions: Creates a single deck of cards
 //    */
 //   public Deck()
@@ -661,8 +647,7 @@
 //   }
 //
 //   /**
-//    * Purpose: Constructor to build multiple decks
-//    * Preconditions: None
+//    * Purpose: Constructor to build multiple decks Preconditions: None
 //    * Postconditions: Creates a multiple deck of cards
 //    *
 //    * @param numPacks The number of pack of cards
@@ -680,8 +665,7 @@
 //   }
 //
 //   /**
-//    * Purpose: Constructor to build multiple decks
-//    * Preconditions: None
+//    * Purpose: Constructor to build multiple decks Preconditions: None
 //    * Postconditions: Creates a multiple deck of cards
 //    *
 //    * @param numPacks The number of pack of cards
@@ -703,9 +687,8 @@
 //   }
 //
 //   /**
-//    * Purpose: Shuffles the deck of cards
-//    * Preconditions: Need a full deck of cards
-//    * Postconditions: Shuffled deck
+//    * Purpose: Shuffles the deck of cards Preconditions: Need a full deck of
+//    * cards Postconditions: Shuffled deck
 //    */
 //   public void shuffle()
 //   {
@@ -719,8 +702,7 @@
 //   }
 //
 //   /**
-//    * Purpose: Deals the card from the deck
-//    * Preconditions: Initialized deck
+//    * Purpose: Deals the card from the deck Preconditions: Initialized deck
 //    * Postconditions: Decrements to rid of top card and returns top card
 //    */
 //   public Card dealCard()
@@ -735,8 +717,7 @@
 //   }
 //
 //   /**
-//    * Purpose: Get the top card int
-//    * Preconditions: Cards in the deck
+//    * Purpose: Get the top card int Preconditions: Cards in the deck
 //    * Postconditions: The int of the top card position
 //    */
 //   public int getTopCard()
@@ -745,8 +726,7 @@
 //   }
 //
 //   /**
-//    * Purpose: Checks the validity of card
-//    * Preconditions: Cards in list
+//    * Purpose: Checks the validity of card Preconditions: Cards in list
 //    * Postconditions: Changes the card error attribute to true if valid and
 //    * false if not valid
 //    *
@@ -763,9 +743,8 @@
 //   }
 //
 //   /**
-//    * Purpose: Creates the initial pack all other packs reference
-//    * Preconditions: none
-//    * Postconditions: Masterpack created
+//    * Purpose: Creates the initial pack all other packs reference Preconditions:
+//    * none Postconditions: Masterpack created
 //    */
 //   private static void allocateMasterPack()
 //   {
@@ -780,26 +759,26 @@
 //            if (masterPackIndex / NUM_OF_VALUES == 0)
 //            {
 //               masterPack[masterPackIndex] =
-//                     new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
-//                           Card.Suit.SPADES);
+//                       new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
+//                               Card.Suit.SPADES);
 //            }
 //            if (masterPackIndex / NUM_OF_VALUES == 1)
 //            {
 //               masterPack[masterPackIndex] =
-//                     new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
-//                           Card.Suit.CLUBS);
+//                       new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
+//                               Card.Suit.CLUBS);
 //            }
 //            if (masterPackIndex / NUM_OF_VALUES == 2)
 //            {
 //               masterPack[masterPackIndex] =
-//                     new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
-//                           Card.Suit.HEARTS);
+//                       new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
+//                               Card.Suit.HEARTS);
 //            }
 //            if (masterPackIndex / NUM_OF_VALUES == 3)
 //            {
 //               masterPack[masterPackIndex] =
-//                     new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
-//                           Card.Suit.DIAMONDS);
+//                       new Card(cardValues.charAt(masterPackIndex % NUM_OF_VALUES),
+//                               Card.Suit.DIAMONDS);
 //            }
 //         }
 //      }

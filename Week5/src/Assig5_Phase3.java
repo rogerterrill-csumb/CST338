@@ -45,8 +45,8 @@ public class Assig5_Phase3
       int numJokersPerPack = 2;
       int numUnusedCardsPerPack = 0;
       Card[] unusedCardsPerPack = null;
-      playLabelText[0] = new JLabel( "Computer", JLabel.CENTER );
-      playLabelText[1] = new JLabel( "You", JLabel.CENTER );
+      playLabelText[0] = new JLabel("Computer", JLabel.CENTER);
+      playLabelText[1] = new JLabel("You", JLabel.CENTER);
       playerScore = 0;
       computerScore = 0;
 
@@ -61,8 +61,8 @@ public class Assig5_Phase3
 
       // Creating highCardGame object
       CardGameFramework highCardGame = new CardGameFramework
-            (numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack,
-                  unusedCardsPerPack, NUM_PLAYERS, NUM_CARDS_PER_HAND);
+              (numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack,
+                      unusedCardsPerPack, NUM_PLAYERS, NUM_CARDS_PER_HAND);
 
       // Deals cards between the number of players
       highCardGame.deal();
@@ -73,7 +73,7 @@ public class Assig5_Phase3
 
       // establish main frame in which program will run
       CardTable myCardTable
-            = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
+              = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
       myCardTable.setSize(800, 600);
       myCardTable.setLocationRelativeTo(null);
       myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +84,7 @@ public class Assig5_Phase3
          public void mouseClicked(MouseEvent e)
          {
             playGame(myCardTable.pnlHumanHand.getComponentZOrder
-                  (e.getComponent()));
+                    (e.getComponent()));
          }
 
          private void playGame(int index)
@@ -96,10 +96,10 @@ public class Assig5_Phase3
                playedCardLabels[1].setVisible(true);
 
                //build card computer array in memory
-               for (int count = 0;count < NUM_CARDS_PER_HAND; count++)
+               for (int count = 0; count < NUM_CARDS_PER_HAND; count++)
                {
                   computerCards[count] = Card.valueOfCard(highCardGame
-                        .getHand(0).inspectCard(count));
+                          .getHand(0).inspectCard(count));
                }
             }
 
@@ -118,7 +118,7 @@ public class Assig5_Phase3
 
             //get computer hand
             computerPlay(Card.valueOfCard(highCardGame.getHand(1)
-                                                      .inspectCard(index)));
+                    .inspectCard(index)));
          }
 
          private void computerPlay(int highCard)
@@ -128,7 +128,7 @@ public class Assig5_Phase3
             int minInd = 0;
             int minCard = 14;
             //get available values
-            for (int count = 0;count < NUM_CARDS_PER_HAND; count++)
+            for (int count = 0; count < NUM_CARDS_PER_HAND; count++)
             {
                int cardValue = computerCards[count];
                if (cardValue > highCard && cardValue < bestCard)
@@ -156,15 +156,14 @@ public class Assig5_Phase3
 
                //move to playing field
                playedCardLabels[0].setIcon(GUICard.getIcon(highCardGame
-                     .getHand(0).inspectCard(index)));
+                       .getHand(0).inspectCard(index)));
 
                computerCards[index] = -1;
 
                //set display
-               computerScore ++;
+               computerScore++;
                updateGame("Computer Wins");
-            }
-            else
+            } else
             {
                //check conditions for game play
                if (!playedCardLabels[0].isVisible())
@@ -177,12 +176,12 @@ public class Assig5_Phase3
 
                //move to playing field
                playedCardLabels[0].setIcon(GUICard.getIcon(highCardGame
-                     .getHand(0).inspectCard(minInd)));
+                       .getHand(0).inspectCard(minInd)));
 
                computerCards[minInd] = -1;
 
                //set display
-               playerScore ++;
+               playerScore++;
                updateGame("You win");
             }
          }
@@ -284,9 +283,9 @@ class CardGameFramework
    // in the game.  e.g. pinochle does not
    // use cards 2-8 of any suit
 
-   public CardGameFramework( int numPacks, int numJokersPerPack,
-                             int numUnusedCardsPerPack,  Card[] unusedCardsPerPack,
-                             int numPlayers, int numCardsPerHand)
+   public CardGameFramework(int numPacks, int numJokersPerPack,
+                            int numUnusedCardsPerPack, Card[] unusedCardsPerPack,
+                            int numPlayers, int numCardsPerHand)
    {
       int k;
 
@@ -300,9 +299,9 @@ class CardGameFramework
       if (numPlayers < 1 || numPlayers > MAX_PLAYERS)
          numPlayers = 4;
       // one of many ways to assure at least one full deal to all players
-      if  (numCardsPerHand < 1 ||
-            numCardsPerHand >  numPacks * (52 - numUnusedCardsPerPack)
-                  / numPlayers )
+      if (numCardsPerHand < 1 ||
+              numCardsPerHand > numPacks * (52 - numUnusedCardsPerPack)
+                      / numPlayers)
          numCardsPerHand = numPacks * (52 - numUnusedCardsPerPack) / numPlayers;
 
       // allocate
@@ -342,9 +341,15 @@ class CardGameFramework
       return hand[k];
    }
 
-   public Card getCardFromDeck() { return deck.dealCard(); }
+   public Card getCardFromDeck()
+   {
+      return deck.dealCard();
+   }
 
-   public int getNumCardsRemainingInDeck() { return deck.getNumCards(); }
+   public int getNumCardsRemainingInDeck()
+   {
+      return deck.getNumCards();
+   }
 
    public void newGame()
    {
@@ -359,12 +364,12 @@ class CardGameFramework
 
       // remove unused cards
       for (k = 0; k < numUnusedCardsPerPack; k++)
-         deck.removeCard( unusedCardsPerPack[k] );
+         deck.removeCard(unusedCardsPerPack[k]);
 
       // add jokers
       for (k = 0; k < numPacks; k++)
-         for ( j = 0; j < numJokersPerPack; j++)
-            deck.addCard( new Card('X', Card.Suit.values()[j]) );
+         for (j = 0; j < numJokersPerPack; j++)
+            deck.addCard(new Card('X', Card.Suit.values()[j]));
 
       // Sorts the deck and displays it to verify only two jokers are present
       deck.sort();
@@ -385,11 +390,11 @@ class CardGameFramework
          hand[j].resetHand();
 
       enoughCards = true;
-      for (k = 0; k < numCardsPerHand && enoughCards ; k++)
+      for (k = 0; k < numCardsPerHand && enoughCards; k++)
       {
          for (j = 0; j < numPlayers; j++)
             if (deck.getNumCards() > 0)
-               hand[j].takeCard( deck.dealCard() );
+               hand[j].takeCard(deck.dealCard());
             else
             {
                enoughCards = false;
@@ -411,8 +416,8 @@ class CardGameFramework
    Card playCard(int playerIndex, int cardIndex)
    {
       // returns bad card if either argument is bad
-      if (playerIndex < 0 ||  playerIndex > numPlayers - 1 ||
-            cardIndex < 0 || cardIndex > numCardsPerHand - 1)
+      if (playerIndex < 0 || playerIndex > numPlayers - 1 ||
+              cardIndex < 0 || cardIndex > numCardsPerHand - 1)
       {
          //Creates a card that does not work
          return new Card('M', Card.Suit.SPADES);
@@ -472,7 +477,7 @@ class CardTable extends JFrame implements ActionListener
       deal.addActionListener(this);
       fileMenu.add(deal);
       JMenuItem exit = new JMenuItem("Exit");
-      exit.addActionListener( this);
+      exit.addActionListener(this);
       fileMenu.addSeparator();
       fileMenu.add(exit);
       menuBar.add(fileMenu);
@@ -481,7 +486,7 @@ class CardTable extends JFrame implements ActionListener
       about.addActionListener(this);
       helpMenu.add(about);
       menuBar.add(helpMenu);
-      JMenuBar bar = new JMenuBar( );
+      JMenuBar bar = new JMenuBar();
       bar.add(menuBar);
       setJMenuBar(bar);
 
@@ -496,7 +501,7 @@ class CardTable extends JFrame implements ActionListener
       //defines a panel for each field
       pnlComputerHand = new JPanel(new GridLayout(1, numCardsPerHand));
       pnlHumanHand = new JPanel(new GridLayout(1, numCardsPerHand));
-      pnlPlayArea = new JPanel(new GridLayout(2, numPlayers +1));
+      pnlPlayArea = new JPanel(new GridLayout(2, numPlayers + 1));
 
       //Place panels to their specific location
       add(pnlComputerHand, BorderLayout.NORTH);
@@ -522,25 +527,24 @@ class CardTable extends JFrame implements ActionListener
    @Override
    public void actionPerformed(ActionEvent e)
    {
-      String buttonString = e.getActionCommand( );
+      String buttonString = e.getActionCommand();
       if (buttonString.equals("Deal"))
       {
          this.setVisible(false);
          Assig5_Phase3.main(null);
-      }
-      else if (buttonString.equals("Exit"))
+      } else if (buttonString.equals("Exit"))
          System.exit(0);
       else if (buttonString.contentEquals("About"))
          JOptionPane.showMessageDialog(this,
-               "GUI Cards\n\n"
-                     + "A project by:\n "
-                     + " Abby Packham\n"
-                     + "  Carlos Orduna\n"
-                     + "  Dalia Faria\n"
-                     + "  George Blombach\n"
-                     + "  Roger Terrill\n\n"
-                     + " "
-                     + "CSUMB CST338, June 2019");
+                 "GUI Cards\n\n"
+                         + "A project by:\n "
+                         + " Abby Packham\n"
+                         + "  Carlos Orduna\n"
+                         + "  Dalia Faria\n"
+                         + "  George Blombach\n"
+                         + "  Roger Terrill\n\n"
+                         + " "
+                         + "CSUMB CST338, June 2019");
    }
 }
 
@@ -586,7 +590,7 @@ class GUICard
    static String numCard(int cardNum)
    {
       String[] cardValues =
-            {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "X"};
+              {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "X"};
       return cardValues[cardNum];
    }
 
@@ -597,7 +601,7 @@ class GUICard
          return "invalid";
 
       return Card.Suit.values()[suitNum]
-            .toString().toUpperCase().substring(0, 1);
+              .toString().toUpperCase().substring(0, 1);
 
    }
 
@@ -648,7 +652,10 @@ class GUICard
 
 class Card
 {
-   public enum Suit{CLUBS, DIAMONDS, HEARTS, SPADES};
+   public enum Suit
+   {CLUBS, DIAMONDS, HEARTS, SPADES}
+
+   ;
    //public static char[] valuRanks =
    //{'A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'X'};
    public static String valuRanks = "A23456789TJQKX";
@@ -657,9 +664,8 @@ class Card
    private boolean errorFlag;
 
    /**
-    * Purpose: Constructor with no parameters to initialize card.
-    * Preconditions: None.
-    * Postconditions: Sets default value for a Card object.
+    * Purpose: Constructor with no parameters to initialize card. Preconditions:
+    * None. Postconditions: Sets default value for a Card object.
     */
    public Card()
    {
@@ -669,8 +675,8 @@ class Card
 
    /**
     * Purpose: Overloaded constructor with two parameters to initialize card.
-    * Preconditions: Access to set() method.
-    * Postconditions: Utilizes set method to initialize card.
+    * Preconditions: Access to set() method. Postconditions: Utilizes set method
+    * to initialize card.
     *
     * @param value The char value of the card.
     * @param suit  The enum suit of the card
@@ -682,8 +688,8 @@ class Card
 
    /**
     * Purpose: To return a String that displays card value and suit.
-    * Preconditions: Initialized card object.
-    * Postconditions: Sets value for card object based on parameters.
+    * Preconditions: Initialized card object. Postconditions: Sets value for
+    * card object based on parameters.
     *
     * @return Returns a String displaying the value and suit of card or illegal
     * if a errorFlag is true
@@ -699,8 +705,8 @@ class Card
 
    /**
     * Purpose: Sets card value and suit if the arguments are valid.
-    * Preconditions: empty card initialized
-    * Postconditions: Sets the errorFlag to true if valid or false otherwise.
+    * Preconditions: empty card initialized Postconditions: Sets the errorFlag
+    * to true if valid or false otherwise.
     *
     * @return Returns a boolean of true if arguments are valid and false if not
     */
@@ -718,8 +724,7 @@ class Card
    }
 
    /**
-    * Purpose: Get value of value.
-    * Preconditions: card object successfully set
+    * Purpose: Get value of value. Preconditions: card object successfully set
     * Postconditions: none
     *
     * @return Returns char value of card object
@@ -730,9 +735,8 @@ class Card
    }
 
    /**
-    * Purpose: Get enum suit of suit.
-    * Preconditions: card object successfully set
-    * Postconditions: none
+    * Purpose: Get enum suit of suit. Preconditions: card object successfully
+    * set Postconditions: none
     *
     * @return Returns enum suit
     */
@@ -742,9 +746,8 @@ class Card
    }
 
    /**
-    * Purpose: Get value of errorFlag.
-    * Preconditions: card object successfully set
-    * Postconditions: none
+    * Purpose: Get value of errorFlag. Preconditions: card object successfully
+    * set Postconditions: none
     *
     * @return Returns char value of card object
     */
@@ -755,8 +758,7 @@ class Card
 
    /**
     * Purpose: Checks the equality of two objects and there members
-    * Preconditions: card object successfully set
-    * Postconditions: none
+    * Preconditions: card object successfully set Postconditions: none
     *
     * @return Returns boolean result after checking if both value and suit are
     * equal
@@ -769,13 +771,11 @@ class Card
 
    /**
     * Purpose: Checks the validity of the arguments passed into method by
-    * checking if they are in our cardValues array
-    * Preconditions: card object initialized
-    * Postconditions: none
+    * checking if they are in our cardValues array Preconditions: card object
+    * initialized Postconditions: none
     *
     * @return Returns boolean depending if the value passed into the method is
-    * in our approved array list as true and if not in our list,
-    * returns false
+    * in our approved array list as true and if not in our list, returns false
     */
    private boolean isValid(char value, Suit suit)
    {
@@ -828,7 +828,7 @@ class Card
       // It traverses the valuRanks and check which matches the card value
       // Then it returns the index position as the value
       //System.out.print("Card Value: " + card.getValue() + "\n");
-      if(valuRanks.indexOf(card.getValue()) > -1)
+      if (valuRanks.indexOf(card.getValue()) > -1)
          return valuRanks.indexOf(card.getValue());
       else
          return -11;
@@ -851,9 +851,8 @@ class Hand
    private int numCards;
 
    /**
-    * Purpose: Default constructor to initialize hand object
-    * Preconditions: card object
-    * Postconditions: Creates a hand
+    * Purpose: Default constructor to initialize hand object Preconditions: card
+    * object Postconditions: Creates a hand
     */
    public Hand()
    {
@@ -862,8 +861,7 @@ class Hand
    }
 
    /**
-    * Purpose: Empty hand
-    * Preconditions: initialized and declared hand
+    * Purpose: Empty hand Preconditions: initialized and declared hand
     * Postconditions: Changes numCards back to 0
     */
    /* Fix:You should set numCards to 0 in the resetHand().*/
@@ -876,9 +874,8 @@ class Hand
    }
 
    /**
-    * Purpose: Takes card and adds it to myCards array
-    * Preconditions: Valid card must exist
-    * Postconditions: Adds card to array and iterates numCards +1
+    * Purpose: Takes card and adds it to myCards array Preconditions: Valid card
+    * must exist Postconditions: Adds card to array and iterates numCards +1
     *
     * @param card A valid card object from the card class
     * @return Returns true if successfully took card
@@ -899,9 +896,8 @@ class Hand
 
 
    /**
-    * Purpose: Reduces number of cards in hand
-    * Preconditions: Valid card must exist
-    * Postconditions: Decrements numCards 1
+    * Purpose: Reduces number of cards in hand Preconditions: Valid card must
+    * exist Postconditions: Decrements numCards 1
     *
     * @return Returns the top card
     */
@@ -915,8 +911,7 @@ class Hand
          numCards--;
          System.out.println(myCards[numCards]);
          return myCards[numCards];
-      }
-      else
+      } else
       {
          Card badCard = new Card('0', Card.Suit.SPADES);
          return badCard;
@@ -924,9 +919,8 @@ class Hand
    }
 
    /**
-    * Purpose: Gives the number of cards in hand
-    * Preconditions: hand object must exist
-    * Postconditions: None
+    * Purpose: Gives the number of cards in hand Preconditions: hand object must
+    * exist Postconditions: None
     *
     * @return Return int of top card
     */
@@ -936,8 +930,7 @@ class Hand
    }
 
    /**
-    * Purpose: Displays the cards in the Hand
-    * Preconditions: Hand object exist
+    * Purpose: Displays the cards in the Hand Preconditions: Hand object exist
     * Postconditions: None
     *
     * @return Returns String that displays card in Hand object
@@ -963,8 +956,8 @@ class Hand
 
    /**
     * Purpose: Checks to see if card is still valid and enables errorFlag if not
-    * Preconditions: Cards in Hand
-    * Postconditions: Changes card errorFlag to true if card is invalid
+    * Preconditions: Cards in Hand Postconditions: Changes card errorFlag to
+    * true if card is invalid
     *
     * @return Returns Card with error flag True or False
     */
@@ -1035,8 +1028,7 @@ class Deck
    private int topCard = 0;
 
    /**
-    * Purpose: Constructor to build single deck
-    * Preconditions: None
+    * Purpose: Constructor to build single deck Preconditions: None
     * Postconditions: Creates a single deck of cards
     */
    public Deck()
@@ -1051,8 +1043,7 @@ class Deck
    }
 
    /**
-    * Purpose: Constructor to build multiple decks
-    * Preconditions: None
+    * Purpose: Constructor to build multiple decks Preconditions: None
     * Postconditions: Creates a multiple deck of cards
     *
     * @param numPacks The number of pack of cards
@@ -1069,8 +1060,7 @@ class Deck
    }
 
    /**
-    * Purpose: Constructor to build multiple decks
-    * Preconditions: None
+    * Purpose: Constructor to build multiple decks Preconditions: None
     * Postconditions: Creates a multiple deck of cards
     *
     * @param numPacks The number of pack of cards
@@ -1092,9 +1082,8 @@ class Deck
    }
 
    /**
-    * Purpose: Shuffles the deck of cards
-    * Preconditions: Need a full deck of cards
-    * Postconditions: Shuffled deck
+    * Purpose: Shuffles the deck of cards Preconditions: Need a full deck of
+    * cards Postconditions: Shuffled deck
     */
    public void shuffle()
    {
@@ -1108,8 +1097,7 @@ class Deck
    }
 
    /**
-    * Purpose: Deals the card from the deck
-    * Preconditions: Initialized deck
+    * Purpose: Deals the card from the deck Preconditions: Initialized deck
     * Postconditions: Decrements to rid of top card and returns top card
     */
    public Card dealCard()
@@ -1124,8 +1112,7 @@ class Deck
    }
 
    /**
-    * Purpose: Get the top card int
-    * Preconditions: Cards in the deck
+    * Purpose: Get the top card int Preconditions: Cards in the deck
     * Postconditions: The int of the top card position
     */
    public int getTopCard()
@@ -1134,8 +1121,7 @@ class Deck
    }
 
    /**
-    * Purpose: Checks the validity of card
-    * Preconditions: Cards in list
+    * Purpose: Checks the validity of card Preconditions: Cards in list
     * Postconditions: Changes the card error attribute to true if valid and
     * false if not valid
     *
@@ -1152,9 +1138,8 @@ class Deck
    }
 
    /**
-    * Purpose: Creates the initial pack all other packs reference
-    * Preconditions: none
-    * Postconditions: Masterpack created
+    * Purpose: Creates the initial pack all other packs reference Preconditions:
+    * none Postconditions: Masterpack created
     */
    private static void allocateMasterPack()
    {
@@ -1170,26 +1155,26 @@ class Deck
             if (masterPackIndex / NUM_OF_VALUES == 0)
             {
                masterPack[masterPackIndex] =
-                     new Card(cardValues.charAt(masterPackIndex %
-                           NUM_OF_VALUES), Card.Suit.SPADES);
+                       new Card(cardValues.charAt(masterPackIndex %
+                               NUM_OF_VALUES), Card.Suit.SPADES);
             }
             if (masterPackIndex / NUM_OF_VALUES == 1)
             {
                masterPack[masterPackIndex] =
-                     new Card(cardValues.charAt(masterPackIndex %
-                           NUM_OF_VALUES), Card.Suit.CLUBS);
+                       new Card(cardValues.charAt(masterPackIndex %
+                               NUM_OF_VALUES), Card.Suit.CLUBS);
             }
             if (masterPackIndex / NUM_OF_VALUES == 2)
             {
                masterPack[masterPackIndex] =
-                     new Card(cardValues.charAt(masterPackIndex %
-                           NUM_OF_VALUES), Card.Suit.HEARTS);
+                       new Card(cardValues.charAt(masterPackIndex %
+                               NUM_OF_VALUES), Card.Suit.HEARTS);
             }
             if (masterPackIndex / NUM_OF_VALUES == 3)
             {
                masterPack[masterPackIndex] =
-                     new Card(cardValues.charAt(masterPackIndex %
-                           NUM_OF_VALUES), Card.Suit.DIAMONDS);
+                       new Card(cardValues.charAt(masterPackIndex %
+                               NUM_OF_VALUES), Card.Suit.DIAMONDS);
             }
          }
       }
