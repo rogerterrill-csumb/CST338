@@ -894,22 +894,17 @@ class Deck
          }
       }
 
-      System.out.println("Card instances is: " + cardInstances);
-
       // If card instance is equal or more than the number of decks ,it fails.
       if (cardInstances >= deckNum)
       {
-         System.out.println("Did not add card" + card.toString());
          return false;
       }
-      System.out.println("Added the card to the deck");
 
       // Take added card and assign it to the top card.
       cards[topCard] = card;
 
       // Increase the topCard counter since we added a card
       topCard++;
-      System.out.println("The topCard Value is: " + topCard);
       return true;
    }
 
@@ -1166,7 +1161,6 @@ class CardListener implements ActionListener
    public int lastWonHand = 0;
    private static int humanScore = 0;
    private static int compScore = 0;
-   private int handCounter = Assig5_Phase3.NUM_CARDS_PER_HAND;
 
 
 
@@ -1216,11 +1210,11 @@ class CardListener implements ActionListener
          System.out.println(Assig5_Phase3.humanWinnings[i].toString());
       }
 
-      if(lastWonHand == 0)
+      if(lastWonHand == 1)
       {
          Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getIcon(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex)));
       }
-      else if(lastWonHand == 1)
+      else if(lastWonHand == 0)
       {
          Assig5_Phase3.playedCardLabels[0].setIcon(GUICard.getBackcardIcon());
          Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
@@ -1247,8 +1241,6 @@ class CardListener implements ActionListener
 
       Assig5_Phase3.humanWinnings[humanWonCards++] =
               Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex);
-      Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex).set('M',
-              Card.Suit.SPADES);
 
       Assig5_Phase3.humanWinnings[humanWonCards++] =
               Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
