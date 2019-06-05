@@ -25,34 +25,16 @@ import java.util.Random;
 
 public class Assig6_Phase1
 {
-    static int playerScore, computerScore = 0;
-
     public static void main(String[] args)
     {
-        // Initializing instance variables for CardGameFramework
-        int card;
-        Icon tempIcon;
+        GameView gameView = new GameView();
 
+        GameModel gameModel = new GameModel();
 
-        //keep track of computer card array
-        int computerCards[] = new int[GameController.NUM_CARDS_PER_HAND];
+        GameController gameController = new GameController(gameView, gameModel);
 
-
-        //Load Icons for cards from GUICard class
-        GUICard.loadCardIcons();
-
-
-
-
-
-
+        gameView.setVisible(true);
     }
-
-    //generate a random card to be given to a player
-    //-Currently can give repeated cards-
-    //-It's OK as this is only for testing purposes-
-
-
 }
 
 /*****************************************************************************
@@ -240,6 +222,105 @@ class CardGameFramework
  * CardTable  - Class that embodies the JPanels and Layout(s) needed for the
  * application. This is where all the cards and controls will be placed.
  *****************************************************************************/
+class CardTable extends JFrame implements ActionListener
+{
+    //CardTable static data
+    static int MAX_CARDS_PER_HAND = 56;
+    static int MAX_PLAYERS = 2;
+
+    //CardTable private data
+    private int numCardsPerHand;
+    private int numPlayers;
+
+    //CardTable public data
+    //3 panels - One Computer player, One Human player, One play area
+    public JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea, pnlGame;
+
+    //Constructor and mutator - Adds panels to the JFrame
+    CardTable(String title, int numCardsPerHand, int numPlayers)
+    {
+        //the string - title - will be displayed on the window frame.
+        super(title);
+
+        //Create the menu bar
+
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem deal = new JMenuItem("Deal");
+        deal.addActionListener(this);
+        fileMenu.add(deal);
+        JMenuItem exit = new JMenuItem("Exit");
+        exit.addActionListener( this);
+        fileMenu.addSeparator();
+        fileMenu.add(exit);
+        menuBar.add(fileMenu);
+        JMenu helpMenu = new JMenu("Help");
+        JMenuItem about = new JMenuItem("About");
+        about.addActionListener(this);
+        helpMenu.add(about);
+        menuBar.add(helpMenu);
+        JMenuBar bar = new JMenuBar( );
+        bar.add(menuBar);
+        setJMenuBar(bar);
+
+        //BorderLayout manager - BorderLayout(int horizontalGap, int verticalGap)
+        setLayout(new BorderLayout());
+
+        //Sets values
+        this.numCardsPerHand = numCardsPerHand;
+        this.numPlayers = numPlayers;
+
+        //GridLayout(int rows, int columns)
+        //defines a panel for each field
+        pnlComputerHand = new JPanel(new GridLayout(1, numCardsPerHand));
+        pnlHumanHand = new JPanel(new GridLayout(1, numCardsPerHand));
+        pnlPlayArea = new JPanel(new GridLayout(2, numPlayers +1));
+
+        //Place panels to their specific location
+        add(pnlComputerHand, BorderLayout.NORTH);
+        add(pnlHumanHand, BorderLayout.SOUTH);
+        add(pnlPlayArea, BorderLayout.CENTER);
+
+        //Names each section and places a border
+        pnlComputerHand.setBorder(new TitledBorder("Computer Hand"));
+        pnlHumanHand.setBorder(new TitledBorder("Your Hand"));
+        pnlPlayArea.setBorder(new TitledBorder("Playing Area"));
+    }
+
+    public int getNumCardsPerHand()
+    {
+        return numCardsPerHand;
+    }
+
+    public int getNumPlayers()
+    {
+        return numPlayers;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        String buttonString = e.getActionCommand( );
+        if (buttonString.equals("Deal"))
+        {
+            this.setVisible(false);
+            Assig6_Phase1.main(null);
+        }
+        else if (buttonString.equals("Exit"))
+            System.exit(0);
+        else if (buttonString.contentEquals("About"))
+            JOptionPane.showMessageDialog(this,
+                  "GUI Cards\n\n"
+                        + "A project by:\n "
+                        + " Abby Packham\n"
+                        + "  Carlos Orduna\n"
+                        + "  Dalia Faria\n"
+                        + "  George Blombach\n"
+                        + "  Roger Terrill\n\n"
+                        + " "
+                        + "CSUMB CST338, June 2019");
+    }
+}
 
 /*****************************************************************************
  *                        End of CardTable                                   *
@@ -1010,91 +1091,19 @@ class Deck
  *                        End of Deck                                        *
  *****************************************************************************/
 
-
-/*****************************************************************************
- *                        Game View                                     *
- *****************************************************************************/
 class GameView extends JFrame
 {
-    static JLabel[] computerLabels =
-          new JLabel[GameController.NUM_CARDS_PER_HAND];
-    static JLabel[] humanLabels = new JLabel[GameController.NUM_CARDS_PER_HAND];
-    static JLabel[] playedCardLabels = new JLabel[GameController.NUM_PLAYERS];
-    static JLabel[] playLabelText = new JLabel[GameController.NUM_PLAYERS];
+    static JLabel[] computerLabels = new JLabel[GameModel.NUM_CARDS_PER_HAND];
+    static JLabel[] humanLabels = new JLabel[GameModel.NUM_CARDS_PER_HAND];
+    static JLabel[] playedCardLabels = new JLabel[GameModel.NUM_PLAYERS];
+    static JLabel[] playLabelText = new JLabel[GameModel.NUM_PLAYERS];
     static JLabel gameText = new JLabel();
     static JLabel gameStatus = new JLabel();
 
-    //CardTable private data
-    private int numCardsPerHand;
-    private int numPlayers;
-    private int playerScore, computerScore;
-
-    Icon tempIcon;
-    int card;
-
-    //CardTable public data
-    //3 panels - One Computer player, One Human player, One play area
-    public JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea, pnlGame;
-
-    public GameView(String title, int numCardsPerHand, int numPlayers)
+    GameView()
     {
-        super(title);
-
-
-//        //Create the menu bar
-//
-//        JMenuBar menuBar = new JMenuBar();
-//        JMenu fileMenu = new JMenu("File");
-//        JMenuItem deal = new JMenuItem("Deal");
-//        deal.addActionListener(this);
-//        fileMenu.add(deal);
-//        JMenuItem exit = new JMenuItem("Exit");
-//        exit.addActionListener( this);
-//        fileMenu.addSeparator();
-//        fileMenu.add(exit);
-//        menuBar.add(fileMenu);
-//        JMenu helpMenu = new JMenu("Help");
-//        JMenuItem about = new JMenuItem("About");
-//        about.addActionListener(this);
-//        helpMenu.add(about);
-//        menuBar.add(helpMenu);
-//        JMenuBar bar = new JMenuBar( );
-//        bar.add(menuBar);
-//        setJMenuBar(bar);
-
-        //BorderLayout manager - BorderLayout(int horizontalGap, int verticalGap)
-        setLayout(new BorderLayout());
-
-        //Sets values
-        this.numCardsPerHand = numCardsPerHand;
-        this.numPlayers = numPlayers;
-
-        //GridLayout(int rows, int columns)
-        //defines a panel for each field
-        pnlComputerHand = new JPanel(new GridLayout(1, numCardsPerHand));
-        pnlHumanHand = new JPanel(new GridLayout(1, numCardsPerHand));
-        pnlPlayArea = new JPanel(new GridLayout(2, numPlayers +1));
-
-        //Place panels to their specific location
-        add(pnlComputerHand, BorderLayout.NORTH);
-        add(pnlHumanHand, BorderLayout.SOUTH);
-        add(pnlPlayArea, BorderLayout.CENTER);
-
-        //Names each section and places a border
-        pnlComputerHand.setBorder(new TitledBorder("Computer Hand"));
-        pnlHumanHand.setBorder(new TitledBorder("Your Hand"));
-        pnlPlayArea.setBorder(new TitledBorder("Playing Area"));
-
-        // establish main frame in which program will run
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-        playLabelText[0] = new JLabel("Computer", JLabel.CENTER);
-        playLabelText[1] = new JLabel("You", JLabel.CENTER);
-        playerScore = 0;
-        computerScore = 0;
+        playLabelText[0] = new JLabel( "Computer", JLabel.CENTER );
+        playLabelText[1] = new JLabel( "You", JLabel.CENTER );
 
         //game controls
         gameText = new JLabel("Welcome to High Card!");
@@ -1102,240 +1111,58 @@ class GameView extends JFrame
         gameText.setForeground(Color.red);
         gameStatus.setForeground(Color.red);
 
-        // CREATE LABELS ----------------------------------------------------
-        for (card = 0; card < GameController.NUM_CARDS_PER_HAND; card++)
-        {
-            //give the Computer a back card Label
-            computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
+        // Load Icons for cards from GUICards
+        GUICard.loadCardIcons();
 
-            //give Human a card
-            tempIcon =
-                  GUICard.getIcon(GameController.highCardGame.getHand(1).inspectCard(card));
-            humanLabels[card] = new JLabel(tempIcon);
-            humanLabels[card].addMouseListener(mouseAdapter);
-        }
-
-        // ADD LABELS TO PANELS -----------------------------------------
-        for (card = 0; card < GameController.NUM_CARDS_PER_HAND; card++)
-        {
-            //add indexed label to Computer panel
-            pnlComputerHand.add(computerLabels[card]);
-
-            //add indexed label to Human panel
-            pnlHumanHand.add(humanLabels[card]);
-        }
-
-        // add two random cards in the play region (simulating a computer/hum ply)
-        //getting random card
-        tempIcon = GUICard.getIcon(generateRandomCard());
-
-        //assigning 2 labels to playedCards
-        playedCardLabels[0] = new JLabel(tempIcon);
-        playedCardLabels[0].setVisible(false);
-
-        tempIcon = GUICard.getIcon(generateRandomCard());
-
-        playedCardLabels[1] = new JLabel(tempIcon);
-        playedCardLabels[1].setVisible(false);
-
-        //adding labels to played area
-        pnlPlayArea.add(playedCardLabels[0]);
-        pnlPlayArea.add(playedCardLabels[1]);
-        pnlPlayArea.add(gameText);
-        pnlPlayArea.add(playLabelText[0]);
-        pnlPlayArea.add(playLabelText[1]);
-        pnlPlayArea.add(gameStatus);
-
-        // show everything to the user
-        pack();
-        setVisible(true);
+        // establish main frame in which program will run
+        CardTable myCardTable
+              = new CardTable("CardTable", GameModel.NUM_CARDS_PER_HAND,
+              GameModel.NUM_PLAYERS);
+        myCardTable.setSize(800, 600);
+        myCardTable.setLocationRelativeTo(null);
+        myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
-    public int getNumCardsPerHand()
-    {
-        return numCardsPerHand;
-    }
-
-    public int getNumPlayers()
-    {
-        return numPlayers;
-    }
-
-    static Card generateRandomCard()
-    {
-        Deck deck = new Deck();
-        Random randomGen = new Random();
-        return deck.inspectCard(randomGen.nextInt(deck.getNumCards()));
-    }
-
-//    void addMenuListener(ActionListener listenForMenu)
-//    {
-//        this.deal
-//    }
-
-
 }
 
-/*****************************************************************************
- *                        Game Model                                     *
- *****************************************************************************/
 class GameModel
-{
-
-}
-
-/*****************************************************************************
- *                        Game Controller                                     *
- *****************************************************************************/
-class GameController
 {
     static int NUM_CARDS_PER_HAND = 7;
     static int NUM_PLAYERS = 2;
 
-    int numPacksPerDeck;
-    int numJokersPerPack;
-    int numUnusedCardsPerPack;
+    int numPacksPerDeck = 1;
+    int numJokersPerPack = 2;
+    int numUnusedCardsPerPack = 0;
     Card[] unusedCardsPerPack = null;
     CardGameFramework highCardGame;
 
-    private GameModel gameModel;
-    private GameView gameView;
-
-    GameController()
+    GameModel()
     {
-        this.numPacksPerDeck = 1;
-        this.numJokersPerPack = 2;
-        this.numUnusedCardsPerPack = 0;
-
         // Creating highCardGame object
-        highCardGame = new CardGameFramework
+         highCardGame = new CardGameFramework
               (numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack,
                     unusedCardsPerPack, NUM_PLAYERS, NUM_CARDS_PER_HAND);
 
         // Deals cards between the number of players
         highCardGame.deal();
-        //DEBUG: System.out.print(highCardGame.getHand(0) + "\n");
     }
 
-    //add mouse adapter
-    MouseAdapter mouseAdapter = new MouseAdapter()
+
+    public CardGameFramework getCardGame()
     {
-        public void mouseClicked(MouseEvent e)
-        {
-            playGame(GameView.pnlHumanHand.getComponentZOrder
-                  (e.getComponent()));
-        }
+        return highCardGame;
+    }
 
-        private void playGame(int index)
-        {
-            //check conditions for game play
-            if (!playedCardLabels[1].isVisible())
-            {
-                //unhide placeholder card
-                playedCardLabels[1].setVisible(true);
 
-                //build card computer array in memory
-                for (int count = 0; count < GameController.NUM_CARDS_PER_HAND; count++)
-                {
-                    computerCards[count] = Card.valueOfCard(highCardGame
-                          .getHand(0).inspectCard(count));
-                }
-            }
+}
 
-            //hide card just played
-            humanLabels[index].setVisible(false);
+class GameController
+{
+    private GameView gameView;
+    private GameModel gameModel;
 
-            //move to playing field
-            playedCardLabels[1].setIcon(humanLabels[index].getIcon());
-
-            /* DEBUG System.out.print(Card.valueOfCard(highCardGame.getHand(1)
-             * .inspectCard(index)) + "\n");
-             */
-            /* DEBUG System.out.print(Card.valueOfCard(highCardGame.getHand(1)
-             * .inspectCard(index)) + "\n");
-             */
-
-            //get computer hand
-            computerPlay(Card.valueOfCard(highCardGame.getHand(1)
-                                                      .inspectCard(index)));
-        }
-
-        private void computerPlay(int highCard)
-        {
-            int bestCard = 14;
-            int index = 0;
-            int minInd = 0;
-            int minCard = 14;
-            //get available values
-            for (int count = 0; count < GameController.NUM_CARDS_PER_HAND; count++)
-            {
-                int cardValue = computerCards[count];
-                if (cardValue > highCard && cardValue < bestCard)
-                {
-                    index = count;
-                    bestCard = cardValue;
-                }
-
-                if (cardValue < minCard && cardValue >= 0)
-                {
-                    minInd = count;
-                    minCard = cardValue;
-                }
-            }
-            if (bestCard < 14)
-            {
-                //check conditions for game play
-                if (!playedCardLabels[0].isVisible())
-                {
-                    //unhide placeholder
-                    playedCardLabels[0].setVisible(true);
-                }
-                //hide card just played
-                computerLabels[index].setVisible(false);
-
-                //move to playing field
-                playedCardLabels[0].setIcon(GUICard.getIcon(highCardGame
-                      .getHand(0).inspectCard(index)));
-
-                computerCards[index] = -1;
-
-                //set display
-                computerScore++;
-                updateGame("Computer Wins");
-            }
-            else
-            {
-                //check conditions for game play
-                if (!playedCardLabels[0].isVisible())
-                {
-                    //unhide placeholder
-                    playedCardLabels[0].setVisible(true);
-                }
-                //hide card just played
-                computerLabels[minInd].setVisible(false);
-
-                //move to playing field
-                playedCardLabels[0].setIcon(GUICard.getIcon(highCardGame
-                      .getHand(0).inspectCard(minInd)));
-
-                computerCards[minInd] = -1;
-
-                //set display
-                playerScore++;
-                updateGame("You win");
-            }
-        }
-
-        private void updateGame(String message)
-        {
-            //show score
-            gameStatus.setText("Score: " + computerScore + "-" + playerScore);
-            gameText.setText(message);
-            if (computerScore + playerScore == GameController.NUM_CARDS_PER_HAND)
-                if (computerScore > playerScore)
-                    gameText.setText("Game Over Computer Wins");
-                else
-                    gameText.setText("Game Over You Win!");
-        }
-    }; //end of mouseAdapter
+    GameController(GameView gameView, GameModel gameModel)
+    {
+        this.gameView = gameView;
+        this.gameModel = gameModel;
+    }
 }
