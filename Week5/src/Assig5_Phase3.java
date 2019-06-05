@@ -84,11 +84,13 @@ public class Assig5_Phase3
 //         humanLabels[card] =
 //            new JLabel(GUICard.getIcon(highCardGame.getHand(0).inspectCard(card)));
 
+
          humanButton[card] =
                new JButton("",
                      GUICard.getIcon(highCardGame.getHand(1).inspectCard(card)));
 
-         humanButton[card].addActionListener(new CardListener(card));
+         humanButton[card].addActionListener(new CardListener());
+//         humanButton[card].setActionCommand();
       }
 
       // ADD LABELS TO PANELS -----------------------------------------
@@ -1158,129 +1160,9 @@ class CardGameFramework
 
 class CardListener implements ActionListener
 {
-   private int cardIndex;
-   public static int playerCard;
-   public static int compCard;
-   public static int humanWonCards;
-   public static int compWonCards;
-   public static int lastWonHand = 1;
-   private static int humanScore = 0;
-   private static int compScore = 0;
-
-   CardListener(int cardIndex)
-   {
-      this.cardIndex = cardIndex;
-   }
-
    public void actionPerformed(ActionEvent e)
    {
-      if(lastWonHand == 0)
-      {
-         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getIcon(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex)));
-      }
-      else if(lastWonHand == 1)
-      {
-         Assig5_Phase3.playedCardLabels[0].setIcon(GUICard.getBackcardIcon());
-         Assig5_Phase3.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
-      }
-
-      playerCard =
-            Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex));
-      compCard =
-            Card.valueOfCard(Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex));
-
-      Assig5_Phase3.myCardTable.pnlHumanHand.remove(Assig5_Phase3.humanButton[cardIndex]);
-      Assig5_Phase3.myCardTable.pnlComputerHand.remove(Assig5_Phase3.computerLabels[cardIndex]);
-
-
-      if(playerCard >  compCard)
-      {
-         humanPlay();
-      }
-      else if( playerCard < compCard)
-      {
-         computerPlay();
-      }
-      else
-      {
-         System.out.println("Your card is " + playerCard + " And Comp card is" +
-               " " + compCard);
-         System.out.println("It's a draw");
-      }
-
-      // Displays cards won
-      for(int i = 0; i < humanWonCards; i++)
-      {
-         System.out.println(Assig5_Phase3.humanWinnings[i].toString());
-      }
-
-
-
-      Assig5_Phase3.myCardTable.repaint();
-
+      System.out.println(e.getActionCommand());
    }
-
-   public void humanPlay()
-   {
-
-      System.out.println("Your card is " + playerCard + " And Comp card is" +
-            " " + compCard);
-      System.out.println("You WON!");
-
-      Assig5_Phase3.humanWinnings[humanWonCards++] =
-            Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex);
-
-      Assig5_Phase3.humanWinnings[humanWonCards++] =
-            Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
-
-
-      humanScore++;
-      updateGame("You win");
-      lastWonHand = 1;
-
-   }
-
-   public void computerPlay()
-   {
-
-      System.out.println("Your card is " + playerCard + " And Comp card is" +
-            " " + compCard);
-      System.out.println("YOU LOST");
-
-      Assig5_Phase3.compWinnings[compWonCards++] =
-            Assig5_Phase3.highCardGame.getHand(1).inspectCard(cardIndex);
-
-      Assig5_Phase3.compWinnings[compWonCards++] =
-            Assig5_Phase3.highCardGame.getHand(0).inspectCard(cardIndex);
-
-      compScore++;
-      updateGame("Computer Wins");
-      lastWonHand = 0;
-   }
-
-
-   private void updateGame(String message)
-   {
-      //show score
-      Assig5_Phase3.gameStatus.setText("Score: " + humanScore + "-" + compScore);
-      Assig5_Phase3.gameText.setText(message);
-      if (compScore + humanScore == Assig5_Phase3.NUM_CARDS_PER_HAND)
-         if (compScore > humanScore)
-            Assig5_Phase3.gameText.setText("Game Over Computer Wins");
-         else
-            Assig5_Phase3.gameText.setText("Game Over You Win!");
-   }
-
-   private String humanWinningsDisplay()
-   {
-      String winnings = "";
-      for(int i = 0; i < humanWonCards; i++)
-      {
-         winnings += Assig5_Phase3.humanWinnings[i].toString() + "\n";
-      }
-
-      return winnings;
-   }
-
 
 }
