@@ -1231,4 +1231,6 @@ class GameController
         Random randomGen = new Random();
         return deck.inspectCard(randomGen.nextInt(deck.getNumCards()));
     }
+
+
 }
