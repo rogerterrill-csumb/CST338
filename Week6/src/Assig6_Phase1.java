@@ -1090,9 +1090,51 @@ class Deck
 /*****************************************************************************
  *                        End of Deck                                        *
  *****************************************************************************/
+class GameModel
+{
+    static int NUM_CARDS_PER_HAND = 7;
+    static int NUM_PLAYERS = 2;
+    static int playerScore, computerScore;
+
+    int numPacksPerDeck = 1;
+    int numJokersPerPack = 2;
+    int numUnusedCardsPerPack = 0;
+    Card[] unusedCardsPerPack = null;
+    CardGameFramework highCardGame;
+
+
+    GameModel()
+    {
+        playerScore = 0;
+        computerScore = 0;
+        // Creating highCardGame object
+        this.highCardGame = new CardGameFramework
+              (numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack,
+                    unusedCardsPerPack, NUM_PLAYERS, NUM_CARDS_PER_HAND);
+
+        // Deals cards between the number of players
+        highCardGame.deal();
+    }
+
+
+    public CardGameFramework getCardGame()
+    {
+        return this.highCardGame;
+    }
+
+
+}
 
 class GameView extends JFrame
 {
+    GameModel gameModel;
+    Icon tempIcon;
+
+    GameView( GameModel gameModel)
+    {
+        this.gameModel = gameModel;
+    }
+
     static JLabel[] computerLabels = new JLabel[GameModel.NUM_CARDS_PER_HAND];
     static JLabel[] humanLabels = new JLabel[GameModel.NUM_CARDS_PER_HAND];
     static JLabel[] playedCardLabels = new JLabel[GameModel.NUM_PLAYERS];
@@ -1102,6 +1144,7 @@ class GameView extends JFrame
 
     GameView()
     {
+        // Save to PlayLabel Array
         playLabelText[0] = new JLabel( "Computer", JLabel.CENTER );
         playLabelText[1] = new JLabel( "You", JLabel.CENTER );
 
@@ -1121,38 +1164,62 @@ class GameView extends JFrame
         myCardTable.setSize(800, 600);
         myCardTable.setLocationRelativeTo(null);
         myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // CREATE LABELS ----------------------------------------------------
+        for (int card = 0; card < GameModel.NUM_CARDS_PER_HAND; card++)
+        {
+            //give the Computer a back card Label
+            computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
+
+            //give Human a card
+//            tempIcon =
+//                  GUICard.getIcon(gameModel.getCardGame().getHand(1).inspectCard(card));
+            humanLabels[card] = new JLabel(GUICard.getBackcardIcon());
+//            humanLabels[card].addMouseListener(mouseAdapter);
+        }
+
+        // ADD LABELS TO PANELS -----------------------------------------
+        for (int card = 0; card < GameModel.NUM_CARDS_PER_HAND; card++)
+        {
+            //add indexed label to Computer panel
+            myCardTable.pnlComputerHand.add(computerLabels[card]);
+
+            //add indexed label to Human panel
+            myCardTable.pnlHumanHand.add(humanLabels[card]);
+        }
+
+        // add two random cards in the play region (simulating a computer/hum ply)
+        //getting random card
+        tempIcon = GUICard.getIcon(generateRandomCard());
+
+        //assigning 2 labels to playedCards
+        playedCardLabels[0] = new JLabel(tempIcon);
+        playedCardLabels[0].setVisible(false);
+
+        tempIcon = GUICard.getIcon(generateRandomCard());
+
+        playedCardLabels[1] = new JLabel(tempIcon);
+        playedCardLabels[1].setVisible(false);
+
+        //adding labels to played area
+        myCardTable.pnlPlayArea.add(playedCardLabels[0]);
+        myCardTable.pnlPlayArea.add(playedCardLabels[1]);
+        myCardTable.pnlPlayArea.add(gameText);
+        myCardTable.pnlPlayArea.add(playLabelText[0]);
+        myCardTable.pnlPlayArea.add(playLabelText[1]);
+        myCardTable.pnlPlayArea.add(gameStatus);
+
+        // show everything to the user
+        myCardTable.pack();
+        myCardTable.setVisible(true);
     }
-}
 
-class GameModel
-{
-    static int NUM_CARDS_PER_HAND = 7;
-    static int NUM_PLAYERS = 2;
-
-    int numPacksPerDeck = 1;
-    int numJokersPerPack = 2;
-    int numUnusedCardsPerPack = 0;
-    Card[] unusedCardsPerPack = null;
-    CardGameFramework highCardGame;
-
-    GameModel()
+    static Card generateRandomCard()
     {
-        // Creating highCardGame object
-         highCardGame = new CardGameFramework
-              (numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack,
-                    unusedCardsPerPack, NUM_PLAYERS, NUM_CARDS_PER_HAND);
-
-        // Deals cards between the number of players
-        highCardGame.deal();
+        Deck deck = new Deck();
+        Random randomGen = new Random();
+        return deck.inspectCard(randomGen.nextInt(deck.getNumCards()));
     }
-
-
-    public CardGameFramework getCardGame()
-    {
-        return highCardGame;
-    }
-
-
 }
 
 class GameController
