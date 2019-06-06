@@ -1094,19 +1094,24 @@ class Deck
 ////////////////////////////////////////////////////////////////////////////////////
 class GameController
 {
-   static int NUM_CARDS_PER_HAND = 7;
-   static int NUM_PLAYERS = 2;
-
    private GameView gameView;
    private GameModel gameModel;
+
 
    GameController(GameView gameView, GameModel gameModel)
    {
       this.gameView = gameView;
       this.gameModel = gameModel;
+      GameControllerInit();
+//      gameView.setMouseAdapter(mouseAdapter);
+
+
+   }
+
+   public void GameControllerInit()
+   {
       gameView.setHighCardGame(gameModel.getGame());
       gameView.updateTable();
-
    }
 
 
@@ -1123,8 +1128,8 @@ class GameController
 ////////////////////////////////////////////////////////////////////////////////////
 class GameModel
 {
-   static int NUM_CARDS_PER_HAND = GameController.NUM_CARDS_PER_HAND;
-   static int NUM_PLAYERS = GameController.NUM_PLAYERS;
+   static int NUM_CARDS_PER_HAND = 7;
+   static int NUM_PLAYERS = 2;
    private Hand[] hands = new Hand[2];
    private int humanScore = 0;
    private int compScore = 0;
@@ -1140,7 +1145,7 @@ class GameModel
       Card[] unusedCardsPerPack = null;
 
       // Creating highCardGame object
-      highCardGame = new CardGameFramework(numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack, unusedCardsPerPack, GameController.NUM_PLAYERS, GameController.NUM_CARDS_PER_HAND);
+      highCardGame = new CardGameFramework(numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack, unusedCardsPerPack, NUM_PLAYERS, NUM_CARDS_PER_HAND);
 
       // Deals cards between the number of players
       highCardGame.deal();
@@ -1149,6 +1154,8 @@ class GameModel
       System.out.println(highCardGame.getHand(1).toString());
 
    }
+
+
 
    public CardGameFramework getGame()
    {
@@ -1180,10 +1187,10 @@ class GameModel
 ////////////////////////////////////////////////////////////////////////////////////
 class GameView extends JFrame
 {
-   static int NUM_CARDS_PER_HAND = GameController.NUM_CARDS_PER_HAND;
-   static int NUM_PLAYERS = GameController.NUM_PLAYERS;
+   static int NUM_CARDS_PER_HAND = GameModel.NUM_CARDS_PER_HAND;
+   static int NUM_PLAYERS = GameModel.NUM_PLAYERS;
 
-   static CardTable myCardTable = new CardTable("CardTable", GameController.NUM_CARDS_PER_HAND, GameController.NUM_PLAYERS);
+   static CardTable myCardTable = new CardTable("CardTable", NUM_CARDS_PER_HAND, NUM_PLAYERS);
    static JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
    static JLabel[] humanLabels = new JLabel[NUM_CARDS_PER_HAND];
    static JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
@@ -1196,6 +1203,7 @@ class GameView extends JFrame
    private int computerScore = 0;
 
    CardGameFramework highCardGame;
+   MouseAdapter mouseAdapter;
 
 
    GameView()
@@ -1213,7 +1221,6 @@ class GameView extends JFrame
 
    public void updateTable()
    {
-
       //add mouse adapter
       MouseAdapter mouseAdapter = new MouseAdapter()
       {
@@ -1222,119 +1229,8 @@ class GameView extends JFrame
             playGame(myCardTable.pnlHumanHand.getComponentZOrder
                   (e.getComponent()));
          }
-
-         private void playGame(int index)
-         {
-            //check conditions for game play
-            if (!playedCardLabels[1].isVisible())
-            {
-               //unhide placeholder card
-               playedCardLabels[1].setVisible(true);
-
-               //build card computer array in memory
-               for (int count = 0;count < NUM_CARDS_PER_HAND; count++)
-               {
-                  computerCards[count] = Card.valueOfCard(highCardGame
-                        .getHand(0).inspectCard(count));
-               }
-            }
-
-            //hide card just played
-            humanLabels[index].setVisible(false);
-
-            //move to playing field
-            playedCardLabels[1].setIcon(humanLabels[index].getIcon());
-
-            /* DEBUG System.out.print(Card.valueOfCard(highCardGame.getHand(1)
-             * .inspectCard(index)) + "\n");
-             */
-            /* DEBUG System.out.print(Card.valueOfCard(highCardGame.getHand(1)
-             * .inspectCard(index)) + "\n");
-             */
-
-            //get computer hand
-            computerPlay(Card.valueOfCard(highCardGame.getHand(1)
-                                                      .inspectCard(index)));
-         }
-
-         private void computerPlay(int highCard)
-         {
-            int bestCard = 14;
-            int index = 0;
-            int minInd = 0;
-            int minCard = 14;
-            //get available values
-            for (int count = 0;count < NUM_CARDS_PER_HAND; count++)
-            {
-               int cardValue = computerCards[count];
-               if (cardValue > highCard && cardValue < bestCard)
-               {
-                  index = count;
-                  bestCard = cardValue;
-               }
-
-               if (cardValue < minCard && cardValue >= 0)
-               {
-                  minInd = count;
-                  minCard = cardValue;
-               }
-            }
-            if (bestCard < 14)
-            {
-               //check conditions for game play
-               if (!playedCardLabels[0].isVisible())
-               {
-                  //unhide placeholder
-                  playedCardLabels[0].setVisible(true);
-               }
-               //hide card just played
-               computerLabels[index].setVisible(false);
-
-               //move to playing field
-               playedCardLabels[0].setIcon(GUICard.getIcon(highCardGame
-                     .getHand(0).inspectCard(index)));
-
-               computerCards[index] = -1;
-
-               //set display
-               computerScore ++;
-               updateGame("Computer Wins");
-            }
-            else
-            {
-               //check conditions for game play
-               if (!playedCardLabels[0].isVisible())
-               {
-                  //unhide placeholder
-                  playedCardLabels[0].setVisible(true);
-               }
-               //hide card just played
-               computerLabels[minInd].setVisible(false);
-
-               //move to playing field
-               playedCardLabels[0].setIcon(GUICard.getIcon(highCardGame
-                     .getHand(0).inspectCard(minInd)));
-
-               computerCards[minInd] = -1;
-
-               //set display
-               playerScore ++;
-               updateGame("You win");
-            }
-         }
-
-         private void updateGame(String message)
-         {
-            //show score
-            gameStatus.setText("Score: " + computerScore + "-" + playerScore);
-            gameText.setText(message);
-            if (computerScore + playerScore == NUM_CARDS_PER_HAND)
-               if (computerScore > playerScore)
-                  gameText.setText("Game Over Computer Wins");
-               else
-                  gameText.setText("Game Over You Win!");
-         }
       }; //end of mouseAdapter
+
 
 
       playLabelText[0] = new JLabel( "Computer", JLabel.CENTER );
@@ -1408,11 +1304,128 @@ class GameView extends JFrame
       this.highCardGame = highCardGame;
    }
 
+   public void playGame(int index)
+   {
+      //check conditions for game play
+      if (!playedCardLabels[1].isVisible())
+      {
+         //unhide placeholder card
+         playedCardLabels[1].setVisible(true);
+
+         //build card computer array in memory
+         for (int count = 0;count < NUM_CARDS_PER_HAND; count++)
+         {
+            computerCards[count] = Card.valueOfCard(highCardGame
+                  .getHand(0).inspectCard(count));
+         }
+      }
+
+      //hide card just played
+      humanLabels[index].setVisible(false);
+
+      //move to playing field
+      playedCardLabels[1].setIcon(humanLabels[index].getIcon());
+
+      /* DEBUG System.out.print(Card.valueOfCard(highCardGame.getHand(1)
+       * .inspectCard(index)) + "\n");
+       */
+      /* DEBUG System.out.print(Card.valueOfCard(highCardGame.getHand(1)
+       * .inspectCard(index)) + "\n");
+       */
+
+      //get computer hand
+      computerPlay(Card.valueOfCard(highCardGame.getHand(1)
+                                                .inspectCard(index)));
+   }
+
+   private void computerPlay(int highCard)
+   {
+      int bestCard = 14;
+      int index = 0;
+      int minInd = 0;
+      int minCard = 14;
+      //get available values
+      for (int count = 0;count < NUM_CARDS_PER_HAND; count++)
+      {
+         int cardValue = computerCards[count];
+         if (cardValue > highCard && cardValue < bestCard)
+         {
+            index = count;
+            bestCard = cardValue;
+         }
+
+         if (cardValue < minCard && cardValue >= 0)
+         {
+            minInd = count;
+            minCard = cardValue;
+         }
+      }
+      if (bestCard < 14)
+      {
+         //check conditions for game play
+         if (!playedCardLabels[0].isVisible())
+         {
+            //unhide placeholder
+            playedCardLabels[0].setVisible(true);
+         }
+         //hide card just played
+         computerLabels[index].setVisible(false);
+
+         //move to playing field
+         playedCardLabels[0].setIcon(GUICard.getIcon(highCardGame
+               .getHand(0).inspectCard(index)));
+
+         computerCards[index] = -1;
+
+         //set display
+         computerScore ++;
+         updateGame("Computer Wins");
+      }
+      else
+      {
+         //check conditions for game play
+         if (!playedCardLabels[0].isVisible())
+         {
+            //unhide placeholder
+            playedCardLabels[0].setVisible(true);
+         }
+         //hide card just played
+         computerLabels[minInd].setVisible(false);
+
+         //move to playing field
+         playedCardLabels[0].setIcon(GUICard.getIcon(highCardGame
+               .getHand(0).inspectCard(minInd)));
+
+         computerCards[minInd] = -1;
+
+         //set display
+         playerScore ++;
+         updateGame("You win");
+      }
+   }
+
+   private void updateGame(String message)
+   {
+      //show score
+      gameStatus.setText("Score: " + computerScore + "-" + playerScore);
+      gameText.setText(message);
+      if (computerScore + playerScore == NUM_CARDS_PER_HAND)
+         if (computerScore > playerScore)
+            gameText.setText("Game Over Computer Wins");
+         else
+            gameText.setText("Game Over You Win!");
+   }
+
 
    static Card generateRandomCard()
    {
       Deck deck = new Deck();
       Random randomGen = new Random();
       return deck.inspectCard(randomGen.nextInt(deck.getNumCards()));
+   }
+
+   public void setMouseAdapter(MouseAdapter mouseAdapter)
+   {
+      this.mouseAdapter = mouseAdapter;
    }
 }
