@@ -79,8 +79,8 @@ class CardGameFramework
          numPlayers = 4;
       // one of many ways to assure at least one full deal to all players
       if  (numCardsPerHand < 1 ||
-            numCardsPerHand >  numPacks * (52 - numUnusedCardsPerPack)
-                  / numPlayers )
+              numCardsPerHand >  numPacks * (52 - numUnusedCardsPerPack)
+                      / numPlayers )
          numCardsPerHand = numPacks * (52 - numUnusedCardsPerPack) / numPlayers;
 
       // allocate
@@ -190,7 +190,7 @@ class CardGameFramework
    {
       // returns bad card if either argument is bad
       if (playerIndex < 0 ||  playerIndex > numPlayers - 1 ||
-            cardIndex < 0 || cardIndex > numCardsPerHand - 1)
+              cardIndex < 0 || cardIndex > numCardsPerHand - 1)
       {
          //Creates a card that does not work
          return new Card('M', Card.Suit.SPADES);
@@ -310,15 +310,15 @@ class CardTable extends JFrame implements ActionListener
          System.exit(0);
       else if (buttonString.contentEquals("About"))
          JOptionPane.showMessageDialog(this,
-               "GUI Cards\n\n"
-                     + "A project by:\n "
-                     + " Abby Packham\n"
-                     + "  Carlos Orduna\n"
-                     + "  Dalia Faria\n"
-                     + "  George Blombach\n"
-                     + "  Roger Terrill\n\n"
-                     + " "
-                     + "CSUMB CST338, June 2019");
+                 "GUI Cards\n\n"
+                         + "A project by:\n "
+                         + " Abby Packham\n"
+                         + "  Carlos Orduna\n"
+                         + "  Dalia Faria\n"
+                         + "  George Blombach\n"
+                         + "  Roger Terrill\n\n"
+                         + " "
+                         + "CSUMB CST338, June 2019");
    }
 }
 
@@ -364,7 +364,7 @@ class GUICard
    static String numCard(int cardNum)
    {
       String[] cardValues =
-            {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "X"};
+              {"A", "2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "X"};
       return cardValues[cardNum];
    }
 
@@ -375,7 +375,7 @@ class GUICard
          return "invalid";
 
       return Card.Suit.values()[suitNum]
-            .toString().toUpperCase().substring(0, 1);
+              .toString().toUpperCase().substring(0, 1);
 
    }
 
@@ -948,26 +948,26 @@ class Deck
             if (masterPackIndex / NUM_OF_VALUES == 0)
             {
                masterPack[masterPackIndex] =
-                     new Card(cardValues.charAt(masterPackIndex %
-                           NUM_OF_VALUES), Card.Suit.SPADES);
+                       new Card(cardValues.charAt(masterPackIndex %
+                               NUM_OF_VALUES), Card.Suit.SPADES);
             }
             if (masterPackIndex / NUM_OF_VALUES == 1)
             {
                masterPack[masterPackIndex] =
-                     new Card(cardValues.charAt(masterPackIndex %
-                           NUM_OF_VALUES), Card.Suit.CLUBS);
+                       new Card(cardValues.charAt(masterPackIndex %
+                               NUM_OF_VALUES), Card.Suit.CLUBS);
             }
             if (masterPackIndex / NUM_OF_VALUES == 2)
             {
                masterPack[masterPackIndex] =
-                     new Card(cardValues.charAt(masterPackIndex %
-                           NUM_OF_VALUES), Card.Suit.HEARTS);
+                       new Card(cardValues.charAt(masterPackIndex %
+                               NUM_OF_VALUES), Card.Suit.HEARTS);
             }
             if (masterPackIndex / NUM_OF_VALUES == 3)
             {
                masterPack[masterPackIndex] =
-                     new Card(cardValues.charAt(masterPackIndex %
-                           NUM_OF_VALUES), Card.Suit.DIAMONDS);
+                       new Card(cardValues.charAt(masterPackIndex %
+                               NUM_OF_VALUES), Card.Suit.DIAMONDS);
             }
          }
       }
@@ -1261,4 +1261,3 @@ class GameView extends JFrame
 
 
 }
-
