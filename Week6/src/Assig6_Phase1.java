@@ -1107,15 +1107,12 @@ class GameController
 
    public void GameControllerInit()
    {
-
-
       //add mouse adapter
        MouseAdapter mouseAdapter = new MouseAdapter()
       {
          public void mouseClicked(MouseEvent e)
          {
-            playGame(gameView.getMyCardTable().pnlHumanHand.getComponentZOrder
-                  (e.getComponent()));
+            playGame(gameView.getMyCardTable().pnlHumanHand.getComponentZOrder(e.getComponent()));
          }
       }; //end of mouseAdapter
 
@@ -1126,7 +1123,7 @@ class GameController
 
 
 
-   public void playGame(int index)
+   private void playGame(int index)
    {
       //check conditions for game play
       if (!gameView.getPlayedCardLabels()[1].isVisible())
@@ -1151,7 +1148,7 @@ class GameController
       computerPlay(Card.valueOfCard(gameModel.getHighCardGame().getHand(1).inspectCard(index)));
    }
 
-   public void computerPlay(int highCard)
+   private void computerPlay(int highCard)
    {
       int bestCard = 14;
       int index = 0;
