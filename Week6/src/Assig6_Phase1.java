@@ -33,7 +33,6 @@ public class Assig6_Phase1
 
       GameController gameController = new GameController(gameView, gameModel);
 
-      gameView.setVisible(true);
    }
 }
 
@@ -1105,8 +1104,8 @@ class GameController
    {
       this.gameView = gameView;
       this.gameModel = gameModel;
+      gameView.setHighCardGame(gameModel.getGame());
       gameView.updateTable();
-//      gameView.resetTable();
 
    }
 
@@ -1154,6 +1153,8 @@ class GameModel
 
       // Deals cards between the number of players
       highCardGame.deal();
+
+      System.out.println(highCardGame.getHand(1).toString());
 
    }
 
@@ -1212,8 +1213,8 @@ class GameView extends JFrame
          computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
 
          //give Human a card
-//         Icon tempIcon = GUICard.getIcon(highCardGame.getHand(1).inspectCard(card));
-         Icon tempIcon = GUICard.getIcon(generateRandomCard());
+         Icon tempIcon = GUICard.getIcon(highCardGame.getHand(1).inspectCard(card));
+//         Icon tempIcon = GUICard.getIcon(generateRandomCard());
          humanLabels[card] = new JLabel(tempIcon);
 //         humanLabels[card].addMouseListener(mouseAdapter);
       }
