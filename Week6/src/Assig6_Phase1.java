@@ -1103,8 +1103,18 @@ class GameController
    {
       this.gameView = gameView;
       this.gameModel = gameModel;
+
+      gameView.setGuiCardArray(gameModel.getHumanCards());
+      gameView.printGuiCards();
+
    }
 
+   public static Card generateRandomCard()
+   {
+      Deck deck = new Deck();
+      Random randomGen = new Random();
+      return deck.inspectCard(randomGen.nextInt(deck.getNumCards()));
+   }
 
 }
 
@@ -1124,6 +1134,22 @@ class GameModel
       // Deals cards between the number of players
       highCardGame.deal();
    }
+
+   public CardGameFramework getCardGameFramework()
+   {
+      return this.highCardGame;
+   }
+
+   public Card[] getHumanCards()
+   {
+      Card[] cards = new Card[7];
+      for(int i = 0; i < 7; i++)
+      {
+         cards[i] = highCardGame.getHand(1).inspectCard(i);
+         System.out.println(cards[i]);
+      }
+      return cards;
+   }
 }
 
 class GameView extends JFrame
@@ -1134,9 +1160,15 @@ class GameView extends JFrame
    static JLabel[] playLabelText = new JLabel[GameController.NUM_PLAYERS];
    static JLabel gameText = new JLabel();
    static JLabel gameStatus = new JLabel();
+   private Card[] guiCard = new Card[7];
+
+   Card[] unusedCardsPerPack = null;
+
+   private CardGameFramework highCardGame;
 
    GameView()
    {
+      Card[] unusedCardsPerPack = null;
       playLabelText[0] = new JLabel( "Computer", JLabel.CENTER );
       playLabelText[1] = new JLabel( "You", JLabel.CENTER );
 
@@ -1162,7 +1194,9 @@ class GameView extends JFrame
          computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
 
          //give Human a card
-         Icon tempIcon = GUICard.getIcon(generateRandomCard());
+         Icon tempIcon = GUICard.getIcon(GameController.generateRandomCard());
+//         Icon tempIcon = GUICard.getIcon(highCardGame.getHand(1).inspectCard(card));
+//         Icon tempIcon = GUICard.getIcon(guiCard[card]);
          humanLabels[card] = new JLabel(tempIcon);
 //         humanLabels[card].addMouseListener(mouseAdapter);
       }
@@ -1179,13 +1213,13 @@ class GameView extends JFrame
 
       // add two random cards in the play region (simulating a computer/hum ply)
       //getting random card
-      Icon tempIcon = GUICard.getIcon(generateRandomCard());
+      Icon tempIcon = GUICard.getIcon(GameController.generateRandomCard());
 
       //assigning 2 labels to playedCards
       playedCardLabels[0] = new JLabel(tempIcon);
       playedCardLabels[0].setVisible(false);
 
-      tempIcon = GUICard.getIcon(generateRandomCard());
+      tempIcon = GUICard.getIcon(GameController.generateRandomCard());
 
       playedCardLabels[1] = new JLabel(tempIcon);
       playedCardLabels[1].setVisible(false);
@@ -1203,15 +1237,28 @@ class GameView extends JFrame
       myCardTable.setVisible(true);
    }
 
-   //generate a random card to be given to a player
-   //-Currently can give repeated cards-
-   //-It's OK as this is only for testing purposes-
-   static Card generateRandomCard()
+   public void setGuiCardArray(Card[] cards)
    {
-      Deck deck = new Deck();
-      Random randomGen = new Random();
-      return deck.inspectCard(randomGen.nextInt(deck.getNumCards()));
+      for( int i = 0; i < 7; i++)
+      {
+         guiCard[i] = cards[i];
+      }
+      System.out.println("Random Card Printed" + GameController.generateRandomCard());
    }
-   
+
+   public void setGame( CardGameFramework highCardGame)
+   {
+      this.highCardGame = highCardGame;
+   }
+
+   public void printGuiCards()
+   {
+      for( int i = 0;i<7; i++)
+      {
+         System.out.println(guiCard[i].toString());
+      }
+   }
+
+
 }
 
