@@ -1106,6 +1106,8 @@ class GameController
       this.gameView = gameView;
       this.gameModel = gameModel;
       gameView.updateTable();
+//      gameView.resetTable();
+
    }
 
    public void startGame()
@@ -1153,21 +1155,6 @@ class GameModel
       // Deals cards between the number of players
       highCardGame.deal();
 
-      compHand = highCardGame.getHand(0);
-      humanHand = highCardGame.getHand(1);
-
-      compHand.sort();
-      humanHand.sort();
-
-      hands[0] = new Hand();
-      hands[1] = new Hand();
-      deal();
-
-   }
-   public void deal()
-   {
-      hands[0].takeCard(highCardGame.getCardFromDeck());
-      hands[1].takeCard(highCardGame.getCardFromDeck());
    }
 
    public CardGameFramework getGame()
@@ -1270,6 +1257,11 @@ class GameView extends JFrame
       myCardTable.pnlPlayArea.removeAll();
       myCardTable.pnlComputerHand.removeAll();
       myCardTable.pnlHumanHand.removeAll();
+   }
+
+   public void setHighCardGame(CardGameFramework highCardGame)
+   {
+      this.highCardGame = highCardGame;
    }
 
    static Card generateRandomCard()
