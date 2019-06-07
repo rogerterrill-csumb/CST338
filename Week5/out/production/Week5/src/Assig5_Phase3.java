@@ -56,6 +56,7 @@ class GameView extends JFrame
    // JLabels private members that display text
    private JLabel gameText = new JLabel();
    private JLabel gameStatus = new JLabel();
+   private JLabel playerCardLabel, computerCardLabel;
 
    //3 panels - One Computer player, One Human player, One play area
    private JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea;
@@ -86,7 +87,6 @@ class GameView extends JFrame
       /**
        * Create labels for each card in each panel
        */
-
       // Load the icons to use
       GUICard.loadCardIcons();
 
@@ -95,7 +95,7 @@ class GameView extends JFrame
       {
          // Load into array the cards
          computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
-         playerCardButtons[card] = new JButton(GUICard.getBackcardIcon()); // Come back to this after testing
+         playerCardButtons[card] = new JButton(GUICard.getBackcardIcon()); // TODO: Come back to this after testing
       }
 
       // After creating labels above, you then add them to the specified panel
@@ -105,6 +105,34 @@ class GameView extends JFrame
          pnlComputerHand.add(computerLabels[card]);
          pnlHumanHand.add(playerCardButtons[card]);
       }
+
+      // Add two random cards in the play region
+      for(int card = 0; card < NUM_PLAYERS; card++)
+      {
+         pnlComputerHand.add(computerLabels[card]);
+         pnlHumanHand.add(playerCardButtons[card]);
+      }
+
+      // Create playing card Icons
+      playedCardLabels[0] = new JLabel(GUICard.getBackcardIcon());
+      playedCardLabels[1] = new JLabel(GUICard.getBackcardIcon());
+
+      // Create the text label under each played card
+      playerCardLabel = new JLabel("You", JLabel.CENTER);
+      computerCardLabel = new JLabel("Computer", JLabel.CENTER);
+
+      /**
+       * Add card icons to the play area section in table
+       */
+      // First Row
+      pnlPlayArea.add(playedCardLabels[0]);
+      pnlPlayArea.add(playedCardLabels[1]);
+      pnlPlayArea.add(gameText);
+
+      // Second Row
+      pnlPlayArea.add(playerCardLabel);
+      pnlPlayArea.add(computerCardLabel);
+      pnlPlayArea.add(gameStatus);
 
       // Foundational Methods to Setup Frame
       setSize(800, 600);
