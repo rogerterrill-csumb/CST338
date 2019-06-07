@@ -50,6 +50,8 @@ class GameController
          playerCard = Card.valueOfCard(gameModel.getHighCardGame().getHand(1).inspectCard(cardIndex));
          computerCard = Card.valueOfCard(gameModel.getHighCardGame().getHand(0).inspectCard(cardIndex));
 
+         System.out.println("You clicked on card with value " + (playerCard + 1));
+
          if(playerCard > computerCard)
          {
             gameModel.setPlayerWon(true);
