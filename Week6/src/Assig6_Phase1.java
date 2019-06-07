@@ -1097,7 +1097,7 @@ class GameController
    private GameView gameView;
    private GameModel gameModel;
 
-
+   // Default Constructor that initializes the Game
    GameController(GameView gameView, GameModel gameModel)
    {
       this.gameView = gameView;
@@ -1105,6 +1105,7 @@ class GameController
       GameControllerInit();
    }
 
+   // Initialize Game
    public void GameControllerInit()
    {
       //add mouse adapter
@@ -1120,7 +1121,6 @@ class GameController
       gameView.setMouseAdapter(mouseAdapter);
       gameView.updateTable();
    }
-
 
 
    private void playGame(int index)
@@ -1212,8 +1212,6 @@ class GameController
          gameModel.interateHumanScore();
          updateGame("You win");
       }
-
-
    }
 
    private void updateGame(String message)
@@ -1227,7 +1225,6 @@ class GameController
          else
             gameView.getGameText().setText("Game Over You Win!");
    }
-
 
    public static Card generateRandomCard()
    {
@@ -1330,7 +1327,7 @@ class GameView extends JFrame
    CardGameFramework highCardGame;
    MouseAdapter mouseAdapter;
 
-
+   // Default Constructor that sets up the CardTable
    GameView()
    {
       // Resets the Table so not everything is showing on top of each other
@@ -1344,6 +1341,7 @@ class GameView extends JFrame
       myCardTable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    }
 
+   // Updates the Display of the table to show the new cards
    public void updateTable()
    {
       playLabelText[0] = new JLabel( "Computer", JLabel.CENTER );
@@ -1405,6 +1403,7 @@ class GameView extends JFrame
 
    }
 
+   // Removes all components of the table
    public void resetTable()
    {
       myCardTable.pnlPlayArea.removeAll();
