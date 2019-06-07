@@ -17,6 +17,9 @@ public class Main
    }
 }
 
+/**
+ * The View class displays the Frame with text
+ */
 class View extends JFrame
 {
    // First component
@@ -94,39 +97,33 @@ class View extends JFrame
    }
 }
 
+/**
+ * The Model class stores text
+ */
 class Model
 {
-   private String viewText, modelText;
+   private String buttonText;
 
    Model()
    {
-      viewText = "";
-      modelText = "";
+      buttonText = "";
    }
 
    // Getters and Setters
-   public String getViewText()
+   public String getButtonText()
    {
-      return viewText;
+      return buttonText;
    }
 
-   public void setViewText(String viewText)
+   public void setButtonText(String buttonText)
    {
-      this.viewText = viewText;
-   }
-
-   public String getModelText()
-   {
-      return modelText;
-   }
-
-   public void setModelText(String modelText)
-   {
-      this.modelText = modelText;
+      this.buttonText = buttonText;
    }
 }
 
-
+/**
+ * Controller executes the logic and has the ActionListeners
+ */
 class Controller
 {
    private View view;
@@ -148,8 +145,11 @@ class Controller
       // This next method must be part of the ActionListener implementation
       public void actionPerformed(ActionEvent e)
       {
-         model.setModelText(view.getViewButtonText());
-         view.setTextLabel(model.getModelText());
+         // Sets the Model private text from view button
+         model.setButtonText(view.getViewButtonText());
+
+         // Sets the text label in view
+         view.setTextLabel(model.getButtonText());
       }
    }
 
@@ -159,8 +159,11 @@ class Controller
       // This next method must be part of the ActionListener implementation
       public void actionPerformed(ActionEvent e)
       {
-         model.setModelText(view.getModelButtonText());
-         view.setTextLabel(model.getModelText());
+         // Sets the Model text from view button
+         model.setButtonText(view.getModelButtonText());
+
+         // Sets the text label in view
+         view.setTextLabel(model.getButtonText());
       }
    }
 
