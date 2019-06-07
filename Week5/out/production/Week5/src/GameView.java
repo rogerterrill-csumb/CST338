@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /*****************************************************************************
  *                        End of Assig5                                      *
@@ -87,7 +88,8 @@ class GameView extends JFrame
       {
          // Load into array the cards
          computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
-         playerCardButtons[card] = new JButton(GUICard.getIcon(highCardGame.getHand(0).inspectCard(card))); // TODO: Come back to this after testing
+         playerCardButtons[card] = new JButton(GUICard.getIcon(highCardGame.getHand(0).inspectCard(card)));
+//         playerCardButtons[card] = addCardListenerToCards(new
       }
 
       // After creating labels above, you then add them to the specified panel
@@ -130,10 +132,21 @@ class GameView extends JFrame
       setVisible(true);
    }
 
-   // Getter and Setters
+   // Set action listener for player cards
+   public void addCardListenerToCards(ActionListener cardListener, int card)
+   {
+      // Adds the action listener to specific card
+      playerCardButtons[card].addActionListener(cardListener);
+   }
 
+   // Getter and Setters
    public void setHighCardGame(CardGameFramework highCardGame)
    {
       this.highCardGame = highCardGame;
+   }
+
+   public JButton[] getPlayerCardButtons()
+   {
+      return playerCardButtons;
    }
 }

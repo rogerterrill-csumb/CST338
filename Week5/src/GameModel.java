@@ -22,6 +22,9 @@ class GameModel
 
       // Deal the cards from CardGameFramework
       highCardGame.deal();
+
+      // DEBUG: Shows hand of the player
+//      System.out.println(highCardGame.getHand(0).toString());
    }
 
    // Getters and Setters
