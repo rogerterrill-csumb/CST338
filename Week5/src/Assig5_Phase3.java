@@ -51,7 +51,7 @@ class GameView extends JFrame
    // JLabels private members to are the Cards Displayed
    private JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
    private JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
-   private JButton[] playerCardButton = new JButton[NUM_CARDS_PER_HAND];
+   private JButton[] playerCardButtons = new JButton[NUM_CARDS_PER_HAND];
 
    // JLabels private members that display text
    private JLabel gameText = new JLabel();
@@ -82,6 +82,29 @@ class GameView extends JFrame
       pnlComputerHand.setBorder(new TitledBorder("Computer Hand"));
       pnlPlayArea.setBorder(new TitledBorder("Playing Area"));
       pnlHumanHand.setBorder(new TitledBorder("Your Hand"));
+
+      /**
+       * Create labels for each card in each panel
+       */
+
+      // Load the icons to use
+      GUICard.loadCardIcons();
+
+      // Create labels for player and computer
+      for( int card = 0; card < NUM_CARDS_PER_HAND; card++)
+      {
+         // Load into array the cards
+         computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
+         playerCardButtons[card] = new JButton(GUICard.getBackcardIcon()); // Come back to this after testing
+      }
+
+      // After creating labels above, you then add them to the specified panel
+      for( int card = 0; card < NUM_CARDS_PER_HAND; card++)
+      {
+         // Load cards from array into panel
+         pnlComputerHand.add(computerLabels[card]);
+         pnlHumanHand.add(playerCardButtons[card]);
+      }
 
       // Foundational Methods to Setup Frame
       setSize(800, 600);
