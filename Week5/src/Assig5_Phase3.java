@@ -70,8 +70,8 @@ class GameView extends JFrame
       setLayout(new BorderLayout());
 
       // Panels to display both hands and play area
-      pnlComputerHand = new JPanel(new GridLayout(1,numCardsPerHand));
-      pnlHumanHand = new JPanel(new GridLayout(1,numCardsPerHand));
+      pnlComputerHand = new JPanel(new GridLayout(1,numCardsPerHand)); //Remember col num is ignored if it goes over adds new column
+      pnlHumanHand = new JPanel(new GridLayout(1,numCardsPerHand)); //Remember col num is ignored
       pnlPlayArea = new JPanel(new GridLayout(2,3)); //Remember col num is ignored
 
       // Place panels to their specific location
@@ -96,7 +96,7 @@ class GameView extends JFrame
       /**
        * Create labels for each card in each panel
        */
-      // Load the icons to use
+      // Load the icons to use on cards
       GUICard.loadCardIcons();
 
       // Create labels for player and computer
@@ -180,7 +180,6 @@ class GameModel
    {
       highCardGame = new CardGameFramework(numPacksPerDeck,numJokersPerPack,numUnusedCardsPerPack,unusedCardsPerPack,NUM_PLAYERS,NUM_CARDS_PER_HAND);
    }
-
 }
 
 class GameController
