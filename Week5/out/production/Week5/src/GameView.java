@@ -87,7 +87,9 @@ class GameView extends JFrame
       for( int card = 0; card < NUM_CARDS_PER_HAND; card++)
       {
          // Load Cards Icons into array the cards
+         highCardGame.getHand(0).sort();
          computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
+         highCardGame.getHand(1).sort();
          playerCardButtons[card] = new JButton(GUICard.getIcon(highCardGame.getHand(1).inspectCard(card)));
       }
 
@@ -95,13 +97,6 @@ class GameView extends JFrame
       for( int card = 0; card < NUM_CARDS_PER_HAND; card++)
       {
          // Load cards from array into panel
-         pnlComputerHand.add(computerLabels[card]);
-         pnlHumanHand.add(playerCardButtons[card]);
-      }
-
-      // Add two random cards in the play region
-      for(int card = 0; card < NUM_PLAYERS; card++)
-      {
          pnlComputerHand.add(computerLabels[card]);
          pnlHumanHand.add(playerCardButtons[card]);
       }
