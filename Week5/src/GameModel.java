@@ -28,7 +28,6 @@ class GameModel
    }
 
    // Getters and Setters
-
    public CardGameFramework getHighCardGame()
    {
       return highCardGame;

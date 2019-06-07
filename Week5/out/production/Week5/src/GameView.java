@@ -86,10 +86,9 @@ class GameView extends JFrame
       // Create labels for player and computer
       for( int card = 0; card < NUM_CARDS_PER_HAND; card++)
       {
-         // Load into array the cards
+         // Load Cards Icons into array the cards
          computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
          playerCardButtons[card] = new JButton(GUICard.getIcon(highCardGame.getHand(0).inspectCard(card)));
-//         playerCardButtons[card] = addCardListenerToCards(new
       }
 
       // After creating labels above, you then add them to the specified panel
@@ -148,5 +147,13 @@ class GameView extends JFrame
    public JButton[] getPlayerCardButtons()
    {
       return playerCardButtons;
+   }
+
+   public void removeCard(int index)
+   {
+      pnlComputerHand.remove(computerLabels[index]);
+      pnlHumanHand.remove(playerCardButtons[index]);
+      repaint();
+      System.out.println(pnlHumanHand.getComponentCount());
    }
 }

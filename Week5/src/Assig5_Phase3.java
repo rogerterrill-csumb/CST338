@@ -4,11 +4,8 @@
  * Semester:            Summer A, 2019
  * Date:
  *
- * Author:              Roger Terrill, George Blombach, Dalia Faria,
- *                      Abby Packham, Carlos Orduna
- * Email:               rchicasterrill@csumb.edu, gblombach@csumb.edu,
- *                      dfaria@csumb.edu, apackham@csumb.edu,
- *                      cordunacorrales@csumb.edu
+ * Author:              Roger Terrill
+ * Email:               rchicasterrill@csumb.edu
  * Lecturer's Name:     Jesse Cecil, M.S.
  * TA's Name:           Joseph Appleton
  * Lab Section:         CST 338
