@@ -1,0 +1,122 @@
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+
+/*****************************************************************************
+ *                        End of Assig5                                      *
+ *****************************************************************************/
+
+class GameView extends JFrame
+{
+   // Constants
+   private int NUM_CARDS_PER_HAND = GameModel.NUM_CARDS_PER_HAND;
+   private int NUM_PLAYERS = GameModel.NUM_PLAYERS;
+
+   // CardTable private members
+   private int numCardsPerHand;
+   private int numPlayers;
+
+   // JLabels private members to are the Cards Displayed
+   private JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
+   private JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
+   private JButton[] playerCardButtons = new JButton[NUM_CARDS_PER_HAND];
+
+   // JLabels private members that display text
+   private JLabel gameText = new JLabel();
+   private JLabel gameStatus = new JLabel();
+   private JLabel playerCardLabel, computerCardLabel;
+
+   //3 panels - One Computer player, One Human player, One play area
+   private JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea;
+
+   GameView()
+   {
+      // Sets the title of the blank table
+      super("Card Game Table");
+
+      // Container Layout Manager
+      setLayout(new BorderLayout());
+
+      // Panels to display both hands and play area
+      pnlComputerHand = new JPanel(new GridLayout(1,numCardsPerHand)); //Remember col num is ignored if it goes over adds new column
+      pnlHumanHand = new JPanel(new GridLayout(1,numCardsPerHand)); //Remember col num is ignored
+      pnlPlayArea = new JPanel(new GridLayout(2,3)); //Remember col num is ignored
+
+      // Place panels to their specific location
+      add(pnlComputerHand, BorderLayout.NORTH);
+      add(pnlPlayArea, BorderLayout.CENTER);
+      add(pnlHumanHand, BorderLayout.SOUTH);
+
+      // Add border titles to each section
+      pnlComputerHand.setBorder(new TitledBorder("Computer Hand"));
+      pnlPlayArea.setBorder(new TitledBorder("Playing Area"));
+      pnlHumanHand.setBorder(new TitledBorder("Your Hand"));
+
+      // Set the game text style
+      gameText.setText("Welcome to High Card!");
+      gameText.setForeground(Color.red);
+      gameText.setHorizontalAlignment(JLabel.CENTER);
+
+      gameStatus.setText("Click on card to begin.");
+      gameStatus.setForeground(Color.red);
+      gameStatus.setHorizontalAlignment(JLabel.CENTER);
+
+      /**
+       * Create labels for each card in each panel
+       */
+      // Load the icons to use on cards
+      GUICard.loadCardIcons();
+
+      // Create labels for player and computer
+      for( int card = 0; card < NUM_CARDS_PER_HAND; card++)
+      {
+         // Load into array the cards
+         computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
+         playerCardButtons[card] = new JButton(GUICard.getBackcardIcon()); // TODO: Come back to this after testing
+      }
+
+      // After creating labels above, you then add them to the specified panel
+      for( int card = 0; card < NUM_CARDS_PER_HAND; card++)
+      {
+         // Load cards from array into panel
+         pnlComputerHand.add(computerLabels[card]);
+         pnlHumanHand.add(playerCardButtons[card]);
+      }
+
+      // Add two random cards in the play region
+      for(int card = 0; card < NUM_PLAYERS; card++)
+      {
+         pnlComputerHand.add(computerLabels[card]);
+         pnlHumanHand.add(playerCardButtons[card]);
+      }
+
+      // Create playing card Icons
+      playedCardLabels[0] = new JLabel(GUICard.getBackcardIcon());
+      playedCardLabels[1] = new JLabel(GUICard.getBackcardIcon());
+
+      // Create the text label under each played card
+      playerCardLabel = new JLabel("You", JLabel.CENTER);
+      computerCardLabel = new JLabel("Computer", JLabel.CENTER);
+
+      /**
+       * Add card icons to the play area section in table
+       */
+      // First Row
+      pnlPlayArea.add(playedCardLabels[0]);
+      pnlPlayArea.add(playedCardLabels[1]);
+      pnlPlayArea.add(gameText);
+
+      // Second Row
+      pnlPlayArea.add(playerCardLabel);
+      pnlPlayArea.add(computerCardLabel);
+      pnlPlayArea.add(gameStatus);
+
+      // Foundational Methods to Setup Frame
+      setSize(800, 600);
+      setLocationRelativeTo(null);
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+      // Show the table
+      setVisible(true);
+   }
+}
