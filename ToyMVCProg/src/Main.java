@@ -3,161 +3,165 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Main {
+public class Main
+{
 
-    public static void main(String[] args) {
+   public static void main(String[] args)
+   {
 
-        View view = new View();
+      View view = new View();
 
-        Model model = new Model();
+      Model model = new Model();
 
-        Controller controller = new Controller(view, model);
-    }
+      Controller controller = new Controller(view, model);
+   }
 }
 
 class View extends JFrame
 {
-    // First component
-    private JLabel fullName;
-    private JButton RogerModelButton, RogerViewButton;
+   // First component
+   private JLabel textLabel;
+   private JButton ModelButton, ViewButton;
 
-    // Default Constructor
-    View()
-    {
-        // Inherited from the parent class
-        super("MVC Toy App");
+   // Default Constructor
+   View()
+   {
+      // Inherited from the parent class
+      super("MVC Toy App");
 
-        // Basic setup for display
-        setSize(300, 200);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      // Basic setup for display
+      setSize(300, 200);
+      setLocationRelativeTo(null);
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // Create the JLabel object with init text
-        fullName = new JLabel("RogerView" );
+      // Create the JLabel object with init text
+      textLabel = new JLabel("Click Button To Change This Text");
 
-        // Create button
-        RogerModelButton = new JButton("RogerModel");
-        RogerViewButton = new JButton("RogerView");
+      // Create button
+      ModelButton = new JButton("Model Button");
+      ViewButton = new JButton("View Button");
 
-        // Add the Components
-        add(fullName, BorderLayout.CENTER);
-        add(RogerModelButton, BorderLayout.SOUTH);
-        add(RogerViewButton, BorderLayout.NORTH);
+      // Add the Components
+      add(textLabel, BorderLayout.CENTER);
+      add(ModelButton, BorderLayout.SOUTH);
+      add(ViewButton, BorderLayout.NORTH);
 
-        // Display the View
-        setVisible(true);
-    }
+      // Display the View
+      setVisible(true);
+   }
 
-    // This method adds the button listener to the view
-    public void addChangeNameToModel(ActionListener listenForButtonClick)
-    {
-        RogerModelButton.addActionListener(listenForButtonClick);
-    }
+   // This method adds the button listener to the view
+   public void addChangeNameToModel(ActionListener listenForButtonClick)
+   {
+      ModelButton.addActionListener(listenForButtonClick);
+   }
 
-    // This method adds the button listener to the view
-    public void addChangeNameToView(ActionListener listenForButtonClick)
-    {
-        RogerViewButton.addActionListener(listenForButtonClick);
-    }
+   // This method adds the button listener to the view
+   public void addChangeNameToView(ActionListener listenForButtonClick)
+   {
+      ViewButton.addActionListener(listenForButtonClick);
+   }
 
-    // Getters and Setters
-    public String getFullName()
-    {
-        return fullName.getText();
-    }
+   // Getters and Setters
+   public String getTextLabel()
+   {
+      return textLabel.getText();
+   }
 
-    public void setFullName(String fullName)
-    {
-        this.fullName.setText(fullName);
-    }
+   public void setTextLabel(String textLabel)
+   {
+      this.textLabel.setText(textLabel);
+   }
 
-    public String getViewButtonText()
-    {
-        return RogerViewButton.getText();
-    }
+   public String getViewButtonText()
+   {
+      return ViewButton.getText();
+   }
 
-    public void setViewButtonText(String str)
-    {
-        RogerModelButton.setText(str);
-    }
+   public void setViewButtonText(String str)
+   {
+      ViewButton.setText(str);
+   }
 
-    public String getModelButtonText()
-    {
-        return RogerViewButton.getText();
-    }
+   public String getModelButtonText()
+   {
+      return ModelButton.getText();
+   }
 
-    public void setModelButtonText(String str)
-    {
-        RogerModelButton.setText(str);
-    }
+   public void setModelButtonText(String str)
+   {
+      ModelButton.setText(str);
+   }
 }
 
 class Model
 {
-    private String firstName, lastName;
+   private String viewText, modelText;
 
-    Model()
-    {
-        firstName = "RogerModel";
-        lastName = "TerrillModel";
-    }
+   Model()
+   {
+      viewText = "";
+      modelText = "";
+   }
 
-    // Getters and Setters
-    public String getFirstName()
-    {
-        return firstName;
-    }
+   // Getters and Setters
+   public String getViewText()
+   {
+      return viewText;
+   }
 
-    public void setFirstName(String firstName)
-    {
-        this.firstName = firstName;
-    }
+   public void setViewText(String viewText)
+   {
+      this.viewText = viewText;
+   }
 
-    public String getLastName()
-    {
-        return lastName;
-    }
+   public String getModelText()
+   {
+      return modelText;
+   }
 
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
-    }
+   public void setModelText(String modelText)
+   {
+      this.modelText = modelText;
+   }
 }
 
 
 class Controller
 {
-    private View view;
-    private Model model;
+   private View view;
+   private Model model;
 
-    Controller(View view, Model model)
-    {
-        this.view = view;
-        this.model = model;
+   Controller(View view, Model model)
+   {
+      this.view = view;
+      this.model = model;
 
-        // Connects the ActionListener Controller into View
-        view.addChangeNameToView(new ChangeToView());
-        view.addChangeNameToModel(new ChangeToModel());
-    }
+      // Connects the ActionListener Controller into View
+      view.addChangeNameToView(new ChangeToView());
+      view.addChangeNameToModel(new ChangeToModel());
+   }
 
-    // This is an inner class with action implemented to change
-    class ChangeToView implements ActionListener
-    {
-        // This next method must be part of the ActionListener implementation
-        public void actionPerformed(ActionEvent e)
-        {
-            view.setFullName(model.getFirstName());
-        }
-    }
+   // This is an inner class with action implemented to change
+   class ChangeToView implements ActionListener
+   {
+      // This next method must be part of the ActionListener implementation
+      public void actionPerformed(ActionEvent e)
+      {
+         model.setModelText(view.getViewButtonText());
+         view.setTextLabel(model.getModelText());
+      }
+   }
 
-    // This is an inner class with action implemented
-    class ChangeToModel implements ActionListener
-    {
-        // This next method must be part of the ActionListener implementation
-        public void actionPerformed(ActionEvent e)
-        {
-            view.setFullName(model.getLastName());
-        }
-    }
+   // This is an inner class with action implemented
+   class ChangeToModel implements ActionListener
+   {
+      // This next method must be part of the ActionListener implementation
+      public void actionPerformed(ActionEvent e)
+      {
+         model.setModelText(view.getModelButtonText());
+         view.setTextLabel(model.getModelText());
+      }
+   }
 
 }
