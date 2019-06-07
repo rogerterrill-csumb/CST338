@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +18,7 @@ public class Main {
 class View extends JFrame
 {
     // First component
-    private JLabel firstName, lastName;
+    private JLabel fullName;
     private JButton RogerModelButton, RogerViewButton;
 
     // Default Constructor
@@ -34,14 +33,14 @@ class View extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create the JLabel object with init text
-        firstName = new JLabel("RogerView" );
+        fullName = new JLabel("RogerView" );
 
         // Create button
         RogerModelButton = new JButton("RogerModel");
         RogerViewButton = new JButton("RogerView");
 
         // Add the Components
-        add(firstName, BorderLayout.CENTER);
+        add(fullName, BorderLayout.CENTER);
         add(RogerModelButton, BorderLayout.SOUTH);
         add(RogerViewButton, BorderLayout.NORTH);
 
@@ -62,14 +61,14 @@ class View extends JFrame
     }
 
     // Getters and Setters
-    public String getFirstName()
+    public String getFullName()
     {
-        return firstName.getText();
+        return fullName.getText();
     }
 
-    public void setFirstName(String firstName)
+    public void setFullName(String fullName)
     {
-        this.firstName.setText(firstName);
+        this.fullName.setText(fullName);
     }
 
     public String getViewButtonText()
@@ -100,6 +99,7 @@ class Model
     Model()
     {
         firstName = "RogerModel";
+        lastName = "TerrillModel";
     }
 
     // Getters and Setters
@@ -111,6 +111,16 @@ class Model
     public void setFirstName(String firstName)
     {
         this.firstName = firstName;
+    }
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
     }
 }
 
@@ -130,13 +140,13 @@ class Controller
         view.addChangeNameToModel(new ChangeToModel());
     }
 
-    // This is an inner class with action implemented
+    // This is an inner class with action implemented to change
     class ChangeToView implements ActionListener
     {
         // This next method must be part of the ActionListener implementation
         public void actionPerformed(ActionEvent e)
         {
-            view.setFirstName("View");
+            view.setFullName(model.getFirstName());
         }
     }
 
@@ -146,7 +156,7 @@ class Controller
         // This next method must be part of the ActionListener implementation
         public void actionPerformed(ActionEvent e)
         {
-            view.setFirstName("Model");
+            view.setFullName(model.getLastName());
         }
     }
 
