@@ -88,7 +88,7 @@ class GameView extends JFrame
       {
          // Load Cards Icons into array the cards
          computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
-         playerCardButtons[card] = new JButton(GUICard.getIcon(highCardGame.getHand(0).inspectCard(card)));
+         playerCardButtons[card] = new JButton(GUICard.getIcon(highCardGame.getHand(1).inspectCard(card)));
       }
 
       // After creating labels above, you then add them to the specified panel
@@ -154,6 +154,8 @@ class GameView extends JFrame
       pnlComputerHand.remove(computerLabels[index]);
       pnlHumanHand.remove(playerCardButtons[index]);
       repaint();
+
+      // Great little method that checks the amount of components
       System.out.println(pnlHumanHand.getComponentCount());
    }
 }

@@ -8,6 +8,9 @@ class GameModel
    private Card[] compWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
    private Card[] playerWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
 
+   // Keeps track if player won last
+   private boolean playerWon = false;
+
    // Member that holds GameCardFramework object and it's arguments
    private CardGameFramework highCardGame;
    private int numPacksPerDeck = 1;
@@ -24,12 +27,23 @@ class GameModel
       highCardGame.deal();
 
       // DEBUG: Shows hand of the player
-//      System.out.println(highCardGame.getHand(0).toString());
+      System.out.println("Player Hand" + highCardGame.getHand(1).toString());
+      System.out.println("Computers Hand" + highCardGame.getHand(0).toString());
    }
 
    // Getters and Setters
    public CardGameFramework getHighCardGame()
    {
       return highCardGame;
+   }
+
+   public boolean isPlayerWon()
+   {
+      return playerWon;
+   }
+
+   public void setPlayerWon(boolean playerWon)
+   {
+      this.playerWon = playerWon;
    }
 }

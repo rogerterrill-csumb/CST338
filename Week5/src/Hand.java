@@ -115,7 +115,6 @@ class Hand
       }
       str += " )";
 
-      System.out.println(str);
       return str;
    }
 

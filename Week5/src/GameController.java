@@ -37,6 +37,8 @@ class GameController
    {
       // Private members
       private int cardIndex;
+      private int playerCard;
+      private int computerCard;
 
       CardListener(int cardIndex)
       {
@@ -45,8 +47,24 @@ class GameController
 
       public void actionPerformed(ActionEvent e)
       {
+         playerCard = Card.valueOfCard(gameModel.getHighCardGame().getHand(1).inspectCard(cardIndex));
+         computerCard = Card.valueOfCard(gameModel.getHighCardGame().getHand(0).inspectCard(cardIndex));
+
+         if(playerCard > computerCard)
+         {
+            gameModel.setPlayerWon(true);
+            System.out.println("YOU WON");
+         }
+         else
+         {
+            gameModel.setPlayerWon(false);
+            System.out.println("YOU LOST");
+         }
+
          gameView.removeCard(cardIndex);
       }
    }
+
+
 
 }
