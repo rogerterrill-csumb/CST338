@@ -27,8 +27,8 @@ class GameModel
       highCardGame.deal();
 
       // DEBUG: Shows hand of the player
-      System.out.println("Player Hand" + highCardGame.getHand(1).toString());
-      System.out.println("Computers Hand" + highCardGame.getHand(0).toString());
+//      System.out.println("Player Hand" + highCardGame.getHand(1).toString());
+//      System.out.println("Computers Hand" + highCardGame.getHand(0).toString());
    }
 
    // Getters and Setters

@@ -54,6 +54,7 @@ class GameController
          {
             gameModel.setPlayerWon(true);
             System.out.println("YOU WON");
+            gameView.setGameStatus("You updated the Screen");
          }
          else
          {

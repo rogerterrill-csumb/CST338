@@ -126,6 +126,11 @@ class GameView extends JFrame
       setVisible(true);
    }
 
+   public void updateDisplay()
+   {
+      repaint();
+   }
+
    // Set action listener for player cards
    public void addCardListenerToCards(ActionListener cardListener, int card)
    {
@@ -150,7 +155,13 @@ class GameView extends JFrame
       pnlHumanHand.remove(playerCardButtons[index]);
       repaint();
 
-      // Great little method that checks the amount of components
-      System.out.println(pnlHumanHand.getComponentCount());
+      // DEBUG: Great little method that checks the amount of components
+//      System.out.println(pnlHumanHand.getComponentCount());
+   }
+
+   public void setGameStatus(String str)
+   {
+      gameStatus.setText(str);
+      repaint();
    }
 }
