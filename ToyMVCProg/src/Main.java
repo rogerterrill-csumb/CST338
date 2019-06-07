@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,7 @@ class View extends JFrame
 {
     // First component
     private JLabel firstName, lastName;
-    private JButton nameChanger;
+    private JButton RogerModelButton, RogerViewButton;
 
     // Default Constructor
     View()
@@ -36,23 +37,29 @@ class View extends JFrame
         firstName = new JLabel("RogerView" );
 
         // Create button
-        nameChanger = new JButton("ChangeName");
+        RogerModelButton = new JButton("RogerModel");
+        RogerViewButton = new JButton("RogerView");
 
         // Add the Components
         add(firstName, BorderLayout.CENTER);
-        add(nameChanger, BorderLayout.SOUTH);
+        add(RogerModelButton, BorderLayout.SOUTH);
+        add(RogerViewButton, BorderLayout.NORTH);
 
         // Display the View
         setVisible(true);
     }
 
     // This method adds the button listener to the view
-    public void addChangeNameListener(ActionListener listenForButtonClick)
+    public void addChangeNameToModel(ActionListener listenForButtonClick)
     {
-        nameChanger.addActionListener(listenForButtonClick);
+        RogerModelButton.addActionListener(listenForButtonClick);
     }
 
-
+    // This method adds the button listener to the view
+    public void addChangeNameToView(ActionListener listenForButtonClick)
+    {
+        RogerViewButton.addActionListener(listenForButtonClick);
+    }
 
     // Getters and Setters
     public String getFirstName()
@@ -63,6 +70,26 @@ class View extends JFrame
     public void setFirstName(String firstName)
     {
         this.firstName.setText(firstName);
+    }
+
+    public String getViewButtonText()
+    {
+        return RogerViewButton.getText();
+    }
+
+    public void setViewButtonText(String str)
+    {
+        RogerModelButton.setText(str);
+    }
+
+    public String getModelButtonText()
+    {
+        return RogerViewButton.getText();
+    }
+
+    public void setModelButtonText(String str)
+    {
+        RogerModelButton.setText(str);
     }
 }
 
@@ -99,22 +126,28 @@ class Controller
         this.model = model;
 
         // Connects the ActionListener Controller into View
-        view.addChangeNameListener(new ChangeName());
+        view.addChangeNameToView(new ChangeToView());
+        view.addChangeNameToModel(new ChangeToModel());
     }
 
     // This is an inner class with action implemented
-    class ChangeName implements ActionListener
+    class ChangeToView implements ActionListener
     {
         // This next method must be part of the ActionListener implementation
         public void actionPerformed(ActionEvent e)
         {
-            view.setFirstName(model.getFirstName());
+            view.setFirstName("View");
         }
     }
 
-
-    public void updateText()
+    // This is an inner class with action implemented
+    class ChangeToModel implements ActionListener
     {
-        view.setFirstName(model.getFirstName());
+        // This next method must be part of the ActionListener implementation
+        public void actionPerformed(ActionEvent e)
+        {
+            view.setFirstName("Model");
+        }
     }
+
 }
