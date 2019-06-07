@@ -84,6 +84,15 @@ class GameView extends JFrame
       pnlPlayArea.setBorder(new TitledBorder("Playing Area"));
       pnlHumanHand.setBorder(new TitledBorder("Your Hand"));
 
+      // Set the game text style
+      gameText.setText("Welcome to High Card!");
+      gameText.setForeground(Color.red);
+      gameText.setHorizontalAlignment(JLabel.CENTER);
+
+      gameStatus.setText("Click on card to begin.");
+      gameStatus.setForeground(Color.red);
+      gameStatus.setHorizontalAlignment(JLabel.CENTER);
+
       /**
        * Create labels for each card in each panel
        */
@@ -145,12 +154,7 @@ class GameView extends JFrame
 
    public void initGameView()
    {
-      // Game Text Display
-      gameText.setText("Welcome to High Card!");
-      gameText.setForeground(Color.red);
 
-      gameStatus.setText("Click on card to begin.");
-      gameStatus.setForeground(Color.red);
    }
 }
 
