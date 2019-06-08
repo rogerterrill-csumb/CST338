@@ -1,8 +1,8 @@
-/*
- * Title:               Timed High-Card Phase 1
+/**
+ * Title:               Timed High Card Game Phase 1
  * Files:               Assig6_Phase1.java
  * Semester:            Summer A, 2019
- * Date:
+ * Date:                June 11, 2019
  *
  * Author:              Roger Terrill
  * Email:               rchicasterrill@csumb.edu
