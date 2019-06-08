@@ -3,6 +3,7 @@ class GameModel
    // Global Constants
    static int NUM_CARDS_PER_HAND = 7;
    static int NUM_PLAYERS = 2;
+   static int PAUSE = 1000;
 
    // Private members that hold the winning cards
    private Card[] compWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
@@ -12,6 +13,9 @@ class GameModel
 
    // Computer card index counter
    private int computerCardCounter = 0;
+
+   // Seconds of timer
+   private int seconds;
 
    // Current card values
    private Card playerCard;
@@ -104,6 +108,38 @@ class GameModel
    public void incrementComputerCardCounter()
    {
       computerCardCounter++;
+
+      // Prevents from trying to read more than 7 cards
+      if(computerCardCounter > NUM_CARDS_PER_HAND)
+      {
+         computerCardCounter = NUM_CARDS_PER_HAND;
+      }
+   }
+
+   // Increments seconds
+   public void incrementSecondsonTimer()
+   {
+         seconds++;
+   }
+
+   // Pause for a second the thread
+   public void doNothing(int milliseconds)
+   {
+      try
+      {
+         Thread.sleep(milliseconds);
+      }
+      catch (InterruptedException e)
+      {
+         System.out.println("Unexpected interrupt");
+         System.exit(0);
+      }
+   }
+
+   // Gets the current seconds
+   public int getSeconds()
+   {
+      return seconds;
    }
 
    /**
