@@ -37,23 +37,22 @@ class GameModel
 
       // Set the first initial computer card to display
       computerCard = highCardGame.getHand(0).inspectCard(computerCardCounter);
-
-      // DEBUG: Shows hand of the player
-//      System.out.println("Player Hand" + highCardGame.getHand(1).toString());
-//      System.out.println("Computers Hand" + highCardGame.getHand(0).toString());
    }
 
-   // Compare two card values
+   // Compare player and computer played card int values
    public int compare()
    {
-      if(playerCard.getValue() > computerCard.getValue())
+      // If player wins
+      if(Card.valueOfCard(playerCard) > Card.valueOfCard(computerCard))
       {
          return 1;
       }
-      else if(playerCard.getValue() < computerCard.getValue())
+      // If computer wins
+      else if(Card.valueOfCard(playerCard) < Card.valueOfCard(computerCard))
       {
          return -1;
       }
+      // If draw
       else
       {
          return 0;
@@ -91,21 +90,19 @@ class GameModel
       return computerCard;
    }
 
+   // Updates the computerCard with the new computerCardCounter
    public void updateComputerCard()
    {
       this.computerCard = highCardGame.getHand(0).inspectCard(computerCardCounter);
    }
 
+   // DEBUG: Prints the string of both cards
    public void printCards()
    {
       System.out.println("Your Card " + playerCard.toString() + " and the Computer Card " + computerCard.toString());
    }
 
-   public void displayHand(int hand)
-   {
-      System.out.println(highCardGame.getHand(hand).toString());
-   }
-
+   // Adds current cards to the winning array of the computer
    public void addToComputerWinnings()
    {
       // Adds the cards won to the computer deck
@@ -113,6 +110,7 @@ class GameModel
       compWinnings[computerCardsWon++] = playerCard;
    }
 
+   // Adds current cards to the winning array of the player
    public void addToPlayerWinnings()
    {
       // Adds the cards won to the computer deck
@@ -120,14 +118,23 @@ class GameModel
       playerWinnings[playerCardsWon++] = playerCard;
    }
 
-   public void displayComputerWinnings()
+   // Increments the computer card counter
+   public void incrementComputerCardCounter()
    {
-      for(int card = 0; card < computerCardsWon; card++)
-      {
-         System.out.println(compWinnings[card].toString());
-      }
+      computerCardCounter++;
    }
 
+   /**
+    * DEBUGGING METHODS
+    */
+   // DEBUG: Displays the int card values of both cards
+   public void displayValueComparison()
+   {
+      System.out.println("Player card value " + Card.valueOfCard(playerCard));
+      System.out.println("Computer card value " + Card.valueOfCard(computerCard));
+   }
+
+   // DEBUG: Displays the full player winnings
    public void displayPlayerWinnings()
    {
       for(int card = 0; card < playerCardsWon; card++)
@@ -136,9 +143,18 @@ class GameModel
       }
    }
 
-   public void incrementComputerCardCounter()
+   // DEBUG: Displays the full computer winnings
+   public void displayComputerWinnings()
    {
-      computerCardCounter++;
+      for(int card = 0; card < computerCardsWon; card++)
+      {
+         System.out.println(compWinnings[card].toString());
+      }
    }
 
+   // DEBUG: Displays the hand of either computer or player
+   public void displayHand(int hand)
+   {
+      System.out.println(highCardGame.getHand(hand).toString());
+   }
 }

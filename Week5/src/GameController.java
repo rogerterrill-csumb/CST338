@@ -60,6 +60,7 @@ class GameController
          // Set this card to the playerCard in model class
          gameModel.setPlayerCard(playerCard);
 
+         gameModel.displayValueComparison();
          // If player wins
          if(gameModel.compare() == 1)
          {
@@ -81,7 +82,7 @@ class GameController
             gameModel.addToComputerWinnings();
             gameModel.setPlayerWon(false);
             gameView.setGameStatus("You lost");;
-            gameModel.displayComputerWinnings();
+//            gameModel.displayComputerWinnings();
             gameModel.incrementComputerCardCounter();
             gameModel.updateComputerCard();
             gameView.setComputerPlayedCardLabel(gameModel.getComputerCard());
