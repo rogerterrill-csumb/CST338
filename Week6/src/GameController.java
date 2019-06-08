@@ -32,8 +32,11 @@ class GameController
       // Update the view to show the cards IMPORTANT to wait to init until after the highCardGame is set above
       gameView.initTable();
 
-      // Adds the card listener to the cards in view
+      // Adds the card listener to the cards in GameView
       addCardListener();
+
+      // Adds the timer listener to the timer button in GameView
+      addTimerListener();
    }
 
    // Method to add action listener
@@ -44,6 +47,11 @@ class GameController
       {
          gameView.getPlayerCardButtons()[card].addActionListener(new CardListener(card));
       }
+   }
+
+   public void addTimerListener()
+   {
+      gameView.getStartButton().addActionListener(new TimerThread());
    }
 
    /**
@@ -68,7 +76,6 @@ class GameController
          // Set this card to the playerCard in model class
          gameModel.setPlayerCard(playerCard);
 
-         gameModel.displayValueComparison();
          // If player wins
          if(gameModel.compare() == 1)
          {
@@ -118,6 +125,43 @@ class GameController
          if(gameView.getPnlHumanHand().getComponentCount() == 0)
          {
             gameView.setGameStatus("GAME OVER");
+         }
+      }
+   }
+
+   /**
+    * Timer Class
+    */
+   public class TimerThread implements ActionListener
+   {
+      Timer timerThread = new Timer();
+
+      public void actionPerformed(ActionEvent e)
+      {
+         // Checks to see if the thread is running
+         if (!timerThread.isAlive())
+         {
+            // Start the timer
+            timerThread.start();
+         }
+      }
+
+      // Timer with thread to run timer
+      private class Timer extends Thread
+      {
+         public void run()
+         {
+            while(true)
+            {
+               // Increment the seconds
+               gameModel.incrementSecondsonTimer();
+
+               // Wait one second in between
+               gameModel.doNothing(1000);
+
+               // Update the display
+               gameView.setTimerDisplay(gameModel.getSeconds());
+            }
          }
       }
    }
