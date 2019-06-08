@@ -94,6 +94,7 @@ class GameView extends JFrame
          // Sorts the player hand
          highCardGame.getHand(1).sort();
          playerCardButtons[card] = new JButton(GUICard.getIcon(highCardGame.getHand(1).inspectCard(card)));
+
       }
 
       // After creating labels above, you then add them to the specified panel
@@ -173,5 +174,13 @@ class GameView extends JFrame
       repaint();
    }
 
+   public JLabel[] getPlayedCardLabels()
+   {
+      return playedCardLabels;
+   }
 
+   public void setPlayerCardLabel(Card card)
+   {
+      this.playerCardLabel.setIcon(GUICard.getIcon(card));
+   }
 }

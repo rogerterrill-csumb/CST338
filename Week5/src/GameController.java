@@ -58,31 +58,28 @@ class GameController
 
          gameModel.setPlayerCard(playerCard);
 
+         // If player wins
          if(gameModel.compare() == 1)
          {
+            gameModel.displayHand(1);
             gameModel.printCards();
-            // Turns on the error as the card has been used
-            playerCard.set('M', Card.Suit.SPADES);
-            gameModel.getComputerCard().set('M', Card.Suit.SPADES);
-
-            // Displays the card of both people
-
+            gameModel.addToPlayerWinnings();
             gameModel.setPlayerWon(true);
-            System.out.println("YOU WON");
             gameView.setGameStatus("You won!");
+            gameModel.displayPlayerWinnings();
          }
          else
          {
+            gameModel.displayHand(1);
             gameModel.printCards();
+            gameModel.addToComputerWinnings();
             gameModel.setPlayerWon(false);
-            System.out.println("YOU LOST");
             gameView.setGameStatus("You lost");;
+            gameModel.displayComputerWinnings();
          }
-
+         gameModel.incrementComputerCardCounter();
+         gameView.setComputerCard(gameModel.getComputerCard());
          gameView.removeCard(cardIndex);
       }
    }
-
-
-
 }

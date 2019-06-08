@@ -7,6 +7,11 @@ class GameModel
    // Private members that hold the winning cards
    private Card[] compWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
    private Card[] playerWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
+   private int computerCardsWon = 0;
+   private int playerCardsWon = 0;
+
+   // Computer card index counter
+   private int computerCardCounter = 0;
 
    // Current card values
    private Card playerCard;
@@ -31,11 +36,11 @@ class GameModel
       highCardGame.deal();
 
       // Set the first initial computer card to display
-      computerCard = highCardGame.getHand(0).inspectCard(0);
+      computerCard = highCardGame.getHand(0).inspectCard(computerCardCounter);
 
       // DEBUG: Shows hand of the player
-//      System.out.println("Player Hand" + highCardGame.getHand(1).toString());
-//      System.out.println("Computers Hand" + highCardGame.getHand(0).toString());
+      System.out.println("Player Hand" + highCardGame.getHand(1).toString());
+      System.out.println("Computers Hand" + highCardGame.getHand(0).toString());
    }
 
    // Compare two card values
@@ -94,5 +99,45 @@ class GameModel
    public void printCards()
    {
       System.out.println("Your Card " + playerCard.toString() + " and the Computer Card " + computerCard.toString());
+   }
+
+   public void displayHand(int hand)
+   {
+      System.out.println(highCardGame.getHand(hand).toString());
+   }
+
+   public void addToComputerWinnings()
+   {
+      // Adds the cards won to the computer deck
+      compWinnings[computerCardsWon++] = computerCard;
+      compWinnings[computerCardsWon++] = playerCard;
+   }
+
+   public void addToPlayerWinnings()
+   {
+      // Adds the cards won to the computer deck
+      playerWinnings[playerCardsWon++] = computerCard;
+      playerWinnings[playerCardsWon++] = playerCard;
+   }
+
+   public void displayComputerWinnings()
+   {
+      for(int card = 0; card < computerCardsWon; card++)
+      {
+         System.out.println(compWinnings[card].toString());
+      }
+   }
+
+   public void displayPlayerWinnings()
+   {
+      for(int card = 0; card < playerCardsWon; card++)
+      {
+         System.out.println(playerWinnings[card].toString());
+      }
+   }
+
+   public void incrementComputerCardCounter()
+   {
+      computerCardCounter++;
    }
 }
