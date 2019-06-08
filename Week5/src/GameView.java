@@ -3,10 +3,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-/*****************************************************************************
- *                        End of Assig5                                      *
- *****************************************************************************/
-
 class GameView extends JFrame
 {
    // Constants

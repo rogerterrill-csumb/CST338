@@ -18,10 +18,15 @@ class GameController
       gameControllerInit();
    }
 
+   /**
+    * Initializes the game
+    */
    public void gameControllerInit()
    {
-      // Connect the model's highCardGame object to view
+      // Connect the model's highCardGame object to gameView class
       gameView.setHighCardGame(gameModel.getHighCardGame());
+
+      // Gets computer card from Model and sends it to View
       gameView.setComputerCard(gameModel.getComputerCard());
 
       // Update the view to show the cards IMPORTANT to wait to init until after the highCardGame is set above
@@ -31,16 +36,19 @@ class GameController
       addCardListener();
    }
 
-
+   // Method to add action listener
    public void addCardListener()
    {
-      // Create labels for player and computer
+      // Adds action listener to each button
       for( int card = 0; card < GameModel.NUM_CARDS_PER_HAND; card++)
       {
          gameView.getPlayerCardButtons()[card].addActionListener(new CardListener(card));
       }
    }
 
+   /**
+    * Action listener for button logic
+    */
    public class CardListener implements ActionListener
    {
       // Private members
