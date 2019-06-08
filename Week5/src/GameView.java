@@ -173,13 +173,23 @@ class GameView extends JFrame
       return playedCardLabels;
    }
 
-   public void setPlayerCardLabel(Card card)
+   public void setPlayerPlayedCardLabel(Card card)
    {
-      this.playerCardLabel.setIcon(GUICard.getIcon(card));
+      this.playedCardLabels[0].setIcon(GUICard.getIcon(card));
    }
 
-   public void setComputerCardLabel(Card card)
+   public void setComputerPlayedCardLabel(Card card)
    {
       this.playedCardLabels[1].setIcon(GUICard.getIcon(card));
+   }
+
+   public void setComputerBackIcon()
+   {
+      this.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
+   }
+
+   public JPanel getPnlHumanHand()
+   {
+      return pnlHumanHand;
    }
 }

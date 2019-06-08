@@ -54,8 +54,10 @@ class GameController
 
       public void actionPerformed(ActionEvent e)
       {
+         // Set the playerCard to the card clicked
          playerCard = gameModel.getHighCardGame().getHand(1).inspectCard(cardIndex);
 
+         // Set this card to the playerCard in model class
          gameModel.setPlayerCard(playerCard);
 
          // If player wins
@@ -67,6 +69,10 @@ class GameController
             gameModel.setPlayerWon(true);
             gameView.setGameStatus("You won!");
             gameModel.displayPlayerWinnings();
+            gameModel.incrementComputerCardCounter();
+            gameModel.updateComputerCard();
+            gameView.setComputerBackIcon();
+
          }
          else if(gameModel.compare() == -1)
          {
@@ -76,15 +82,22 @@ class GameController
             gameModel.setPlayerWon(false);
             gameView.setGameStatus("You lost");;
             gameModel.displayComputerWinnings();
+            gameModel.incrementComputerCardCounter();
+            gameModel.updateComputerCard();
+            gameView.setComputerPlayedCardLabel(gameModel.getComputerCard());
          }
          else
          {
-            
+            gameView.setGameStatus("Draw");
          }
-         gameModel.incrementComputerCardCounter();
-         gameModel.updateComputerCard();
-         gameView.setComputerCardLabel(gameModel.getComputerCard());
+
+
          gameView.removeCard(cardIndex);
+
+         if(gameView.getPnlHumanHand().getComponentCount() == 0)
+         {
+            gameView.setGameStatus("GAME OVER");
+         }
       }
    }
 }
