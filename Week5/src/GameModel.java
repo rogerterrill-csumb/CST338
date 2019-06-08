@@ -39,8 +39,8 @@ class GameModel
       computerCard = highCardGame.getHand(0).inspectCard(computerCardCounter);
 
       // DEBUG: Shows hand of the player
-      System.out.println("Player Hand" + highCardGame.getHand(1).toString());
-      System.out.println("Computers Hand" + highCardGame.getHand(0).toString());
+//      System.out.println("Player Hand" + highCardGame.getHand(1).toString());
+//      System.out.println("Computers Hand" + highCardGame.getHand(0).toString());
    }
 
    // Compare two card values
@@ -91,9 +91,9 @@ class GameModel
       return computerCard;
    }
 
-   public void setComputerCard(Card computerCard)
+   public void updateComputerCard()
    {
-      this.computerCard = computerCard;
+      this.computerCard = highCardGame.getHand(0).inspectCard(computerCardCounter);
    }
 
    public void printCards()
@@ -140,4 +140,5 @@ class GameModel
    {
       computerCardCounter++;
    }
+
 }

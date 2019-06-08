@@ -130,11 +130,6 @@ class GameView extends JFrame
       setVisible(true);
    }
 
-   public void updateDisplay()
-   {
-      repaint();
-   }
-
    // Set action listener for player cards
    public void addCardListenerToCards(ActionListener cardListener, int card)
    {
@@ -171,7 +166,6 @@ class GameView extends JFrame
    public void setGameStatus(String str)
    {
       gameStatus.setText(str);
-      repaint();
    }
 
    public JLabel[] getPlayedCardLabels()
@@ -182,5 +176,10 @@ class GameView extends JFrame
    public void setPlayerCardLabel(Card card)
    {
       this.playerCardLabel.setIcon(GUICard.getIcon(card));
+   }
+
+   public void setComputerCardLabel(Card card)
+   {
+      this.playedCardLabels[1].setIcon(GUICard.getIcon(card));
    }
 }

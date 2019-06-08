@@ -68,7 +68,7 @@ class GameController
             gameView.setGameStatus("You won!");
             gameModel.displayPlayerWinnings();
          }
-         else
+         else if(gameModel.compare() == -1)
          {
             gameModel.displayHand(1);
             gameModel.printCards();
@@ -77,8 +77,13 @@ class GameController
             gameView.setGameStatus("You lost");;
             gameModel.displayComputerWinnings();
          }
+         else
+         {
+            
+         }
          gameModel.incrementComputerCardCounter();
-         gameView.setComputerCard(gameModel.getComputerCard());
+         gameModel.updateComputerCard();
+         gameView.setComputerCardLabel(gameModel.getComputerCard());
          gameView.removeCard(cardIndex);
       }
    }
