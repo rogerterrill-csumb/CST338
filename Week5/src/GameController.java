@@ -51,7 +51,7 @@ class GameController
 
    public void addTimerListener()
    {
-      gameView.getTimerButton().addActionListener(new TimerThread());
+      gameView.getStartButton().addActionListener(new TimerThread());
    }
 
    /**
@@ -134,24 +134,35 @@ class GameController
     */
    public class TimerThread implements ActionListener
    {
+      Timer timerThread = new Timer();
+
       public void actionPerformed(ActionEvent e)
       {
-         Timer timerThread = new Timer();
-         timerThread.start();
+         // Checks to see if the thread is running
+         if (!timerThread.isAlive())
+         {
+            // Start the timer
+            timerThread.start();
+         }
       }
 
+      // Timer with thread to run timer
       private class Timer extends Thread
       {
          public void run()
          {
             while(true)
             {
+               // Increment the seconds
                gameModel.incrementSecondsonTimer();
+
+               // Wait one second in between
                gameModel.doNothing(1000);
+
+               // Update the display
                gameView.setTimerDisplay(gameModel.getSeconds());
             }
          }
       }
-
    }
 }

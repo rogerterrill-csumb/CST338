@@ -28,7 +28,8 @@ class GameView extends JFrame
 
    // Timer Display Components
    private JLabel timerDisplay = new JLabel("0");
-   private JButton timerButton = new JButton("Start");
+   private JButton startButton = new JButton("Start");
+   private JButton stopButton = new JButton("Stop");
 
    //3 panels - One Computer player, One Human player, One play area
    private JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea, pnlTimer, pnlTimerButton;
@@ -134,7 +135,8 @@ class GameView extends JFrame
 
       // Add timer components to display
       pnlTimer.add(timerDisplay);
-      pnlTimerButton.add(timerButton);
+      pnlTimerButton.add(startButton);
+      pnlTimerButton.add(stopButton);
 
       // Show the table
       setVisible(true);
@@ -149,7 +151,7 @@ class GameView extends JFrame
 
    public void addTimerButtonListener(ActionListener timerListener)
    {
-      timerButton.addActionListener(timerListener);
+      startButton.addActionListener(timerListener);
    }
 
    // Getter and Setters
@@ -216,8 +218,8 @@ class GameView extends JFrame
       this.timerDisplay.setText(Integer.toString(seconds));
    }
 
-   public JButton getTimerButton()
+   public JButton getStartButton()
    {
-      return timerButton;
+      return startButton;
    }
 }
