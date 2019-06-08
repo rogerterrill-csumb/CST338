@@ -153,19 +153,9 @@ class GameView extends JFrame
       this.computerCard = computerCard;
    }
 
-   public void removeCard(int index)
+   public JPanel getPnlHumanHand()
    {
-      pnlComputerHand.remove(computerLabels[index]);
-      pnlHumanHand.remove(playerCardButtons[index]);
-      repaint();
-
-      // DEBUG: Great little method that checks the amount of components
-//      System.out.println(pnlHumanHand.getComponentCount());
-   }
-
-   public void setGameStatus(String str)
-   {
-      gameStatus.setText(str);
+      return pnlHumanHand;
    }
 
    public JLabel[] getPlayedCardLabels()
@@ -173,23 +163,35 @@ class GameView extends JFrame
       return playedCardLabels;
    }
 
+   // Removes card from player and computer panels
+   public void removeCard(int index)
+   {
+      pnlComputerHand.remove(computerLabels[index]);
+      pnlHumanHand.remove(playerCardButtons[index]);
+      repaint();
+   }
+
+   // Updates the text on Game Status
+   public void setGameStatus(String str)
+   {
+      gameStatus.setText(str);
+   }
+
+   // Sets the player played card icon
    public void setPlayerPlayedCardLabel(Card card)
    {
       this.playedCardLabels[0].setIcon(GUICard.getIcon(card));
    }
 
+   // Sets the computer played card icon
    public void setComputerPlayedCardLabel(Card card)
    {
       this.playedCardLabels[1].setIcon(GUICard.getIcon(card));
    }
 
+   // Sets the computer played card to back icon
    public void setComputerBackIcon()
    {
       this.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
-   }
-
-   public JPanel getPnlHumanHand()
-   {
-      return pnlHumanHand;
    }
 }
