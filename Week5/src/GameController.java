@@ -22,15 +22,13 @@ class GameController
    {
       // Connect the model's highCardGame object to view
       gameView.setHighCardGame(gameModel.getHighCardGame());
+      gameView.setComputerCard(gameModel.getComputerCard());
 
       // Update the view to show the cards IMPORTANT to wait to init until after the highCardGame is set above
       gameView.initTable();
 
       // Adds the card listener to the cards in view
       addCardListener();
-
-      // Initialize first card
-
    }
 
 
@@ -47,8 +45,7 @@ class GameController
    {
       // Private members
       private int cardIndex;
-      private int playerCard;
-      private int computerCard;
+      private Card playerCard;
 
       CardListener(int cardIndex)
       {
@@ -57,19 +54,29 @@ class GameController
 
       public void actionPerformed(ActionEvent e)
       {
-         playerCard = Card.valueOfCard(gameModel.getHighCardGame().getHand(1).inspectCard(cardIndex));
-         computerCard = Card.valueOfCard(gameModel.getHighCardGame().getHand(0).inspectCard(cardIndex));
+         playerCard = gameModel.getHighCardGame().getHand(1).inspectCard(cardIndex);
 
-         if(true)
+         gameModel.setPlayerCard(playerCard);
+
+         if(gameModel.compare() == 1)
          {
+            gameModel.printCards();
+            // Turns on the error as the card has been used
+            playerCard.set('M', Card.Suit.SPADES);
+            gameModel.getComputerCard().set('M', Card.Suit.SPADES);
+
+            // Displays the card of both people
+
             gameModel.setPlayerWon(true);
             System.out.println("YOU WON");
-            gameView.setGameStatus("You updated the Screen");
+            gameView.setGameStatus("You won!");
          }
          else
          {
+            gameModel.printCards();
             gameModel.setPlayerWon(false);
             System.out.println("YOU LOST");
+            gameView.setGameStatus("You lost");;
          }
 
          gameView.removeCard(cardIndex);

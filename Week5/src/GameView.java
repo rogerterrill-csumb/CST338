@@ -17,6 +17,9 @@ class GameView extends JFrame
    private int numCardsPerHand;
    private int numPlayers;
 
+   // Cards to be displayed
+   private Card computerCard;
+
    // JLabels private members to are the Cards Displayed
    private JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
    private JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
@@ -103,7 +106,7 @@ class GameView extends JFrame
 
       // Create playing card Icons
       playedCardLabels[0] = new JLabel(GUICard.getBackcardIcon());
-      playedCardLabels[1] = new JLabel(GUICard.getBackcardIcon());
+      playedCardLabels[1] = new JLabel(GUICard.getIcon(computerCard));
 
       // Create the text label under each played card
       playerCardLabel = new JLabel("You", JLabel.CENTER);
@@ -147,6 +150,11 @@ class GameView extends JFrame
    public JButton[] getPlayerCardButtons()
    {
       return playerCardButtons;
+   }
+
+   public void setComputerCard(Card computerCard)
+   {
+      this.computerCard = computerCard;
    }
 
    public void removeCard(int index)

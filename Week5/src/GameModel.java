@@ -30,8 +30,8 @@ class GameModel
       // Deal the cards from CardGameFramework
       highCardGame.deal();
 
-      // Set the initial first card of computer
-//      computerCard = highCardGame.getHand(0).inspectCard(0);
+      // Set the first initial computer card to display
+      computerCard = highCardGame.getHand(0).inspectCard(0);
 
       // DEBUG: Shows hand of the player
 //      System.out.println("Player Hand" + highCardGame.getHand(1).toString());
@@ -71,12 +71,12 @@ class GameModel
       this.playerWon = playerWon;
    }
 
-   public Card getPlayerCardValue()
+   public Card getPlayerCard()
    {
       return playerCard;
    }
 
-   public void setPlayerCard(Card playerCardValue)
+   public void setPlayerCard(Card playerCard)
    {
       this.playerCard = playerCard;
    }
@@ -86,8 +86,13 @@ class GameModel
       return computerCard;
    }
 
-   public void setComputerCard(int computerCardValue)
+   public void setComputerCard(Card computerCard)
    {
       this.computerCard = computerCard;
+   }
+
+   public void printCards()
+   {
+      System.out.println("Your Card " + playerCard.toString() + " and the Computer Card " + computerCard.toString());
    }
 }
