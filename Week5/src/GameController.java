@@ -14,6 +14,12 @@ class GameController
       this.gameView = gameView;
       this.gameModel = gameModel;
 
+      // Initialize game
+      gameControllerInit();
+   }
+
+   public void gameControllerInit()
+   {
       // Connect the model's highCardGame object to view
       gameView.setHighCardGame(gameModel.getHighCardGame());
 
@@ -22,7 +28,11 @@ class GameController
 
       // Adds the card listener to the cards in view
       addCardListener();
+
+      // Initialize first card
+
    }
+
 
    public void addCardListener()
    {
@@ -50,7 +60,7 @@ class GameController
          playerCard = Card.valueOfCard(gameModel.getHighCardGame().getHand(1).inspectCard(cardIndex));
          computerCard = Card.valueOfCard(gameModel.getHighCardGame().getHand(0).inspectCard(cardIndex));
 
-         if(playerCard > computerCard)
+         if(true)
          {
             gameModel.setPlayerWon(true);
             System.out.println("YOU WON");

@@ -16,7 +16,6 @@ class GameView extends JFrame
    // CardTable private members
    private int numCardsPerHand;
    private int numPlayers;
-   private Card iconCard;
 
    // JLabels private members to are the Cards Displayed
    private JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
@@ -87,8 +86,9 @@ class GameView extends JFrame
       for( int card = 0; card < NUM_CARDS_PER_HAND; card++)
       {
          // Load Cards Icons into array the cards
-         highCardGame.getHand(0).sort();
          computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
+
+         // Sorts the player hand
          highCardGame.getHand(1).sort();
          playerCardButtons[card] = new JButton(GUICard.getIcon(highCardGame.getHand(1).inspectCard(card)));
       }
@@ -164,4 +164,6 @@ class GameView extends JFrame
       gameStatus.setText(str);
       repaint();
    }
+
+
 }

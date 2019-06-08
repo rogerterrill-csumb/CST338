@@ -8,6 +8,10 @@ class GameModel
    private Card[] compWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
    private Card[] playerWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
 
+   // Current card values
+   private Card playerCard;
+   private Card computerCard;
+
    // Keeps track if player won last
    private boolean playerWon = false;
 
@@ -26,9 +30,29 @@ class GameModel
       // Deal the cards from CardGameFramework
       highCardGame.deal();
 
+      // Set the initial first card of computer
+//      computerCard = highCardGame.getHand(0).inspectCard(0);
+
       // DEBUG: Shows hand of the player
 //      System.out.println("Player Hand" + highCardGame.getHand(1).toString());
 //      System.out.println("Computers Hand" + highCardGame.getHand(0).toString());
+   }
+
+   // Compare two card values
+   public int compare()
+   {
+      if(playerCard.getValue() > computerCard.getValue())
+      {
+         return 1;
+      }
+      else if(playerCard.getValue() < computerCard.getValue())
+      {
+         return -1;
+      }
+      else
+      {
+         return 0;
+      }
    }
 
    // Getters and Setters
@@ -45,5 +69,25 @@ class GameModel
    public void setPlayerWon(boolean playerWon)
    {
       this.playerWon = playerWon;
+   }
+
+   public Card getPlayerCardValue()
+   {
+      return playerCard;
+   }
+
+   public void setPlayerCard(Card playerCardValue)
+   {
+      this.playerCard = playerCard;
+   }
+
+   public Card getComputerCard()
+   {
+      return computerCard;
+   }
+
+   public void setComputerCard(int computerCardValue)
+   {
+      this.computerCard = computerCard;
    }
 }
