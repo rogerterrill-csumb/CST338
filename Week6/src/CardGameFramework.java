@@ -5,20 +5,20 @@ class CardGameFramework
 
    private int numPlayers;
    private int numPacks;            // # standard 52-card packs per deck
-                                    // ignoring jokers or unused cards
+   // ignoring jokers or unused cards
    private int numJokersPerPack;    // if 2 per pack & 3 packs per deck, get 6
    private int numUnusedCardsPerPack;  // # cards removed from each pack
    private int numCardsPerHand;        // # cards to deal each player
    private Deck deck;               // holds the initial full deck and gets
-                                    // smaller (usually) during play
+   // smaller (usually) during play
    private Hand[] hand;             // one Hand for each player
    private Card[] unusedCardsPerPack;   // an array holding the cards not used
-                                        // in the game.  e.g. pinochle does not
-                                        // use cards 2-8 of any suit
+   // in the game.  e.g. pinochle does not
+   // use cards 2-8 of any suit
 
    public CardGameFramework( int numPacks, int numJokersPerPack,
-         int numUnusedCardsPerPack,  Card[] unusedCardsPerPack,
-         int numPlayers, int numCardsPerHand)
+                             int numUnusedCardsPerPack,  Card[] unusedCardsPerPack,
+                             int numPlayers, int numCardsPerHand)
    {
       int k;
 
@@ -34,7 +34,7 @@ class CardGameFramework
       // one of many ways to assure at least one full deal to all players
       if  (numCardsPerHand < 1 ||
             numCardsPerHand >  numPacks * (52 - numUnusedCardsPerPack)
-            / numPlayers )
+                  / numPlayers )
          numCardsPerHand = numPacks * (52 - numUnusedCardsPerPack) / numPlayers;
 
       // allocate
@@ -140,15 +140,15 @@ class CardGameFramework
    {
       // returns bad card if either argument is bad
       if (playerIndex < 0 ||  playerIndex > numPlayers - 1 ||
-          cardIndex < 0 || cardIndex > numCardsPerHand - 1)
+            cardIndex < 0 || cardIndex > numCardsPerHand - 1)
       {
          //Creates a card that does not work
-         return new Card('M', Card.Suit.spades);      
+         return new Card('M', Card.Suit.SPADES);
       }
-   
+
       // return the card played
       return hand[playerIndex].playCard(cardIndex);
-   
+
    }
 
 
@@ -157,12 +157,11 @@ class CardGameFramework
       // returns false if either argument is bad
       if (playerIndex < 0 || playerIndex > numPlayers - 1)
          return false;
-     
-       // Are there enough Cards?
-       if (deck.getNumCards() <= 0)
-          return false;
 
-       return hand[playerIndex].takeCard(deck.dealCard());
+      // Are there enough Cards?
+      if (deck.getNumCards() <= 0)
+         return false;
+
+      return hand[playerIndex].takeCard(deck.dealCard());
    }
-
 }
