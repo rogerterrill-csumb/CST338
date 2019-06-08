@@ -72,37 +72,49 @@ class GameController
          // If player wins
          if(gameModel.compare() == 1)
          {
-            gameModel.displayHand(1);
-            gameModel.printCards();
+            // Adds played cards to player winnings
             gameModel.addToPlayerWinnings();
-            gameModel.setPlayerWon(true);
+
+            // Sets game won status
             gameView.setGameStatus("You won!");
-            gameModel.displayPlayerWinnings();
+
+            // Increments card count to check to access next computer card
             gameModel.incrementComputerCardCounter();
+
+            // Update to the new card in the model
             gameModel.updateComputerCard();
+
+            // Set the computer played card icon to back icon
             gameView.setComputerBackIcon();
 
          }
          else if(gameModel.compare() == -1)
          {
-            gameModel.displayHand(1);
-            gameModel.printCards();
+            // Add current cards to computer winnings
             gameModel.addToComputerWinnings();
-            gameModel.setPlayerWon(false);
+
+            // Set status to lost
             gameView.setGameStatus("You lost");;
-//            gameModel.displayComputerWinnings();
+
+            // Increments card counter to access next computer card in hand
             gameModel.incrementComputerCardCounter();
+
+            // Update card in model to next card
             gameModel.updateComputerCard();
+
+            // Sets the icon of the computer card to display
             gameView.setComputerPlayedCardLabel(gameModel.getComputerCard());
          }
          else
          {
+            // Displays draw
             gameView.setGameStatus("Draw");
          }
 
-
+         // Removes clicked card in player panel and one from computer panel
          gameView.removeCard(cardIndex);
 
+         // If there are no components left, the game is over
          if(gameView.getPnlHumanHand().getComponentCount() == 0)
          {
             gameView.setGameStatus("GAME OVER");

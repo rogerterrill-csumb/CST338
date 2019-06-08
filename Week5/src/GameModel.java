@@ -17,9 +17,6 @@ class GameModel
    private Card playerCard;
    private Card computerCard;
 
-   // Keeps track if player won last
-   private boolean playerWon = false;
-
    // Member that holds GameCardFramework object and it's arguments
    private CardGameFramework highCardGame;
    private int numPacksPerDeck = 1;
@@ -63,21 +60,6 @@ class GameModel
    public CardGameFramework getHighCardGame()
    {
       return highCardGame;
-   }
-
-   public boolean isPlayerWon()
-   {
-      return playerWon;
-   }
-
-   public void setPlayerWon(boolean playerWon)
-   {
-      this.playerWon = playerWon;
-   }
-
-   public Card getPlayerCard()
-   {
-      return playerCard;
    }
 
    public void setPlayerCard(Card playerCard)
