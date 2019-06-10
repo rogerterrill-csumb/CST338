@@ -28,6 +28,9 @@ class GameModel
    private int numUnusedCardsPerPack = 0;
    private Card[] unusedCardsPerPack = null;
 
+   // Timer status
+   private Boolean timeStatus = false;
+
    GameModel()
    {
       // Initialize a new CardGameFramework
@@ -134,6 +137,18 @@ class GameModel
          System.out.println("Unexpected interrupt");
          System.exit(0);
       }
+   }
+
+   // Gets the status of the timer boolean
+   public Boolean getTimeStatus()
+   {
+      return timeStatus;
+   }
+
+   // Sets the status of the timer boolean
+   public void setTimeStatus(Boolean timeStatus)
+   {
+      this.timeStatus = timeStatus;
    }
 
    // Gets the current seconds

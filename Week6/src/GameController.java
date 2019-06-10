@@ -134,39 +134,33 @@ class GameController
     */
    public class TimerThread implements ActionListener, Runnable
    {
-      // Create Timer Object
-      Thread timerThread = new Thread(this);
+
 
       public void actionPerformed(ActionEvent e)
       {
-         if(!timerThread.isAlive())
+         // Checks to see the status of the game which is defaulted to false
+         if(!gameModel.getTimeStatus())
          {
+            // Create Timer Object
+            Thread timerThread = new Thread(this);
+
             // Start the timer
-            synchronized (timerThread)
-            {
-               timerThread.start();
-            }
-      }
+            timerThread.start();
+
+            // Set timer boolean value to true.
+            gameModel.setTimeStatus(true);
+         }
          else
          {
-            try
-            {
-               synchronized (timerThread)
-               {
-                  timerThread.suspend();
-               }
-            }
-            catch (InterruptedException error)
-            {
-               System.out.println("Something occured in thread");
-            }
+            // Sets the timer boolean to false
+            gameModel.setTimeStatus(false);
          }
       }
 
       // Timer with thread to run timer
       public void run()
       {
-         while(true)
+         while(gameModel.getTimeStatus())
          {
             // Increment the seconds
             gameModel.incrementSecondsonTimer();

@@ -154,6 +154,11 @@ class GameView extends JFrame
       startButton.addActionListener(timerListener);
    }
 
+   public void addStopButtonListener(ActionListener stopTimerListener)
+   {
+      stopButton.addActionListener(stopTimerListener);
+   }
+
    // Getter and Setters
    public void setHighCardGame(CardGameFramework highCardGame)
    {
@@ -222,4 +227,10 @@ class GameView extends JFrame
    {
       return startButton;
    }
+
+   public JButton getStopButton()
+   {
+      return stopButton;
+   }
+
 }
