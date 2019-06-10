@@ -151,8 +151,6 @@ class GameController
          // Checks to see the status of the game which is defaulted to false
          if(!gameModel.getTimeStatus())
          {
-            System.out.println("Start");
-
             // Create Timer Object
             Timer timerThread = new Timer();
 
