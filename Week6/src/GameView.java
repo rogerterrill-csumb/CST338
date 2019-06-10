@@ -27,7 +27,7 @@ class GameView extends JFrame
    private JLabel playerCardLabel, computerCardLabel;
 
    // Timer Display Components
-   private JLabel timerDisplay = new JLabel("0", SwingConstants.CENTER);
+   private JLabel timerDisplay = new JLabel("0:00", SwingConstants.CENTER);
    private JButton startButton = new JButton("Start");
 
    // 4 panels - One Computer player, One Human player, One play area, Timer Area
@@ -210,7 +210,18 @@ class GameView extends JFrame
    // Set the seconds
    public void setTimerDisplay(int seconds)
    {
-      this.timerDisplay.setText(Integer.toString(seconds));
+      int minutes = seconds/60;
+
+      if( seconds%60 >= 0 && seconds%60 < 10)
+      {
+         this.timerDisplay.setText(Integer.toString(minutes) + ":0" + Integer.toString(seconds%60));
+      }
+      else
+      {
+         this.timerDisplay.setText(Integer.toString(minutes) + ":" + Integer.toString(seconds%60));
+      }
+
+
    }
 
    public JButton getStartButton()
