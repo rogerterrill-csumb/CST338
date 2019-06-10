@@ -134,8 +134,6 @@ class GameController
     */
    public class TimerThread implements ActionListener, Runnable
    {
-
-
       public void actionPerformed(ActionEvent e)
       {
          // Checks to see the status of the game which is defaulted to false
@@ -149,11 +147,17 @@ class GameController
 
             // Set timer boolean value to true.
             gameModel.setTimeStatus(true);
+
+            // Changes the display of the button to stop
+            gameView.setStartButtonText("Stop");
          }
          else
          {
             // Sets the timer boolean to false
             gameModel.setTimeStatus(false);
+
+            // Changes the display of the button to Start
+            gameView.setStartButtonText("Start");
          }
       }
 

@@ -218,4 +218,9 @@ class GameView extends JFrame
       return startButton;
    }
 
+   public void setStartButtonText(String str)
+   {
+      this.startButton.setText(str);
+   }
+
 }
