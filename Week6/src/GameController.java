@@ -82,8 +82,14 @@ class GameController
             // Adds played cards to player winnings
             gameModel.addToPlayerWinnings();
 
-            // Sets game won status
-            gameView.setGameStatus("You won!");
+            // Set game status to won
+            gameModel.setPlayerStatus("You Won!");
+
+            // Iterate player score by 1
+            gameModel.incrementPlayerScore();
+
+            // Show game status
+            gameView.setGameStatus(gameModel.getGameStatusWithScores());
 
             // Increments card count to check to access next computer card
             gameModel.incrementComputerCardCounter();
@@ -100,8 +106,14 @@ class GameController
             // Add current cards to computer winnings
             gameModel.addToComputerWinnings();
 
-            // Set status to lost
-            gameView.setGameStatus("You lost");;
+            // Set player status to loss
+            gameModel.setPlayerStatus("You Lost :(");
+
+            // Increment computer score by 1
+            gameModel.incrementComputerScore();
+
+            // Show game status
+            gameView.setGameStatus(gameModel.getGameStatusWithScores());;
 
             // Increments card counter to access next computer card in hand
             gameModel.incrementComputerCardCounter();
@@ -124,7 +136,7 @@ class GameController
          // If there are no components left, the game is over
          if(gameView.getPnlHumanHand().getComponentCount() == 0)
          {
-            gameView.setGameStatus("GAME OVER");
+            gameView.setGameStatus(gameModel.displayFinalScore());
          }
       }
    }

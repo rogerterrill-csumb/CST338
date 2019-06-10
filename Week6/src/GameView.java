@@ -30,7 +30,7 @@ class GameView extends JFrame
    private JLabel timerDisplay = new JLabel("0");
    private JButton startButton = new JButton("Start");
 
-   //3 panels - One Computer player, One Human player, One play area
+   // 4 panels - One Computer player, One Human player, One play area, Timer Area
    private JPanel pnlComputerHand, pnlHumanHand, pnlPlayArea, pnlTimerDisplay;
 
    // CardGameFramework object to pass into from model through controller
@@ -222,5 +222,4 @@ class GameView extends JFrame
    {
       this.startButton.setText(str);
    }
-
 }

@@ -8,8 +8,17 @@ class GameModel
    // Private members that hold the winning cards
    private Card[] compWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
    private Card[] playerWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
+
+   // Status of players scores
+   private int computerScore = 0;
+   private int playerScore = 0;
+
+   // Status of cards won in each hand
    private int computerCardsWon = 0;
    private int playerCardsWon = 0;
+
+   // Status of the text depending on win or loss
+   private String playerStatus = "";
 
    // Computer card index counter
    private int computerCardCounter = 0;
@@ -155,6 +164,79 @@ class GameModel
    public int getSeconds()
    {
       return seconds;
+   }
+
+   // Computer and Player Score Getters and Setters
+   public static int getNumCardsPerHand()
+   {
+      return NUM_CARDS_PER_HAND;
+   }
+
+   public static void setNumCardsPerHand(int numCardsPerHand)
+   {
+      NUM_CARDS_PER_HAND = numCardsPerHand;
+   }
+
+   public int getComputerScore()
+   {
+      return computerScore;
+   }
+
+   public void setComputerScore(int computerScore)
+   {
+      this.computerScore = computerScore;
+   }
+
+   public int getPlayerScore()
+   {
+      return playerScore;
+   }
+
+   public void setPlayerScore(int playerScore)
+   {
+      this.playerScore = playerScore;
+   }
+
+   public String getGameStatusWithScores()
+   {
+      return Integer.toString(playerScore) + " - " + Integer.toString(computerScore) + " \n" + playerStatus;
+   }
+
+   public String displayFinalScore()
+   {
+      if(playerScore > computerScore)
+      {
+         return Integer.toString(playerScore) + " - " + Integer.toString(computerScore) + " \n YOU WON THE GAME!";
+      }
+      else if(playerScore < computerScore)
+      {
+         return Integer.toString(playerScore) + " - " + Integer.toString(computerScore) + " \n You lost the game.";
+      }
+      else
+      {
+         return Integer.toString(playerScore) + " - " + Integer.toString(computerScore) + " \n DRAW!";
+      }
+
+   }
+
+   public String getPlayerStatus()
+   {
+      return playerStatus;
+   }
+
+   public void setPlayerStatus(String playerStatus)
+   {
+      this.playerStatus = playerStatus;
+   }
+
+   public void incrementComputerScore()
+   {
+      computerScore++;
+   }
+
+   public void incrementPlayerScore()
+   {
+      playerScore++;
    }
 
    /**

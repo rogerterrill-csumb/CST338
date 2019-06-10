@@ -1,5 +1,5 @@
 /**
- * Title:               Timed High Card Game Phase 1
+ * Title:               Timed High Card Game Phase 2
  * Files:               Assig6_Phase1.java
  * Semester:            Summer A, 2019
  * Date:                June 11, 2019
