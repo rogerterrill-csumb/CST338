@@ -134,13 +134,33 @@ class GameController
     */
    public class TimerThread implements ActionListener, Runnable
    {
+      // Create Timer Object
+      Thread timerThread = new Thread(this);
+
       public void actionPerformed(ActionEvent e)
       {
-         // Create Timer Object
-         Thread timerThread = new Thread(this);
-
-         // Start the timer
-         timerThread.start();
+         if(!timerThread.isAlive())
+         {
+            // Start the timer
+            synchronized (timerThread)
+            {
+               timerThread.start();
+            }
+      }
+         else
+         {
+            try
+            {
+               synchronized (timerThread)
+               {
+                  timerThread.suspend();
+               }
+            }
+            catch (InterruptedException error)
+            {
+               System.out.println("Something occured in thread");
+            }
+         }
       }
 
       // Timer with thread to run timer
