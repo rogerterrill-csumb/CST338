@@ -136,8 +136,11 @@ class GameController
    {
       public void actionPerformed(ActionEvent e)
       {
+         // Create Timer Object
+         Thread timerThread = new Thread(this);
+
          // Start the timer
-         startTimerThread();
+         timerThread.start();
       }
 
       // Timer with thread to run timer
@@ -155,12 +158,5 @@ class GameController
             gameView.setTimerDisplay(gameModel.getSeconds());
          }
       }
-
-      public void startTimerThread()
-      {
-         Thread timerThread = new Thread(this);
-         timerThread.start();
-      }
-
    }
 }
