@@ -210,18 +210,15 @@ class GameView extends JFrame
    // Set the seconds
    public void setTimerDisplay(int seconds)
    {
-      int minutes = seconds/60;
-
+      // Check to see if the seconds needs a leading zero
       if( seconds%60 >= 0 && seconds%60 < 10)
       {
-         this.timerDisplay.setText(Integer.toString(minutes) + ":0" + Integer.toString(seconds%60));
+         this.timerDisplay.setText(Integer.toString(seconds/60) + ":0" + Integer.toString(seconds%60));
       }
       else
       {
-         this.timerDisplay.setText(Integer.toString(minutes) + ":" + Integer.toString(seconds%60));
+         this.timerDisplay.setText(Integer.toString(seconds/60) + ":" + Integer.toString(seconds%60));
       }
-
-
    }
 
    public JButton getStartButton()
