@@ -151,6 +151,11 @@ class GameView extends JFrame
       startButton.addActionListener(timerListener);
    }
 
+   public void addNotPlayButtonListener(ActionListener buttonListener)
+   {
+      cannotPlayButton.addActionListener(buttonListener);
+   }
+
    // Getter and Setters
    public void setHighCardGame(CardGameFramework highCardGame)
    {
@@ -238,15 +243,27 @@ class GameView extends JFrame
       this.playerCard = playerCard;
    }
 
+   public JButton getCannotPlayButton()
+   {
+      return cannotPlayButton;
+   }
+
+   public void setCannotPlayButton(JButton cannotPlayButton)
+   {
+      this.cannotPlayButton = cannotPlayButton;
+   }
+
    public void updatePlayerTable()
    {
       pnlHumanHand.removeAll();
+      pnlComputerHand.removeAll();
 
       // Create labels for player and computer
       for( int card = 0; card < NUM_CARDS_PER_HAND; card++)
       {
          // Load Cards Icons into array the cards
          playerCardButtons[card].setIcon(GUICard.getIcon(highCardGame.getHand(1).inspectCard(card)));
+         computerLabels[card].setIcon(GUICard.getIcon(highCardGame.getHand(0).inspectCard(card)));
       }
 
       // After creating labels above, you then add them to the specified panel
@@ -254,6 +271,7 @@ class GameView extends JFrame
       {
          // Load cards from array into panel
          pnlHumanHand.add(playerCardButtons[card]);
+         pnlComputerHand.add(computerLabels[card]);
       }
       repaint();
    }

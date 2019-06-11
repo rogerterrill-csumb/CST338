@@ -58,6 +58,16 @@ class GameModel
       playerCard = highCardGame.getCardFromDeck();
    }
 
+   // Deal two cards onto the pile
+   public void dealCardsToPile()
+   {
+      // Set the first initial computer card to display
+      computerCard = highCardGame.getCardFromDeck();
+
+      // Sets the first initial player card
+      playerCard = highCardGame.getCardFromDeck();
+   }
+
    // Compare player and computer played card int values
    public boolean cardCheck(Card card)
    {

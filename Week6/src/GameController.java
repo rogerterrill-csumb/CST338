@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -40,6 +41,9 @@ class GameController
 
       // Adds the timer listener to the timer button in GameView
       addTimerListener();
+
+      // Adds the listener to the cannot play button
+      addNoPlayListener();
    }
 
    // Method to add action listener
@@ -55,6 +59,82 @@ class GameController
    public void addTimerListener()
    {
       gameView.getStartButton().addActionListener(new TimerThread());
+   }
+
+   // Added the cannot play action listener to the no play button
+   public void addNoPlayListener()
+   {
+      gameView.getCannotPlayButton().addActionListener(new noPlayListener());
+   }
+
+   public class noPlayListener implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         Card computerCard;
+         // Changes whose turn it is
+         gameModel.setPlayersTurn(false);
+
+         // Increment the player cannot play count
+         gameModel.incrementPlayerScore();
+
+         while(!gameModel.isPlayersTurn())
+         {
+            for(int card = 0; card < gameModel.NUM_CARDS_PER_HAND; card++)
+            {
+               // Set computer card to the value of index of computer hand
+               computerCard = gameModel.getHighCardGame().getHand(0).inspectCard(card);
+
+//               System.out.println(gameModel.getHighCardGame().getHand(0).toString());
+
+//               System.out.println("Pile card is " + Card.valueOfCard(gameModel.getComputerCard()) + " Comp card is " + Card.valueOfCard(gameModel.getPlayerCard()));
+
+               // Check to see if that card is within 1 of pile card
+               if(gameModel.cardCheck(computerCard))
+               {
+                  // Play the card in computer hand at index found
+                  gameModel.getHighCardGame().playCard(0,card);
+
+                  // Take a card from the deck in the highCardGame object
+                  gameModel.getHighCardGame().takeCard(0);
+
+                  // Set the playerCard to the card clicked
+                  gameModel.setComputerCard(computerCard);
+
+                  // Updates the hand in view to show the new hand
+                  gameView.updatePlayerTable();
+
+                  // Set the top card in pile to clicked card
+                  gameView.setComputerPlayedCardLabel(computerCard);
+
+                  // Add cannot play counter +1
+                  gameModel.incrementComputerScore();
+
+                  // Reset the for loop to check from beginning
+                  card = 0;
+
+               }
+            }
+            // Deal two new cards into the pile
+            gameModel.dealCardsToPile();
+
+            // Gets computer card from Model and sends it to View
+            gameView.setComputerCard(gameModel.getComputerCard());
+
+            // Set player card from model and sends it to view
+            gameView.setPlayerCard(gameModel.getPlayerCard());
+
+            // Puts the turn back to the player
+            gameModel.setPlayersTurn(true);
+
+            //DEBUG
+            System.out.println(gameModel.getHighCardGame().getHand(1).toString());
+
+            // Update the scores
+            gameView.setGameStatus(gameModel.getGameStatusWithScores());
+         }
+
+      }
    }
 
    /**
@@ -77,19 +157,18 @@ class GameController
          // DEBUG
          System.out.println(gameModel.getHighCardGame().getHand(1).toString());
 
+         // Assigns the card clicked to the player's card
          playerCard = gameModel.getHighCardGame().getHand(1).inspectCard(cardIndex);
 
-         if(gameModel.cardCheck(playerCard))
+         if(gameModel.cardCheck(playerCard) && gameModel.isPlayersTurn())
          {
             // Play the card in player hand at index clicked
-            playerCard = gameModel.getHighCardGame().playCard(1,cardIndex);
+            gameModel.getHighCardGame().playCard(1,cardIndex);
 
             // Take a card from the deck in the highCardGame object
             gameModel.getHighCardGame().takeCard(1);
 
             System.out.println(gameModel.cardCheck(playerCard));
-
-
 
             //DEBUG
             System.out.println(gameModel.getHighCardGame().getHand(1).toString());
@@ -104,27 +183,9 @@ class GameController
             gameView.setPlayerPlayedCardLabel(playerCard);
          }
 
-
-
-
-         /**
-         * Player Logic
-         */
-
-//
-//      /**
-//       * Computer Logic
-//       */
-//         // Show game status
-//         gameView.setGameStatus(gameModel.getGameStatusWithScores());;
-//
-//         // Update card in model to next card
-//         gameModel.updateComputerCard();
-//
-//         // Sets the icon of the computer card to display
-//         gameView.setComputerPlayedCardLabel(gameModel.getComputerCard());
-//
          System.out.println(gameModel.getHighCardGame().getNumCardsRemainingInDeck());
+
+         gameView.setGameStatus(gameModel.getGameStatusWithScores());
 
          // If there are no components left, the game is over
          if(gameModel.getHighCardGame().getNumCardsRemainingInDeck() == 0)

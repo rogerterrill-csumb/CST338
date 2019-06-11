@@ -684,7 +684,6 @@ class Deck
       }
       str += " )";
 
-      System.out.println(str);
       return str;
    }
 }
