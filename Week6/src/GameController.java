@@ -73,53 +73,66 @@ class GameController
 
       public void actionPerformed(ActionEvent e)
       {
+         // DEBUG
          System.out.println(gameModel.getHighCardGame().getHand(1).toString());
 
+         // Play the card in player hand at index clicked
          playerCard = gameModel.getHighCardGame().playCard(1,cardIndex);
 
+         // Take a card from the deck in the highCardGame object
+         gameModel.getHighCardGame().takeCard(1);
+
+         //DEBUG
          System.out.println(gameModel.getHighCardGame().getHand(1).toString());
 
          // Set the playerCard to the card clicked
          gameModel.setPlayerCard(playerCard);
 
+         // Updates the hand in view to show the new hand
+         gameView.updatePlayerTable();
+
+         // Adds the card listener to the cards in GameView
+//         addCardListener();
 
 
-         /**
-          * Player Logic
-          */
+
+
+
+//         /**
+//          * Player Logic
+//          */
          // Set the top card in pile to clicked card
          gameView.setPlayerPlayedCardLabel(playerCard);
-
-         // Show game status
-         gameView.setGameStatus(gameModel.getGameStatusWithScores());
-
-         // Update to the new card in the model
-         gameModel.updateComputerCard();
-
-         // Set the computer played card icon to back icon
-         gameView.setPlayerPlayedCardLabel(gameModel.getPlayerCard());
-
-
-      /**
-       * Computer Logic
-       */
-      // Add current cards to computer winnings
-         gameModel.addToComputerWinnings();
-
-         // Show game status
-         gameView.setGameStatus(gameModel.getGameStatusWithScores());;
-
-         // Update card in model to next card
-         gameModel.updateComputerCard();
-
-         // Sets the icon of the computer card to display
-         gameView.setComputerPlayedCardLabel(gameModel.getComputerCard());
-
-         System.out.println(gameModel.getHighCardGame().getNumCardsRemainingInDeck());
+//
+//         // Show game status
+//         gameView.setGameStatus(gameModel.getGameStatusWithScores());
+//
+//         // Update to the new card in the model
+//         gameModel.updateComputerCard();
+//
+//         // Set the computer played card icon to back icon
+//         gameView.setPlayerPlayedCardLabel(gameModel.getPlayerCard());
+//
+//
+//      /**
+//       * Computer Logic
+//       */
+//         // Show game status
+//         gameView.setGameStatus(gameModel.getGameStatusWithScores());;
+//
+//         // Update card in model to next card
+//         gameModel.updateComputerCard();
+//
+//         // Sets the icon of the computer card to display
+//         gameView.setComputerPlayedCardLabel(gameModel.getComputerCard());
+//
+//         System.out.println(gameModel.getHighCardGame().getNumCardsRemainingInDeck());
 
          // If there are no components left, the game is over
          if(gameModel.getHighCardGame().getNumCardsRemainingInDeck() == 0)
          {
+            System.out.println("YOU DONE SON");
+
             gameView.setGameStatus(gameModel.displayFinalScore());
          }
       }
