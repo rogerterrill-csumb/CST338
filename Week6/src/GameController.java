@@ -144,7 +144,7 @@ class GameController
             // If there are no components left, the game is over
             if(gameModel.getHighCardGame().getNumCardsRemainingInDeck() == 0)
             {
-               System.out.println("YOU DONE SON");
+               System.out.println("GAME OVER");
 
                gameView.setGameStatus(gameModel.displayFinalScore());
             }
@@ -218,7 +218,7 @@ class GameController
          // If there are no components left, the game is over
          if(gameModel.getHighCardGame().getNumCardsRemainingInDeck() == 0)
          {
-            System.out.println("YOU DONE SON");
+            System.out.println("GAME OVER");
 
             gameView.setGameStatus(gameModel.displayFinalScore());
          }
