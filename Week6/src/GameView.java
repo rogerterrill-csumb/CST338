@@ -77,7 +77,7 @@ class GameView extends JFrame
       pnlHumanHand.setBorder(new TitledBorder("Your Hand"));
 
       // Set the game text style
-      gameText.setText("Welcome to High Card!");
+      gameText.setText("Welcome to Build!");
       gameText.setForeground(Color.red);
       gameText.setHorizontalAlignment(JLabel.CENTER);
 
@@ -112,8 +112,8 @@ class GameView extends JFrame
       playedCardLabels[1] = new JLabel(GUICard.getIcon(computerCard));
 
       // Create the text label under each played card
-      playerCardLabel = new JLabel("You", JLabel.CENTER);
-      computerCardLabel = new JLabel("Computer", JLabel.CENTER);
+      playerCardLabel = new JLabel("Pile 1", JLabel.CENTER);
+      computerCardLabel = new JLabel("Pile 2", JLabel.CENTER);
 
       /**
        * Add card icons to the play area section in table
@@ -246,11 +246,6 @@ class GameView extends JFrame
    public JButton getCannotPlayButton()
    {
       return cannotPlayButton;
-   }
-
-   public void setCannotPlayButton(JButton cannotPlayButton)
-   {
-      this.cannotPlayButton = cannotPlayButton;
    }
 
    public void updateAllHandsTable()
