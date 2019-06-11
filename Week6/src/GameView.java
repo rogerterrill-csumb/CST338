@@ -253,7 +253,7 @@ class GameView extends JFrame
       this.cannotPlayButton = cannotPlayButton;
    }
 
-   public void updatePlayerTable()
+   public void updateAllHandsTable()
    {
       pnlHumanHand.removeAll();
       pnlComputerHand.removeAll();

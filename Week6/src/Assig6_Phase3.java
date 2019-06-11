@@ -1,6 +1,6 @@
 /**
- * Title:               Timed High Card Game Phase 2
- * Files:               Assig6_Phase1.java
+ * Title:               Timed High Card Game Phase 3
+ * Files:               Assig6_Phase3.java
  * Semester:            Summer A, 2019
  * Date:                June 11, 2019
  *
@@ -15,7 +15,7 @@
 import javax.swing.*;
 
 
-public class Assig6_Phase1
+public class Assig6_Phase3
 {
    public static void main(String[] args)
    {

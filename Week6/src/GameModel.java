@@ -68,10 +68,22 @@ class GameModel
       playerCard = highCardGame.getCardFromDeck();
    }
 
-   // Compare player and computer played card int values
-   public boolean cardCheck(Card card)
+   // Compare player card value to the board card value
+   public boolean playerCardCheck(Card card)
    {
       int diff = Card.valueOfCard(playerCard) - Card.valueOfCard(card);
+      // If player wins
+      if( diff == 1 || diff == -1)
+      {
+         return true;
+      }
+      return false;
+   }
+
+   // Compare player card value to the board card value
+   public boolean computerCardCheck(Card card)
+   {
+      int diff = Card.valueOfCard(computerCard) - Card.valueOfCard(card);
       // If player wins
       if( diff == 1 || diff == -1)
       {
@@ -197,11 +209,11 @@ class GameModel
    {
       if(playerScore > computerScore)
       {
-         return Integer.toString(playerScore) + " - " + Integer.toString(computerScore) + " \n YOU WON THE GAME!";
+         return Integer.toString(playerScore) + " - " + Integer.toString(computerScore) + " \n YOU LOST!";
       }
       else if(playerScore < computerScore)
       {
-         return Integer.toString(playerScore) + " - " + Integer.toString(computerScore) + " \n You lost the game.";
+         return Integer.toString(playerScore) + " - " + Integer.toString(computerScore) + " \n YOU WON!.";
       }
       else
       {
