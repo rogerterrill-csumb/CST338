@@ -91,16 +91,9 @@ class GameController
          // Updates the hand in view to show the new hand
          gameView.updatePlayerTable();
 
-         // Adds the card listener to the cards in GameView
-//         addCardListener();
-
-
-
-
-
-//         /**
-//          * Player Logic
-//          */
+         /**
+         * Player Logic
+         */
          // Set the top card in pile to clicked card
          gameView.setPlayerPlayedCardLabel(playerCard);
 //
