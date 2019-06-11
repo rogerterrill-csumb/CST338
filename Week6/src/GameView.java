@@ -15,11 +15,14 @@ class GameView extends JFrame
 
    // Cards to be displayed
    private Card computerCard;
+   private Card playerCard;
+
 
    // JLabels private members to are the Cards Displayed
    private JLabel[] computerLabels = new JLabel[NUM_CARDS_PER_HAND];
    private JLabel[] playedCardLabels = new JLabel[NUM_PLAYERS];
    private JButton[] playerCardButtons = new JButton[NUM_CARDS_PER_HAND];
+   private JButton cannotPlayButton = new JButton("I Cannot Play");
 
    // JLabels private members that display text
    private JLabel gameText = new JLabel();
@@ -42,7 +45,7 @@ class GameView extends JFrame
       super("Card Game Table");
 
       // Foundational Methods to Setup Frame
-      setSize(800, 600);
+      setSize(800, 700);
       setLocationRelativeTo(null);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -58,7 +61,7 @@ class GameView extends JFrame
       // Panels to display both hands and play area
       pnlComputerHand = new JPanel(new GridLayout(1,numCardsPerHand)); //Remember col num is ignored if it goes over adds new column
       pnlHumanHand = new JPanel(new GridLayout(1,numCardsPerHand)); //Remember col num is ignored
-      pnlPlayArea = new JPanel(new GridLayout(2,3)); //Remember col num is ignored
+      pnlPlayArea = new JPanel(new GridLayout(3,3)); //Remember col num is ignored
       pnlTimerDisplay = new JPanel(new GridLayout(2,1)); // Timer display with Button
 
       // Place panels to their specific location
@@ -92,10 +95,7 @@ class GameView extends JFrame
       for( int card = 0; card < NUM_CARDS_PER_HAND; card++)
       {
          // Load Cards Icons into array the cards
-         computerLabels[card] = new JLabel(GUICard.getBackcardIcon());
-
-         // Sorts the player hand
-         highCardGame.getHand(1).sort();
+         computerLabels[card] = new JLabel(GUICard.getIcon(highCardGame.getHand(0).inspectCard(card)));
          playerCardButtons[card] = new JButton(GUICard.getIcon(highCardGame.getHand(1).inspectCard(card)));
 
       }
@@ -109,7 +109,7 @@ class GameView extends JFrame
       }
 
       // Create playing card Icons
-      playedCardLabels[0] = new JLabel(GUICard.getBackcardIcon());
+      playedCardLabels[0] = new JLabel(GUICard.getIcon(playerCard));
       playedCardLabels[1] = new JLabel(GUICard.getIcon(computerCard));
 
       // Create the text label under each played card
@@ -128,6 +128,9 @@ class GameView extends JFrame
       pnlPlayArea.add(playerCardLabel);
       pnlPlayArea.add(computerCardLabel);
       pnlPlayArea.add(gameStatus);
+
+      // Third Row
+      pnlPlayArea.add(cannotPlayButton);
 
       // Add timer components to display
       pnlTimerDisplay.add(startButton);
@@ -204,7 +207,7 @@ class GameView extends JFrame
    // Sets the computer played card to back icon
    public void setComputerBackIcon()
    {
-      this.playedCardLabels[1].setIcon(GUICard.getBackcardIcon());
+      this.playedCardLabels[0].setIcon(GUICard.getBackcardIcon());
    }
 
    // Set the seconds
@@ -229,5 +232,10 @@ class GameView extends JFrame
    public void setStartButtonText(String str)
    {
       this.startButton.setText(str);
+   }
+
+   public void setPlayerCard(Card playerCard)
+   {
+      this.playerCard = playerCard;
    }
 }

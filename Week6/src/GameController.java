@@ -29,6 +29,9 @@ class GameController
       // Gets computer card from Model and sends it to View
       gameView.setComputerCard(gameModel.getComputerCard());
 
+      // Set player card from model and sends it to view
+      gameView.setPlayerCard(gameModel.getPlayerCard());
+
       // Update the view to show the cards IMPORTANT to wait to init until after the highCardGame is set above
       gameView.initTable();
 
@@ -98,7 +101,7 @@ class GameController
             gameModel.updateComputerCard();
 
             // Set the computer played card icon to back icon
-            gameView.setComputerBackIcon();
+            gameView.setPlayerPlayedCardLabel(gameModel.getPlayerCard());
 
          }
          else if(gameModel.compare() == -1)

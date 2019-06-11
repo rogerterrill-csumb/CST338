@@ -49,7 +49,13 @@ class GameModel
       highCardGame.deal();
 
       // Set the first initial computer card to display
-      computerCard = highCardGame.getHand(0).inspectCard(computerCardCounter);
+      computerCard = highCardGame.getCardFromDeck();
+
+      // Sets the first initial player card
+      playerCard = highCardGame.getCardFromDeck();
+
+      System.out.println(playerCard.toString());
+      System.out.println(computerCard.toString());
    }
 
    // Compare player and computer played card int values
@@ -86,6 +92,11 @@ class GameModel
    public Card getComputerCard()
    {
       return computerCard;
+   }
+
+   public Card getPlayerCard()
+   {
+      return playerCard;
    }
 
    // Updates the computerCard with the new computerCardCounter
@@ -238,6 +249,8 @@ class GameModel
    {
       playerScore++;
    }
+
+
 
    /**
     * DEBUGGING METHODS
