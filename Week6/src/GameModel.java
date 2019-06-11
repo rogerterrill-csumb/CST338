@@ -53,9 +53,6 @@ class GameModel
 
       // Sets the first initial player card
       playerCard = highCardGame.getCardFromDeck();
-
-      System.out.println(playerCard.toString());
-      System.out.println(computerCard.toString());
    }
 
    // Compare player and computer played card int values
@@ -87,6 +84,12 @@ class GameModel
    public void setPlayerCard(Card playerCard)
    {
       this.playerCard = playerCard;
+   }
+
+
+   public void setComputerCard(Card computerCard)
+   {
+      this.computerCard = computerCard;
    }
 
    public Card getComputerCard()
@@ -250,7 +253,15 @@ class GameModel
       playerScore++;
    }
 
+   public void takeCardFromDeckforPlayer()
+   {
+      playerCard = highCardGame.playCard(0, 1);
+   }
 
+   public void takeCardFromDeckForComputer()
+   {
+
+   }
 
    /**
     * DEBUGGING METHODS

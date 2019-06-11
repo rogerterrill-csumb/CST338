@@ -914,7 +914,7 @@ class CardGameFramework
          hand[k].sort();
    }
 
-   Card playCard(int playerIndex, int cardIndex)
+   public Card playCard(int playerIndex, int cardIndex)
    {
       // returns bad card if either argument is bad
       if (playerIndex < 0 ||  playerIndex > numPlayers - 1 ||
