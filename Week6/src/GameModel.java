@@ -9,6 +9,9 @@ class GameModel
    private Card[] compWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
    private Card[] playerWinnings = new Card[NUM_PLAYERS * NUM_CARDS_PER_HAND];
 
+   // Status if players turn
+   private boolean playersTurn = true;
+
    // Status of players scores
    private int computerScore = 0;
    private int playerScore = 0;
@@ -56,23 +59,15 @@ class GameModel
    }
 
    // Compare player and computer played card int values
-   public int compare()
+   public boolean cardCheck(Card card)
    {
+      int diff = Card.valueOfCard(playerCard) - Card.valueOfCard(card);
       // If player wins
-      if(Card.valueOfCard(playerCard) > Card.valueOfCard(computerCard))
+      if( diff == 1 || diff == -1)
       {
-         return 1;
+         return true;
       }
-      // If computer wins
-      else if(Card.valueOfCard(playerCard) < Card.valueOfCard(computerCard))
-      {
-         return -1;
-      }
-      // If draw
-      else
-      {
-         return 0;
-      }
+      return false;
    }
 
    // Getters and Setters
@@ -112,34 +107,6 @@ class GameModel
    public void printCards()
    {
       System.out.println("Your Card " + playerCard.toString() + " and the Computer Card " + computerCard.toString());
-   }
-
-   // Adds current cards to the winning array of the computer
-   public void addToComputerWinnings()
-   {
-      // Adds the cards won to the computer deck
-      compWinnings[computerCardsWon++] = computerCard;
-      compWinnings[computerCardsWon++] = playerCard;
-   }
-
-   // Adds current cards to the winning array of the player
-   public void addToPlayerWinnings()
-   {
-      // Adds the cards won to the computer deck
-      playerWinnings[playerCardsWon++] = computerCard;
-      playerWinnings[playerCardsWon++] = playerCard;
-   }
-
-   // Increments the computer card counter
-   public void incrementComputerCardCounter()
-   {
-      computerCardCounter++;
-
-      // Prevents from trying to read more than 7 cards
-      if(computerCardCounter > NUM_CARDS_PER_HAND)
-      {
-         computerCardCounter = NUM_CARDS_PER_HAND;
-      }
    }
 
    // Increments seconds
@@ -258,9 +225,14 @@ class GameModel
       playerCard = highCardGame.playCard(0, 1);
    }
 
-   public void takeCardFromDeckForComputer()
+   public boolean isPlayersTurn()
    {
+      return playersTurn;
+   }
 
+   public void setPlayersTurn(boolean playersTurn)
+   {
+      this.playersTurn = playersTurn;
    }
 
    /**

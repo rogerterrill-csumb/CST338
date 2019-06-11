@@ -73,39 +73,44 @@ class GameController
 
       public void actionPerformed(ActionEvent e)
       {
+
          // DEBUG
          System.out.println(gameModel.getHighCardGame().getHand(1).toString());
 
-         // Play the card in player hand at index clicked
-         playerCard = gameModel.getHighCardGame().playCard(1,cardIndex);
+         playerCard = gameModel.getHighCardGame().getHand(1).inspectCard(cardIndex);
 
-         // Take a card from the deck in the highCardGame object
-         gameModel.getHighCardGame().takeCard(1);
+         if(gameModel.cardCheck(playerCard))
+         {
+            // Play the card in player hand at index clicked
+            playerCard = gameModel.getHighCardGame().playCard(1,cardIndex);
 
-         //DEBUG
-         System.out.println(gameModel.getHighCardGame().getHand(1).toString());
+            // Take a card from the deck in the highCardGame object
+            gameModel.getHighCardGame().takeCard(1);
 
-         // Set the playerCard to the card clicked
-         gameModel.setPlayerCard(playerCard);
+            System.out.println(gameModel.cardCheck(playerCard));
 
-         // Updates the hand in view to show the new hand
-         gameView.updatePlayerTable();
+
+
+            //DEBUG
+            System.out.println(gameModel.getHighCardGame().getHand(1).toString());
+
+            // Set the playerCard to the card clicked
+            gameModel.setPlayerCard(playerCard);
+
+            // Updates the hand in view to show the new hand
+            gameView.updatePlayerTable();
+
+            // Set the top card in pile to clicked card
+            gameView.setPlayerPlayedCardLabel(playerCard);
+         }
+
+
+
 
          /**
          * Player Logic
          */
-         // Set the top card in pile to clicked card
-         gameView.setPlayerPlayedCardLabel(playerCard);
-//
-//         // Show game status
-//         gameView.setGameStatus(gameModel.getGameStatusWithScores());
-//
-//         // Update to the new card in the model
-//         gameModel.updateComputerCard();
-//
-//         // Set the computer played card icon to back icon
-//         gameView.setPlayerPlayedCardLabel(gameModel.getPlayerCard());
-//
+
 //
 //      /**
 //       * Computer Logic
@@ -119,7 +124,7 @@ class GameController
 //         // Sets the icon of the computer card to display
 //         gameView.setComputerPlayedCardLabel(gameModel.getComputerCard());
 //
-//         System.out.println(gameModel.getHighCardGame().getNumCardsRemainingInDeck());
+         System.out.println(gameModel.getHighCardGame().getNumCardsRemainingInDeck());
 
          // If there are no components left, the game is over
          if(gameModel.getHighCardGame().getNumCardsRemainingInDeck() == 0)
@@ -174,7 +179,7 @@ class GameController
                gameModel.incrementSecondsonTimer();
 
                // Wait one second in between
-               gameModel.doNothing(1000);
+               gameModel.doNothing(gameModel.PAUSE);
 
                // Update the display
                gameView.setTimerDisplay(gameModel.getSeconds());
