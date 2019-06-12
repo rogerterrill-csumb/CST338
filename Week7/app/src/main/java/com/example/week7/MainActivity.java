@@ -1,5 +1,6 @@
 package com.example.week7;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText etID;
     Button btnSubmit;
+    Button btnList;
     TextView tvResults;
 
     @Override
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         etID = findViewById(R.id.etID);
         btnSubmit = findViewById(R.id.btnSubmit);
+        btnList = findViewById(R.id.btnList);
         tvResults = findViewById(R.id.tvResults);
         tvResults.setText(getString(R.string.listOfClasses));
 
@@ -28,7 +32,15 @@ public class MainActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int classID = Integer.parseInt(etID.getText().toString().trim());
+                Context context = getApplicationContext();
+                String classString = etID.getText().toString().trim();
+
+                if(classString == null || classString.trim().equals("")){
+                    Toast.makeText(context, "Sorry you did't type anything", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                int classID = Integer.parseInt(classString);
+
                 String text;
 
                 switch(classID)
@@ -75,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
 
                 tvResults.setText(text);
 
+            }
+        });
+        btnList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tvResults.setText(getString(R.string.listOfClasses));
             }
         });
     }
