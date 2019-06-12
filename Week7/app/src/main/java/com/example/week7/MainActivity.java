@@ -22,44 +22,59 @@ public class MainActivity extends AppCompatActivity {
         etID = findViewById(R.id.etID);
         btnSubmit = findViewById(R.id.btnSubmit);
         tvResults = findViewById(R.id.tvResults);
+        tvResults.setText(getString(R.string.listOfClasses));
 
-        tvResults.setVisibility(View.GONE);
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String idNumber = etID.getText().toString().trim();
+                int classID = Integer.parseInt(etID.getText().toString().trim());
+                String text;
 
-                String dob = idNumber.substring(0,6);
-                int gender = Integer.parseInt(Character.toString(idNumber.charAt(6)));
-                String sGender;
-
-                if(gender < 5)
+                switch(classID)
                 {
-                    sGender = "Female";
-                }
-                else
-                {
-                    sGender = "Male";
-                }
+                    case 300:
+                        text = getString(R.string.cst300);
+                        break;
+                    case 338:
+                        text = getString(R.string.cst338);
+                        break;
+                    case 311:
+                        text = getString(R.string.cst311);
+                        break;
+                    case 334:
+                        text = getString(R.string.cst334);
+                        break;
+                    case 336:
+                        text = getString(R.string.cst336);
+                        break;
+                    case 363:
+                        text = getString(R.string.cst363);
+                        break;
+                    case 370:
+                        text = getString(R.string.cst370);
+                        break;
+                    case 383:
+                        text = getString(R.string.cst383);
+                        break;
+                    case 438:
+                        text = getString(R.string.cst438);
+                        break;
+                    case 462:
+                        text = getString(R.string.cst462);
+                        break;
+                    case 499:
+                        text = getString(R.string.cst499);
+                        break;
+                    default:
+                        text = "Error: you didn't choose a valid class id";
+                        break;
 
-                int nationality = Integer.parseInt(Character.toString(idNumber.charAt(10)));
-
-                String sNationality;
-
-                if(nationality == 0)
-                {
-                    sNationality = "SA Citizen";
                 }
-                else
-                {
-                    sNationality = "Pernament Resident";
-                }
+                etID.setText("");
 
-                String text = "Date of Birth: " + dob + "\n" + "Gender: " + sGender + "\n" + "Nationality: " + sNationality;
                 tvResults.setText(text);
 
-                tvResults.setVisibility(View.VISIBLE);
             }
         });
     }
