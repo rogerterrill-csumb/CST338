@@ -15,7 +15,9 @@ class GameView extends JFrame
    private JButton btnHit = new JButton("HIT");
    private JButton btnStay = new JButton("STAY");
 
-
+   // Labels for cards for each hand
+   private JLabel[] computerHandLabels = new JLabel[GameModel.MAX_CARDS_PER_HAND];
+   private JLabel[] playerHandLabels = new JLabel[GameModel.MAX_CARDS_PER_HAND];
 
    // Default constructor
    GameView()
@@ -24,7 +26,7 @@ class GameView extends JFrame
       super("Blackjack");
 
       // Basic Jframe foundation
-      setSize(800,700);
+      setSize(600,350);
       setLocationRelativeTo(null);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -57,5 +59,27 @@ class GameView extends JFrame
       pnlInformation.add(btnHit);
       pnlInformation.add(title);
       pnlInformation.add(btnStay);
+
+      // Load the GUI Icons for the cards
+      GUICard.loadCardIcons();
+
+      // Add labels to array of cards
+      for(int i = 0; i < 2; i++)
+      {
+         computerHandLabels[i] = new JLabel(GUICard.getBackcardIcon());
+         playerHandLabels[i] = new JLabel(GUICard.getBackcardIcon());
+      }
+
+      // Create the labels for both computer and players
+
+      // Add cards to computer panel
+      pnlComputerHand.add(computerHandLabels[0]);
+      pnlComputerHand.add(computerHandLabels[1]);
+
+      //Add cards to player panel
+      pnlPlayerHand.add(playerHandLabels[0]);
+      pnlPlayerHand.add(playerHandLabels[1]);
+
+      setVisible(true);
    }
 }
