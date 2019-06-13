@@ -21,10 +21,11 @@ class GameController
 
    public void gameControllerInit()
    {
-
-
       // Initialize View table
       gameView.initTable();
+
+      // Update the dollar message
+      gameView.setDollars(gameModel.getDollarsMessage());
    }
 
 }

@@ -93,4 +93,10 @@ class GameView extends JFrame
 
       setVisible(true);
    }
+
+   // Set the dollar text
+   public void setDollars(String dollarsMessage)
+   {
+      this.dollars.setText(dollarsMessage);
+   }
 }

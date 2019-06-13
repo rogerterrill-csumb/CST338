@@ -7,7 +7,7 @@ class GameModel
    static int COMPUTER = 1;
 
    // Instance Members
-   private int dollars = 10;
+   private int dollars = 20;
    private int bet = 0;
 
    // Both player and computer array of cards in hand
@@ -40,9 +40,18 @@ class GameModel
       blackjack.takeCard(COMPUTER);
    }
 
+   /**
+    * GETTERS AND SETTERS
+    */
    // Get the current hand in the player(0) or computer(1)
    public Hand getHand(int playerIndex)
    {
-      return blackjack.getHand(playerIndex);
+      return this.blackjack.getHand(playerIndex);
+   }
+
+   // Get the dollars amount
+   public String getDollarsMessage()
+   {
+      return "You have: $" + dollars;
    }
 }
