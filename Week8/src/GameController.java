@@ -19,6 +19,7 @@ class GameController
       gameControllerInit();
    }
 
+   // Initializes the gamecontroller
    public void gameControllerInit()
    {
       // Initialize View table
@@ -26,6 +27,26 @@ class GameController
 
       // Update the dollar message
       gameView.setDollars(gameModel.getDollarsMessage());
+
+      // Add listeners to both hit and stay
+      addListeners();
+   }
+
+   public void addListeners()
+   {
+      gameView.addActionListenerToHit(new hitListener());
+   }
+
+   /**
+    * ACTION LISTENERS
+    */
+   // Hit action listener
+   public class hitListener implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         System.out.println(gameView.showDollarInConsole());
+      }
    }
 
 }

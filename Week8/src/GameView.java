@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 class GameView extends JFrame
 {
@@ -94,9 +95,28 @@ class GameView extends JFrame
       setVisible(true);
    }
 
+   // Add actionListener to hit button
+   public void addActionListenerToHit(ActionListener hitListener)
+   {
+      btnHit.addActionListener(hitListener);
+   }
+
+   // Add actionListener to stay button
+   public void addActionListenerToStay(ActionListener stayListener)
+   {
+      btnStay.addActionListener(stayListener);
+   }
+
+
    // Set the dollar text
    public void setDollars(String dollarsMessage)
    {
       this.dollars.setText(dollarsMessage);
+   }
+
+   // DEBUG
+   public String showDollarInConsole()
+   {
+      return bet.getText();
    }
 }
