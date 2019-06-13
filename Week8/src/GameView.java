@@ -5,11 +5,13 @@ import java.awt.*;
 class GameView extends JFrame
 {
    // Jpanels to group hands and game information
-   private JPanel pnlPlayerHand, pnlComputerHand, pnlInformation;
+   private JPanel pnlPlayerHand, pnlComputerHand, pnlButtonsAndInfo, pnlInfo;
 
    // JPanels that display cards and game information
    private JLabel title = new JLabel("BLACKJACK", JLabel.CENTER);
-   private JLabel dollars = new JLabel("$10");
+   private JLabel dollars = new JLabel("You have $10", JLabel.CENTER);
+   private JLabel message = new JLabel("How much would you like to bet", JLabel.CENTER);
+   private JTextField bet = new JTextField(4);
 
    // Buttons that will hit or stay
    private JButton btnHit = new JButton("HIT");
@@ -26,7 +28,7 @@ class GameView extends JFrame
       super("Blackjack");
 
       // Basic Jframe foundation
-      setSize(600,350);
+      setSize(600,450);
       setLocationRelativeTo(null);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -42,23 +44,32 @@ class GameView extends JFrame
 
       // Panel to display both hands and game information
       pnlComputerHand = new JPanel(new GridLayout(1, 1));
-      pnlInformation = new JPanel(new GridLayout(1, 3));
+      pnlButtonsAndInfo = new JPanel(new GridLayout(1, 3));
       pnlPlayerHand = new JPanel(new GridLayout(1, 1));
 
       // Add panels to the JFrame
       add(pnlComputerHand, BorderLayout.NORTH);
-      add(pnlInformation, BorderLayout.CENTER);
+      add(pnlButtonsAndInfo, BorderLayout.CENTER);
       add(pnlPlayerHand, BorderLayout.SOUTH);
 
       // Add titles to each panel
       pnlComputerHand.setBorder(new TitledBorder("Computer Hand"));
-      pnlInformation.setBorder(new TitledBorder("Game Information"));
+      pnlButtonsAndInfo.setBorder(new TitledBorder("Game Information"));
       pnlPlayerHand.setBorder(new TitledBorder("Player Hand"));
 
+      // Panels within the Informatino Panel, title, money and bet
+      pnlInfo = new JPanel(new GridLayout(4,0));
+
+      // Add components to panel info
+      pnlInfo.add(title);
+      pnlInfo.add(dollars);
+      pnlInfo.add(message);
+      pnlInfo.add(bet);
+
       // Add components to information panel
-      pnlInformation.add(btnHit);
-      pnlInformation.add(title);
-      pnlInformation.add(btnStay);
+      pnlButtonsAndInfo.add(btnHit);
+      pnlButtonsAndInfo.add(pnlInfo);
+      pnlButtonsAndInfo.add(btnStay);
 
       // Load the GUI Icons for the cards
       GUICard.loadCardIcons();
