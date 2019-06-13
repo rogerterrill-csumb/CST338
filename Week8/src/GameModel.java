@@ -38,10 +38,9 @@ class GameModel
       // Assign two cards to computer
       blackjack.takeCard(COMPUTER);
       blackjack.takeCard(COMPUTER);
-
-      System.out.println(blackjack.getHand(PLAYER));
    }
 
+   // Get the current hand in the player(0) or computer(1)
    public Hand getHand(int playerIndex)
    {
       return blackjack.getHand(playerIndex);

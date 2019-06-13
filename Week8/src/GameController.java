@@ -21,7 +21,10 @@ class GameController
 
    public void gameControllerInit()
    {
-      System.out.println(gameModel.getHand(gameModel.PLAYER));
+
+
+      // Initialize View table
+      gameView.initTable();
    }
 
 }
