@@ -21,7 +21,7 @@ class GameController
 
    public void gameControllerInit()
    {
-      System.out.println("Testing the controller");
+      System.out.println(gameModel.getHand(gameModel.PLAYER));
    }
 
 }
