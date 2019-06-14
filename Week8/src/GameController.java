@@ -30,6 +30,14 @@ class GameController
 
       // Add listeners to both hit and stay
       addListeners();
+
+      // Set card labels for player
+      for( int i = 0; i < gameModel.getHand(gameModel.PLAYER).getNumCards(); i++)
+      {
+         gameView.setHandLabels(gameModel.PLAYER, i, gameModel.getPlayerCardInHand(i));
+      }
+
+      System.out.println(gameModel.getHand(0).toString());
    }
 
    // Add action listeners to buttons

@@ -10,11 +10,6 @@ class GameModel
    private int dollars = 20;
    private int bet = 0;
 
-   // Both player and computer array of cards in hand
-   private Card[] playerHand = new Card[MAX_CARDS_PER_HAND];
-
-   private Card[] computerHand = new Card[MAX_CARDS_PER_HAND];
-
    private int numCardsInPlayerHand = 0;
    private int numCardsInComputerHand = 0;
 
@@ -43,10 +38,23 @@ class GameModel
    /**
     * GETTERS AND SETTERS
     */
-   // Get the current hand in the player(0) or computer(1)
+
+   // Get hand
    public Hand getHand(int playerIndex)
    {
-      return this.blackjack.getHand(playerIndex);
+      return blackjack.getHand(playerIndex);
+   }
+
+   // Get the player card in hand based on index
+   public Card getPlayerCardInHand(int cardIndex)
+   {
+      return this.blackjack.getHand(PLAYER).inspectCard(cardIndex);
+   }
+
+   // Get computer card in hand based on index
+   public Card getComputerCardInHand(int cardIndex)
+   {
+      return this.blackjack.getHand(COMPUTER).inspectCard(cardIndex);
    }
 
    // Get the dollars amount

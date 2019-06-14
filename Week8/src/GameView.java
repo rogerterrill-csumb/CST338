@@ -116,6 +116,21 @@ class GameView extends JFrame
       this.dollars.setText(dollarsMessage);
    }
 
+   // Set players hand
+   public void setHandLabels(int playerIndex, int labelIndex, Card card)
+   {
+      // If player
+      if(playerIndex == 0)
+      {
+         playerHandLabels[labelIndex].setIcon(GUICard.getIcon(card));
+      }
+      // If computer
+      if(playerIndex == 1)
+      {
+         computerHandLabels[labelIndex].setIcon(GUICard.getIcon(card));
+      }
+   }
+
    // DEBUG
    public String showDollarInConsole()
    {
