@@ -106,13 +106,17 @@ class GameView extends JFrame
    // Update the players panel
    public void updatePlayersHand()
    {
+      // Removes all cards from the players hand table
       pnlPlayerHand.removeAll();
+
       //Add cards to player panel
       for(int i = 0; i < numCards; i++)
       {
          pnlPlayerHand.add(playerHandLabels[i]);
       }
-      repaint();
+
+      // Display the cards
+      setVisible(true);
    }
 
    // Add actionListener to hit button

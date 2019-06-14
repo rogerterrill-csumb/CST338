@@ -63,17 +63,26 @@ class GameController
    // Updates inforamtion after dealing of card
    public void updateAfterCardDeal()
    {
+      // Deal a card to the player
       gameModel.dealCardToPlayer();
 
       // Number of cards in hand
       int numberOfCards = gameModel.getHand(gameModel.PLAYER).getNumCards();
 
+      // Set the number of cards in GameView
+      gameView.setNumCards(numberOfCards);
+
+      // Set the icons for the cards
       for(int i = 0; i < numberOfCards; i++)
       {
-         System.out.println(i);
          gameView.setHandLabels(gameModel.PLAYER,i,gameModel.getPlayerCardInHand(i));
-         System.out.println(i);
       }
+
+      // Update the display of the players hands
+      gameView.updatePlayersHand();
+
+      // DEBUG
+      System.out.println(gameModel.getHand(gameModel.PLAYER).toString());
    }
 
    // Add action listeners to buttons
