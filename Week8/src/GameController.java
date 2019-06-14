@@ -128,6 +128,7 @@ class GameController
 
       // DEBUG
       System.out.println("Player " + gameModel.getHand(gameModel.PLAYER).toString());
+      System.out.println("Player Hand Total: " + gameModel.getPlayerHandTotal());
    }
 
    // Updates the display of the computers hand

@@ -73,4 +73,19 @@ class GameModel
    {
       return "You have: $" + dollars;
    }
+
+   // Return the total ammount of hand
+   public int getPlayerHandTotal()
+   {
+      int total = 0;
+      int numCards = blackjack.getHand(PLAYER).getNumCards();
+
+      for( int i = 0 ; i < numCards; i++)
+      {
+         System.out.println(Card.valueOfCard(blackjack.getHand(PLAYER).inspectCard(i)));
+         total += Card.valueOfCard(blackjack.getHand(PLAYER).inspectCard(i));
+      }
+
+      return total;
+   }
 }

@@ -217,7 +217,7 @@ class Card
       {
          if (card.getValue() == valuRanks[value])
          {
-            return value;
+            return value+1;
          }
       }
       return -1;
@@ -739,7 +739,7 @@ class GUICard
    //Check
    public static int valueToInt(Card card)
    {
-      return Card.valueOfCard(card);
+      return Card.valueOfCard(card) - 1;
    }
 
    //Converts suit to number
