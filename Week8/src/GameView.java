@@ -58,8 +58,11 @@ class GameView extends JFrame
       pnlButtonsAndInfo.setBorder(new TitledBorder("Game Information"));
       pnlPlayerHand.setBorder(new TitledBorder("Player Hand"));
 
-      // Panels within the Informatino Panel, title, money and bet
+      // Panels within the Information Panel, title, money and bet
       pnlInfo = new JPanel(new GridLayout(4,0));
+
+      // Center the text in the input field
+      bet.setHorizontalAlignment(JTextField.CENTER);
 
       // Add components to panel info
       pnlInfo.add(title);
@@ -106,7 +109,6 @@ class GameView extends JFrame
    {
       btnStay.addActionListener(stayListener);
    }
-
 
    // Set the dollar text
    public void setDollars(String dollarsMessage)

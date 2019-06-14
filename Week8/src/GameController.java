@@ -32,9 +32,11 @@ class GameController
       addListeners();
    }
 
+   // Add action listeners to buttons
    public void addListeners()
    {
       gameView.addActionListenerToHit(new hitListener());
+      gameView.addActionListenerToStay(new stayListener());
    }
 
    /**
@@ -42,6 +44,15 @@ class GameController
     */
    // Hit action listener
    public class hitListener implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
+      {
+         System.out.println(gameView.showDollarInConsole());
+      }
+   }
+
+   // Stay action listener
+   public class stayListener implements ActionListener
    {
       public void actionPerformed(ActionEvent e)
       {
