@@ -79,11 +79,15 @@ class GameModel
    {
       int total = 0;
       int numCards = blackjack.getHand(PLAYER).getNumCards();
+      int cardValue = 0;
 
       for( int i = 0 ; i < numCards; i++)
       {
-         System.out.println(Card.valueOfCard(blackjack.getHand(PLAYER).inspectCard(i)));
-         total += Card.valueOfCard(blackjack.getHand(PLAYER).inspectCard(i));
+         cardValue = Card.valueOfCard(blackjack.getHand(PLAYER).inspectCard(i));
+         if(cardValue > 10)
+            cardValue = 10;
+         System.out.println(cardValue);
+         total +=cardValue;
       }
 
       return total;
