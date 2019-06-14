@@ -10,9 +10,6 @@ class GameModel
    private int dollars = 20;
    private int bet = 0;
 
-   private int numCardsInPlayerHand = 0;
-   private int numCardsInComputerHand = 0;
-
    // Object of the cardGameFramework and values passed in
    private CardGameFramework blackjack;
    private int numPacksPerDeck = 1;
@@ -55,6 +52,18 @@ class GameModel
    public Card getComputerCardInHand(int cardIndex)
    {
       return this.blackjack.getHand(COMPUTER).inspectCard(cardIndex);
+   }
+
+   // Get number of cards in players hand
+   public int getNumCardsInPlayersHand()
+   {
+      return blackjack.getHand(PLAYER).getNumCards();
+   }
+
+   // Deal card to player
+   public void dealCardToPlayer()
+   {
+      blackjack.takeCard(PLAYER);
    }
 
    // Get the dollars amount

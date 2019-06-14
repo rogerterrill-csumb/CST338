@@ -22,22 +22,58 @@ class GameController
    // Initializes the gamecontroller
    public void gameControllerInit()
    {
+      // Sets the instance variable in GameView for number of cards
+      gameView.setNumCards(gameModel.getNumCardsInPlayersHand());
+
       // Initialize View table
       gameView.initTable();
 
       // Update the dollar message
       gameView.setDollars(gameModel.getDollarsMessage());
 
+      // Adds the card icons to the table
+      displayInitHands();
+
       // Add listeners to both hit and stay
       addListeners();
 
+      // DEBUG
+      System.out.println(gameModel.getHand(1).toString());
+      System.out.println(gameModel.getHand(0).toString());
+   }
+
+   // Creates hands for both player and computer
+   public void displayInitHands()
+   {
+      // Number of cards in hand
+      int numberOfCards = gameModel.getHand(gameModel.PLAYER).getNumCards();
+
+      gameView.setNumCards(numberOfCards);
+
       // Set card labels for player
-      for( int i = 0; i < gameModel.getHand(gameModel.PLAYER).getNumCards(); i++)
+      for( int i = 0; i < numberOfCards; i++)
       {
          gameView.setHandLabels(gameModel.PLAYER, i, gameModel.getPlayerCardInHand(i));
       }
 
-      System.out.println(gameModel.getHand(0).toString());
+      // Set the card for computer
+      gameView.setHandLabels(gameModel.COMPUTER, 1, gameModel.getComputerCardInHand(1));
+   }
+
+   // Updates inforamtion after dealing of card
+   public void updateAfterCardDeal()
+   {
+      gameModel.dealCardToPlayer();
+
+      // Number of cards in hand
+      int numberOfCards = gameModel.getHand(gameModel.PLAYER).getNumCards();
+
+      for(int i = 0; i < numberOfCards; i++)
+      {
+         System.out.println(i);
+         gameView.setHandLabels(gameModel.PLAYER,i,gameModel.getPlayerCardInHand(i));
+         System.out.println(i);
+      }
    }
 
    // Add action listeners to buttons
@@ -55,7 +91,7 @@ class GameController
    {
       public void actionPerformed(ActionEvent e)
       {
-         System.out.println(gameView.showDollarInConsole());
+         updateAfterCardDeal();
       }
    }
 

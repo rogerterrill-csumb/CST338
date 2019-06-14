@@ -22,6 +22,9 @@ class GameView extends JFrame
    private JLabel[] computerHandLabels = new JLabel[GameModel.MAX_CARDS_PER_HAND];
    private JLabel[] playerHandLabels = new JLabel[GameModel.MAX_CARDS_PER_HAND];
 
+   // Keeps track of number of cards in players hand
+   private int numCards = 2;
+
    // Default constructor
    GameView()
    {
@@ -79,7 +82,7 @@ class GameView extends JFrame
       GUICard.loadCardIcons();
 
       // Add labels to array of cards
-      for(int i = 0; i < 2; i++)
+      for(int i = 0; i < GameModel.MAX_CARDS_PER_HAND; i++)
       {
          computerHandLabels[i] = new JLabel(GUICard.getBackcardIcon());
          playerHandLabels[i] = new JLabel(GUICard.getBackcardIcon());
@@ -92,10 +95,24 @@ class GameView extends JFrame
       pnlComputerHand.add(computerHandLabels[1]);
 
       //Add cards to player panel
-      pnlPlayerHand.add(playerHandLabels[0]);
-      pnlPlayerHand.add(playerHandLabels[1]);
+      for(int i = 0; i < numCards; i++)
+      {
+         pnlPlayerHand.add(playerHandLabels[i]);
+      }
 
       setVisible(true);
+   }
+
+   // Update the players panel
+   public void updatePlayersHand()
+   {
+      pnlPlayerHand.removeAll();
+      //Add cards to player panel
+      for(int i = 0; i < numCards; i++)
+      {
+         pnlPlayerHand.add(playerHandLabels[i]);
+      }
+      repaint();
    }
 
    // Add actionListener to hit button
@@ -130,6 +147,14 @@ class GameView extends JFrame
          computerHandLabels[labelIndex].setIcon(GUICard.getIcon(card));
       }
    }
+
+   // Set number of cards
+   public void setNumCards(int numCards)
+   {
+      this.numCards = numCards;
+   }
+
+   // Sets the number of cards in players hand
 
    // DEBUG
    public String showDollarInConsole()
