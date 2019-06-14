@@ -23,7 +23,8 @@ class GameView extends JFrame
    private JLabel[] playerHandLabels = new JLabel[GameModel.MAX_CARDS_PER_HAND];
 
    // Keeps track of number of cards in players hand
-   private int numCards = 2;
+   private int playerNumCards = 2;
+   private int computerNumCards = 2;
 
    // Default constructor
    GameView()
@@ -95,7 +96,7 @@ class GameView extends JFrame
       pnlComputerHand.add(computerHandLabels[1]);
 
       //Add cards to player panel
-      for(int i = 0; i < numCards; i++)
+      for(int i = 0; i < playerNumCards; i++)
       {
          pnlPlayerHand.add(playerHandLabels[i]);
       }
@@ -110,9 +111,25 @@ class GameView extends JFrame
       pnlPlayerHand.removeAll();
 
       //Add cards to player panel
-      for(int i = 0; i < numCards; i++)
+      for(int i = 0; i < playerNumCards; i++)
       {
          pnlPlayerHand.add(playerHandLabels[i]);
+      }
+
+      // Display the cards
+      setVisible(true);
+   }
+
+   // Update the computer's panel
+   public void updateComputersHand()
+   {
+      // Removes all cards from the players hand table
+      pnlComputerHand.removeAll();
+
+      //Add cards to player panel
+      for(int i = 0; i < playerNumCards; i++)
+      {
+         pnlComputerHand.add(computerHandLabels[i]);
       }
 
       // Display the cards
@@ -152,10 +169,16 @@ class GameView extends JFrame
       }
    }
 
-   // Set number of cards
-   public void setNumCards(int numCards)
+   // Reset one computer card to backIcon
+   public void resetComputerCard()
    {
-      this.numCards = numCards;
+      computerHandLabels[0].setIcon(GUICard.getBackcardIcon());
+   }
+
+   // Set number of cards
+   public void setPlayerNumCards(int playerNumCards)
+   {
+      this.playerNumCards = playerNumCards;
    }
 
    // Sets the number of cards in players hand

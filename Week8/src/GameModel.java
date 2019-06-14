@@ -12,6 +12,7 @@ class GameModel
 
    // Object of the cardGameFramework and values passed in
    private CardGameFramework blackjack;
+   private int numCardsPerInitHand = 2;
    private int numPacksPerDeck = 1;
    private int numJokersPerPack = 0;
    private int numUnusedCardsPerPack = 0;
@@ -21,15 +22,10 @@ class GameModel
    GameModel()
    {
       // Creates an instance of the card game
-      blackjack = new CardGameFramework(numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack, unusedCardsPerPack, NUM_PLAYERS, MAX_CARDS_PER_HAND);
+      blackjack = new CardGameFramework(numPacksPerDeck, numJokersPerPack, numUnusedCardsPerPack, unusedCardsPerPack, NUM_PLAYERS, numCardsPerInitHand);
 
-      // Assign two cards to player
-      blackjack.takeCard(PLAYER);
-      blackjack.takeCard(PLAYER);
-
-      // Assign two cards to computer
-      blackjack.takeCard(COMPUTER);
-      blackjack.takeCard(COMPUTER);
+      // Assign two cards to each player
+      blackjack.deal();
    }
 
    /**
@@ -64,6 +60,12 @@ class GameModel
    public void dealCardToPlayer()
    {
       blackjack.takeCard(PLAYER);
+   }
+
+   // Deal new cards for new round
+   public void dealNewRound()
+   {
+      blackjack.deal();
    }
 
    // Get the dollars amount

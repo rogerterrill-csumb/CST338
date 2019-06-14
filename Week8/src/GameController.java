@@ -23,7 +23,7 @@ class GameController
    public void gameControllerInit()
    {
       // Sets the instance variable in GameView for number of cards
-      gameView.setNumCards(gameModel.getNumCardsInPlayersHand());
+      gameView.setPlayerNumCards(gameModel.getNumCardsInPlayersHand());
 
       // Initialize View table
       gameView.initTable();
@@ -48,7 +48,7 @@ class GameController
       // Number of cards in hand
       int numberOfCards = gameModel.getHand(gameModel.PLAYER).getNumCards();
 
-      gameView.setNumCards(numberOfCards);
+      gameView.setPlayerNumCards(numberOfCards);
 
       // Set card labels for player
       for( int i = 0; i < numberOfCards; i++)
@@ -60,30 +60,6 @@ class GameController
       gameView.setHandLabels(gameModel.COMPUTER, 1, gameModel.getComputerCardInHand(1));
    }
 
-   // Updates inforamtion after dealing of card
-   public void updateAfterCardDeal()
-   {
-      // Deal a card to the player
-      gameModel.dealCardToPlayer();
-
-      // Number of cards in hand
-      int numberOfCards = gameModel.getHand(gameModel.PLAYER).getNumCards();
-
-      // Set the number of cards in GameView
-      gameView.setNumCards(numberOfCards);
-
-      // Set the icons for the cards
-      for(int i = 0; i < numberOfCards; i++)
-      {
-         gameView.setHandLabels(gameModel.PLAYER,i,gameModel.getPlayerCardInHand(i));
-      }
-
-      // Update the display of the players hands
-      gameView.updatePlayersHand();
-
-      // DEBUG
-      System.out.println(gameModel.getHand(gameModel.PLAYER).toString());
-   }
 
    // Add action listeners to buttons
    public void addListeners()
@@ -100,7 +76,11 @@ class GameController
    {
       public void actionPerformed(ActionEvent e)
       {
-         updateAfterCardDeal();
+         // Deal single card to player from deck
+         gameModel.dealCardToPlayer();
+
+         // Update player hand display
+         updatePlayerHandDisplay();
       }
    }
 
@@ -109,8 +89,88 @@ class GameController
    {
       public void actionPerformed(ActionEvent e)
       {
-         System.out.println(gameView.showDollarInConsole());
+         // Display the computers hand
+         showFullComputerHand();
+
+         JOptionPane.showMessageDialog(null,"Brand new hand");
+
+         // Clear all hands and display new hand of player
+         gameModel.dealNewRound();
+
+         // Update player hand display
+         updatePlayerHandDisplay();
+
+         // Update computer hand as well
+         updateComputerHandDIsplay();
+
+
+
       }
    }
+
+   // Updates the display of the players hand
+   public void updatePlayerHandDisplay()
+   {
+      // Number of cards in hand
+      int numberOfCards = gameModel.getHand(gameModel.PLAYER).getNumCards();
+
+      // Set the number of cards in GameView
+      gameView.setPlayerNumCards(numberOfCards);
+
+      // Set the icons for the cards
+      for(int i = 0; i < numberOfCards; i++)
+      {
+         gameView.setHandLabels(gameModel.PLAYER,i,gameModel.getPlayerCardInHand(i));
+      }
+
+      // Update the display of the players hands
+      gameView.updatePlayersHand();
+
+      // DEBUG
+      System.out.println("Player " + gameModel.getHand(gameModel.PLAYER).toString());
+   }
+
+   // Updates the display of the computers hand
+   public void updateComputerHandDIsplay()
+   {
+      // Number of cards in hand
+      int numberOfCards = gameModel.getHand(gameModel.COMPUTER).getNumCards();
+
+      // Set the number of cards in GameView
+      gameView.setPlayerNumCards(numberOfCards);
+
+      // Set the icon for only one card in computer hand
+      gameView.setHandLabels(gameModel.COMPUTER,1,gameModel.getComputerCardInHand(1));
+
+      // Set first card to backIcon
+      gameView.resetComputerCard();
+
+      // Update the display of the players hands
+      gameView.updatePlayersHand();
+
+
+      // DEBUG
+      System.out.println("Computer " + gameModel.getHand(gameModel.COMPUTER).toString());
+   }
+
+   // Displays the full hand of computer to see what it had
+   public void showFullComputerHand()
+   {
+      // Number of cards in hand
+      int numberOfCards = gameModel.getHand(gameModel.COMPUTER).getNumCards();
+
+      // Set the number of cards in GameView
+      gameView.setPlayerNumCards(numberOfCards);
+
+      // Set the icons for the cards
+      for(int i = 0; i < numberOfCards; i++)
+      {
+         gameView.setHandLabels(gameModel.COMPUTER,i,gameModel.getComputerCardInHand(i));
+      }
+
+      // Update the display of the players hands
+      gameView.updatePlayersHand();
+   }
+
 
 }
