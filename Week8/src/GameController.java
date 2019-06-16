@@ -81,6 +81,20 @@ class GameController
 
          // Update player hand display
          updatePlayerHandDisplay();
+
+         if(gameModel.getPlayerHandTotal() > 21)
+         {
+            JOptionPane.showMessageDialog(null,"You busted");
+
+            // Clear all hands and display new hand of player
+            gameModel.dealNewRound();
+
+            // Update player hand display
+            updatePlayerHandDisplay();
+
+            // Update computer hand as well
+            updateComputerHandDIsplay();
+         }
       }
    }
 

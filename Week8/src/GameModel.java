@@ -86,10 +86,15 @@ class GameModel
          cardValue = Card.valueOfCard(blackjack.getHand(PLAYER).inspectCard(i));
          if(cardValue > 10)
             cardValue = 10;
+         if(cardValue == 1 && total < 22)
+            cardValue = 11;
+         else if(cardValue == 1 && total > 21)
+            cardValue = 1;
          System.out.println(cardValue);
          total +=cardValue;
       }
 
       return total;
    }
+
 }
