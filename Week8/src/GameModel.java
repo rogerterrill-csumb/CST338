@@ -8,7 +8,7 @@ class GameModel
 
    // Instance Members
    private int dollars = 20;
-   private int bet = 0;
+   private int bet = 1;
 
    // Object of the cardGameFramework and values passed in
    private CardGameFramework blackjack;
@@ -71,7 +71,7 @@ class GameModel
    // Get the dollars amount
    public String getDollarsMessage()
    {
-      return "You have: $" + dollars;
+      return "You have: $" + Integer.toString(dollars);
    }
 
    // Return the total ammount of hand
@@ -95,6 +95,22 @@ class GameModel
       }
 
       return total;
+   }
+
+   public void setWinDollars()
+   {
+      this.dollars += bet;
+      System.out.println(this.dollars);
+   }
+
+   public int getBet()
+   {
+      return this.bet;
+   }
+
+   public void setBet(int bet)
+   {
+      this.bet = bet;
    }
 
 }

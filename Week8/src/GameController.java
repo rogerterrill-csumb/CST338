@@ -76,12 +76,27 @@ class GameController
    {
       public void actionPerformed(ActionEvent e)
       {
+         // Sets the bet in model from view input
+         gameModel.setBet(gameView.getBet());
+
+         // If 21 happens then win
+         if(gameModel.getPlayerHandTotal() == 21)
+         {
+            JOptionPane.showMessageDialog(null,"You got 21! You Won!");
+
+            // Sets the bet if won.
+            gameModel.setWinDollars();
+
+            gameView.setDollars(gameModel.getDollarsMessage());
+         }
+
          // Deal single card to player from deck
          gameModel.dealCardToPlayer();
 
          // Update player hand display
          updatePlayerHandDisplay();
 
+         // Checks to to see if the player busted
          if(gameModel.getPlayerHandTotal() > 21)
          {
             JOptionPane.showMessageDialog(null,"You busted");
@@ -94,6 +109,9 @@ class GameController
 
             // Update computer hand as well
             updateComputerHandDIsplay();
+            
+
+            gameView.setDollars(gameModel.getDollarsMessage());
          }
       }
    }
@@ -105,6 +123,23 @@ class GameController
       {
          // Display the computers hand
          showFullComputerHand();
+
+         // If 21 happens then win
+         if(gameModel.getPlayerHandTotal() == 21)
+         {
+            JOptionPane.showMessageDialog(null,"You got 21! You Won!");
+
+            gameModel.setBet(gameView.getBet());
+
+            // Clear all hands and display new hand of player
+            gameModel.dealNewRound();
+
+            // Update player hand display
+            updatePlayerHandDisplay();
+
+            // Update computer hand as well
+            updateComputerHandDIsplay();
+         }
 
          JOptionPane.showMessageDialog(null,"Brand new hand");
 

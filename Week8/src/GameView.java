@@ -183,9 +183,10 @@ class GameView extends JFrame
 
    // Sets the number of cards in players hand
 
-   // DEBUG
-   public String showDollarInConsole()
+   // Gets the bet in the input box
+   public int getBet()
    {
-      return bet.getText();
+      return Integer.parseInt(bet.getText());
    }
+
 }
