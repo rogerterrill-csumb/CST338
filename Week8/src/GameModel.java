@@ -90,13 +90,29 @@ class GameModel
       for( int i = 0 ; i < numCards; i++)
       {
          cardValue = Card.valueOfCard(blackjack.getHand(COMPUTER).inspectCard(i));
+
+         // Changes all jacks, queens, kings to values of 10
          if(cardValue > 10)
+         {
             cardValue = 10;
-         if(cardValue == 1 && total < 22)
+         }
+         // Changes ace from value 1 to 11
+         else if(cardValue == 1)
+         {
             cardValue = 11;
-         else if(cardValue == 11 && total > 21)
-            cardValue = 1;
-         total +=cardValue;
+         }
+         total += cardValue;
+      }
+
+      for(int i = 0; i < numCards; i++)
+      {
+         cardValue = Card.valueOfCard(blackjack.getHand(COMPUTER).inspectCard(i));
+
+         // If the total is greater than 21, aces get changed to 1
+         if(cardValue == 1 && total > 21)
+         {
+            total -= 10;
+         }
       }
 
       return total;
@@ -117,14 +133,31 @@ class GameModel
       for( int i = 0 ; i < numCards; i++)
       {
          cardValue = Card.valueOfCard(blackjack.getHand(PLAYER).inspectCard(i));
+
+         // Changes all jacks, queens, kings to values of 10
          if(cardValue > 10)
+         {
             cardValue = 10;
-         if(cardValue == 1 && total < 22)
+         }
+         // Changes ace from value 1 to 11
+         else if(cardValue == 1)
+         {
             cardValue = 11;
-         else if(cardValue == 11 && total > 21)
-            cardValue = 1;
-         total +=cardValue;
+         }
+         total += cardValue;
       }
+
+      for(int i = 0; i < numCards; i++)
+      {
+         cardValue = Card.valueOfCard(blackjack.getHand(PLAYER).inspectCard(i));
+
+         // If the total is greater than 21, aces get changed to 1
+         if(cardValue == 1 && total > 21)
+         {
+            total -= 10;
+         }
+      }
+
 
       return total;
    }
