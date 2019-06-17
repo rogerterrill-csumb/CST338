@@ -214,6 +214,11 @@ class GameModel
       return (getPlayerHandTotal() == getComputerHandTotal()) && (!playerBust());
    }
 
+   public void newDeck()
+   {
+      blackjack.newGame();
+   }
+
    // DEBUG
    public void showBothTotalsToConsole()
    {

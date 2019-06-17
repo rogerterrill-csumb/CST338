@@ -278,12 +278,15 @@ class GameController
    {
       if(gameModel.emptyDeck())
       {
-         JOptionPane.showMessageDialog(null,"You are out of cards, GAME OVER!");
+         JOptionPane.showMessageDialog(null,"You are out of cards, resetting the deck...");
 
-         System.exit(0);
+         gameModel.newDeck();
+
+         newRoundSetup();
       }
    }
 
+   // Setup for a new round which includes new hands displayed
    private void newRoundSetup()
    {
       // Clear all hands and display new hand of player
