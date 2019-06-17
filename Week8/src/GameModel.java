@@ -94,16 +94,15 @@ class GameModel
             cardValue = 10;
          if(cardValue == 1 && total < 22)
             cardValue = 11;
-         else if(cardValue == 1 && total > 21)
+         else if(cardValue == 11 && total > 21)
             cardValue = 1;
-         System.out.println(cardValue);
          total +=cardValue;
       }
 
       return total;
    }
 
-   public boolean checkComputerBust()
+   public boolean computerBust()
    {
       return getComputerHandTotal() > 21;
    }
@@ -122,16 +121,15 @@ class GameModel
             cardValue = 10;
          if(cardValue == 1 && total < 22)
             cardValue = 11;
-         else if(cardValue == 1 && total > 21)
+         else if(cardValue == 11 && total > 21)
             cardValue = 1;
-         System.out.println(cardValue);
          total +=cardValue;
       }
 
       return total;
    }
 
-   public boolean checkPlayerBust()
+   public boolean playerBust()
    {
       return getPlayerHandTotal() > 21;
    }
@@ -163,6 +161,25 @@ class GameModel
       return dollars < 1;
    }
 
+   public boolean emptyDeck()
+   {
+      return blackjack.getNumCardsRemainingInDeck() < 1;
+   }
+
+   public boolean dealerHandWins()
+   {
+      return (getComputerHandTotal() > getPlayerHandTotal()) && (!playerBust());
+   }
+
+   public boolean playerHandWins()
+   {
+      return (getComputerHandTotal() < getPlayerHandTotal()) && (!playerBust());
+   }
+
+   public boolean pushHands()
+   {
+      return (getPlayerHandTotal() == getComputerHandTotal()) && (!playerBust());
+   }
 
    // DEBUG
    public void showBothTotalsToConsole()
