@@ -88,18 +88,6 @@ class GameController
             gameModel.setWinDollars();
 
             gameView.setDollars(gameModel.getDollarsMessage());
-         }
-
-         // Deal single card to player from deck
-         gameModel.dealCardToPlayer();
-
-         // Update player hand display
-         updatePlayerHandDisplay();
-
-         // Checks to to see if the player busted
-         if(gameModel.getPlayerHandTotal() > 21)
-         {
-            JOptionPane.showMessageDialog(null,"You busted");
 
             // Clear all hands and display new hand of player
             gameModel.dealNewRound();
@@ -109,10 +97,45 @@ class GameController
 
             // Update computer hand as well
             updateComputerHandDIsplay();
-            
-
-            gameView.setDollars(gameModel.getDollarsMessage());
          }
+         else
+         {
+            // Deal single card to player from deck
+            gameModel.dealCardToPlayer();
+
+            // Update player hand display
+            updatePlayerHandDisplay();
+         }
+
+
+         // Checks to to see if the player busted
+         if(gameModel.checkPlayerBust())
+         {
+            JOptionPane.showMessageDialog(null,"You busted");
+
+            // Display the computers hand
+            showFullComputerHand();
+
+            // Clear all hands and display new hand of player
+            gameModel.dealNewRound();
+
+            // Update player hand display
+            updatePlayerHandDisplay();
+
+            // Update computer hand as well
+            updateComputerHandDIsplay();
+
+            // Sets the be if loss.
+            gameModel.setLoseDollars();
+
+            // Sets the message on the updated dollar amount
+            gameView.setDollars(gameModel.getDollarsMessage());
+
+            gameModel.showBothTotalsToConsole();
+         }
+
+         // Check to see if money still available
+         checkMoney();
       }
    }
 
@@ -127,9 +150,10 @@ class GameController
          // If 21 happens then win
          if(gameModel.getPlayerHandTotal() == 21)
          {
-            JOptionPane.showMessageDialog(null,"You got 21! You Won!");
+            JOptionPane.showMessageDialog(null,"You Won!");
 
-            gameModel.setBet(gameView.getBet());
+            // Sets the bet if won.
+            gameModel.setWinDollars();
 
             // Clear all hands and display new hand of player
             gameModel.dealNewRound();
@@ -141,19 +165,88 @@ class GameController
             updateComputerHandDIsplay();
          }
 
-         JOptionPane.showMessageDialog(null,"Brand new hand");
+         // As long as total is less than 17, deal to computer
+         while(gameModel.getComputerHandTotal() < 17)
+         {
+            // Deals card to computer
+            gameModel.dealCardToComputer();
 
-         // Clear all hands and display new hand of player
-         gameModel.dealNewRound();
+            if(gameModel.getComputerHandTotal() == 21)
+            {
+               // Lose bet
+               gameModel.setLoseDollars();
 
-         // Update player hand display
-         updatePlayerHandDisplay();
+               JOptionPane.showMessageDialog(null,"Computer got 21 and won");
 
-         // Update computer hand as well
-         updateComputerHandDIsplay();
+               // Clear all hands and display new hand of player
+               gameModel.dealNewRound();
+
+               // Update player hand display
+               updatePlayerHandDisplay();
+
+               // Update computer hand as well
+               updateComputerHandDIsplay();
 
 
+            }
 
+            // Checks if the computer is a bust
+            if(gameModel.checkComputerBust())
+            {
+               JOptionPane.showMessageDialog(null,"Computer Busted, You WON!!!");
+
+               // Add winnings
+               gameModel.setWinDollars();
+               
+               // Clear all hands and display new hand of player
+               gameModel.dealNewRound();
+
+               // Update player hand display
+               updatePlayerHandDisplay();
+
+               // Update computer hand as well
+               updateComputerHandDIsplay();
+
+               // Break out of loop
+               break;
+            }
+         }
+
+         // If both players are the same
+         if(gameModel.getPlayerHandTotal() ==  gameModel.getComputerHandTotal())
+         {
+            JOptionPane.showMessageDialog(null,"PUSH");
+
+            gameModel.showBothTotalsToConsole();
+
+            // Clear all hands and display new hand of player
+            gameModel.dealNewRound();
+
+            // Update player hand display
+            updatePlayerHandDisplay();
+
+            // Update computer hand as well
+            updateComputerHandDIsplay();
+         }
+
+         // Checks if still have money
+         checkMoney();
+
+         gameView.setDollars(gameModel.getDollarsMessage());
+
+
+//         JOptionPane.showMessageDialog(null,"Brand new hand");
+//
+//         // Clear all hands and display new hand of player
+//         gameModel.dealNewRound();
+//
+//         // Update player hand display
+//         updatePlayerHandDisplay();
+//
+//         // Update computer hand as well
+//         updateComputerHandDIsplay();
+
+         gameModel.showBothTotalsToConsole();
       }
    }
 
@@ -204,7 +297,7 @@ class GameController
    }
 
    // Displays the full hand of computer to see what it had
-   public void showFullComputerHand()
+   private void showFullComputerHand()
    {
       // Number of cards in hand
       int numberOfCards = gameModel.getHand(gameModel.COMPUTER).getNumCards();
@@ -220,6 +313,16 @@ class GameController
 
       // Update the display of the players hands
       gameView.updatePlayersHand();
+   }
+
+   private void checkMoney()
+   {
+      if(gameModel.outOfMoney())
+      {
+         JOptionPane.showMessageDialog(null,"You are out of money, GAME OVER!");
+
+         System.exit(0);
+      }
    }
 
 

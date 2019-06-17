@@ -62,6 +62,12 @@ class GameModel
       blackjack.takeCard(PLAYER);
    }
 
+   // Deal card to player
+   public void dealCardToComputer()
+   {
+      blackjack.takeCard(COMPUTER);
+   }
+
    // Deal new cards for new round
    public void dealNewRound()
    {
@@ -72,6 +78,34 @@ class GameModel
    public String getDollarsMessage()
    {
       return "You have: $" + Integer.toString(dollars);
+   }
+
+   // Return total amount of computer hand
+   public int getComputerHandTotal()
+   {
+      int total = 0;
+      int numCards = blackjack.getHand(COMPUTER).getNumCards();
+      int cardValue = 0;
+
+      for( int i = 0 ; i < numCards; i++)
+      {
+         cardValue = Card.valueOfCard(blackjack.getHand(COMPUTER).inspectCard(i));
+         if(cardValue > 10)
+            cardValue = 10;
+         if(cardValue == 1 && total < 22)
+            cardValue = 11;
+         else if(cardValue == 1 && total > 21)
+            cardValue = 1;
+         System.out.println(cardValue);
+         total +=cardValue;
+      }
+
+      return total;
+   }
+
+   public boolean checkComputerBust()
+   {
+      return getComputerHandTotal() > 21;
    }
 
    // Return the total ammount of hand
@@ -97,10 +131,21 @@ class GameModel
       return total;
    }
 
+   public boolean checkPlayerBust()
+   {
+      return getPlayerHandTotal() > 21;
+   }
+
+   // Adds the bet to the total dollars
    public void setWinDollars()
    {
       this.dollars += bet;
-      System.out.println(this.dollars);
+   }
+
+   // Subtracts the bet to the total dollars
+   public void setLoseDollars()
+   {
+      this.dollars -= bet;
    }
 
    public int getBet()
@@ -111,6 +156,18 @@ class GameModel
    public void setBet(int bet)
    {
       this.bet = bet;
+   }
+
+   public boolean outOfMoney()
+   {
+      return dollars < 1;
+   }
+
+
+   // DEBUG
+   public void showBothTotalsToConsole()
+   {
+      System.out.println("Computer total is " + getComputerHandTotal() + " Player total is " + getPlayerHandTotal());
    }
 
 }

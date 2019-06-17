@@ -101,6 +101,9 @@ class GameView extends JFrame
          pnlPlayerHand.add(playerHandLabels[i]);
       }
 
+      // Sets the initial bet
+      bet.setText("1");
+
       setVisible(true);
    }
 
@@ -127,7 +130,7 @@ class GameView extends JFrame
       pnlComputerHand.removeAll();
 
       //Add cards to player panel
-      for(int i = 0; i < playerNumCards; i++)
+      for(int i = 0; i < computerNumCards; i++)
       {
          pnlComputerHand.add(computerHandLabels[i]);
       }
@@ -179,6 +182,12 @@ class GameView extends JFrame
    public void setPlayerNumCards(int playerNumCards)
    {
       this.playerNumCards = playerNumCards;
+   }
+
+   // Set number of cards for computer
+   public void setComputerNumCards(int computerNumCards)
+   {
+      this.computerNumCards = computerNumCards;
    }
 
    // Sets the number of cards in players hand
