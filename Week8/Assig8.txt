@@ -13,14 +13,13 @@
 
 
 import javax.swing.*;
-import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Assig6_Phase3
+public class Assig8
 {
    public static void main(String[] args)
    {
